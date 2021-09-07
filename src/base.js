@@ -19,6 +19,7 @@ import JoinQuizQuestions from "./components/JoinQuizQuestions";
 import Error404 from "./components/Error404";
 import Home from "./components/Home";
 import JoinQuiz from "./components/JoinQuiz";
+import QuizCodeElement from "./components/QuizCodeElement";
 import MyQuizCodes from "./components/MyQuizCodes";
 import Navbar from "./components/Navbar";
 import SignIn from "./components/SignIn";
@@ -33,6 +34,7 @@ import signIn from "./components/Methods/signIn";
 import signOut from "./components/Methods/signOut";
 import signUp from "./components/Methods/signUp";
 import userData from "./components/Methods/userData";
+import deletequizcode from "./components/Methods/deletequizcode";
 
 // Redux Actions
 import toggleTheme from "./actions/darkThemeActions";
@@ -48,6 +50,7 @@ const cookies = new Cookies();
 export {
   React,
   useState,
+  QuizCodeElement,
   useHistory,
   useEffect,
   Router,
@@ -63,6 +66,7 @@ export {
   JoinQuiz,
   CreateQuiz,
   joinquizcode,
+  deletequizcode,
   MyQuizCodes,
   CreateQuizQuestions,
   Error404,

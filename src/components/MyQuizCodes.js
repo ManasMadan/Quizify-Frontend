@@ -4,6 +4,8 @@ import {
   useState,
   fetchallquizcodes,
   cookies,
+  QuizCodeElement,
+  deletequizcode,
 } from "../base";
 
 export default function MyQuizCodes() {
@@ -13,8 +15,15 @@ export default function MyQuizCodes() {
 
   const fetchQuizCodes = async (authToken) => {
     const data = (await fetchallquizcodes(authToken)).quizcodes;
-    console.log(data);
     setquizCodesArray(data);
+  };
+
+  const deleteCode = async (authToken, quizcode) => {
+    deletequizcode(authToken, quizcode);
+    const newQuizCodesArray = quizCodesArray.filter(
+      (code) => code.quizcode !== quizcode
+    );
+    setquizCodesArray(newQuizCodesArray);
   };
 
   useEffect(() => {
@@ -31,9 +40,13 @@ export default function MyQuizCodes() {
     return (
       <div className="container">
         <h2>Your Quiz Codes</h2>
-        {quizCodesArray.map((quizcode) => {
-          return <h4>{quizcode.quizcode}</h4>;
-        })}
+        <div className="container d-flex align-items-center justify-content-center flex-wrap">
+          {quizCodesArray.map((quizcode) => {
+            return (
+              <QuizCodeElement quizcode={quizcode} deleteCode={deleteCode} />
+            );
+          })}
+        </div>
       </div>
     );
   }
