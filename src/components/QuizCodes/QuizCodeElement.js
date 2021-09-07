@@ -1,4 +1,4 @@
-import { Link, useSelector, cookies } from "../../base";
+import { useSelector, cookies, Link } from "../../base";
 
 export default function QuizCodeElement(props) {
   const style = useSelector((state) => state.changeStyle);

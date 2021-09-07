@@ -7,10 +7,8 @@ export default function CreateQuizQuestions() {
 
   if (loggedIn) {
     return (
-      <div className="container-fluid">
-        <h5 style={{ width: "100vw", textAlign: "center" }}>
-          QuizCode : {quizcode}
-        </h5>
+      <div className="container-fluid text-center">
+        <h5>QuizCode : {quizcode}</h5>
       </div>
     );
   } else {
