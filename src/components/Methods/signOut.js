@@ -1,6 +1,4 @@
-import Cookies from "universal-cookie";
-const cookies = new Cookies();
-
+import { cookies } from "../../base";
 const signOut = () => {
   localStorage.removeItem("userName");
   localStorage.removeItem("userEmail");

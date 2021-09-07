@@ -1,16 +1,21 @@
-import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { signIn } from "./index";
-import Cookies from "universal-cookie";
-import { login, logout, setAlert } from "../actions/index";
+import {
+  useState,
+  Link,
+  useHistory,
+  useSelector,
+  useDispatch,
+  signIn,
+  cookies,
+  login,
+  logout,
+  setAlert,
+} from "../base";
 
 export default function SignIn() {
-  const style = useSelector((state) => state.changeStyle);
   const dispatch = useDispatch();
-  const cookies = new Cookies();
   let history = useHistory();
 
+  const style = useSelector((state) => state.changeStyle);
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
@@ -62,17 +67,10 @@ export default function SignIn() {
           if (data.authtoken) {
             cookies.set("auth-token", data.authtoken);
             dispatch(login());
-            dispatch(setAlert({ type: "Success", message: "Signed in" }));
+            dispatch(setAlert({ type: "Success", message: "Signed In" }));
             history.push("/");
           } else {
             dispatch(logout());
-            dispatch(
-              setAlert({
-                type: "Danger",
-                message:
-                  data.error === undefined ? data.errors[0].msg : data.error,
-              })
-            );
             cookies.remove("auth-token");
           }
         }}

@@ -1,5 +1,4 @@
-import React from "react";
-import { useParams } from "react-router";
+import { useParams } from "../base";
 
 export default function JoinQuizQuestions() {
   const { quizcode } = useParams();

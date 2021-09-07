@@ -1,5 +1,4 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector } from "../base";
 
 export default function About() {
   const darkTheme = useSelector((state) => state.changeTheme);

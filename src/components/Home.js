@@ -1,12 +1,10 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useSelector, Link } from "../base";
 
 export default function Home() {
   const style = useSelector((state) => state.changeStyle);
 
   return (
-    <div className="container-fluid px-4 py-5" style={style}>
+    <div className="container px-4 py-5" style={style}>
       <div className="row align-items-center g-lg-5 py-5">
         <div className="col-lg-7 text-center text-lg-start" style={style}>
           <h1 className="display-4 fw-bold lh-1 mb-3">Quiziz</h1>
@@ -26,7 +24,9 @@ export default function Home() {
             />
             <label htmlFor="floatingInput">Quiz Code</label>
           </div>
-          <button className="btn btn-primary mx-1">Join Quiz</button>
+          <Link to="/joinquiz" className="btn btn-primary mx-1">
+            Join Quiz
+          </Link>
           <span className="mx-2">or</span>
           <Link
             to="/createquiz"

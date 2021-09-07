@@ -1,14 +1,18 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleTheme, toggleStyle, logout, setAlert } from "../actions/index";
-import { signOut } from "./index";
+import {
+  toggleTheme,
+  toggleStyle,
+  logout,
+  setAlert,
+  useDispatch,
+  useSelector,
+  Link,
+  signOut,
+} from "../base";
 
 export default function Navbar() {
   const dispatch = useDispatch();
   const darkTheme = useSelector((state) => state.changeTheme);
   const loggedIn = useSelector((state) => state.changeLoginState);
-
   return (
     <nav
       className={`navbar navbar-expand-lg navbar-${
@@ -64,13 +68,10 @@ export default function Navbar() {
                 className="btn btn-primary"
                 onClick={() => {
                   if (loggedIn) {
-                    dispatch(logout());
                     signOut();
+                    dispatch(logout());
                     dispatch(
-                      setAlert({
-                        type: "Success",
-                        message: "Signed Out",
-                      })
+                      setAlert({ type: "Success", message: "Signed Out" })
                     );
                   }
                 }}

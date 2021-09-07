@@ -1,6 +1,8 @@
-export default function setAlert(alert) {
+const setAlert = (alert) => {
   return {
-    type: "SHOW",
+    type: alert === null ? "HIDE" : "SHOW",
     alert,
   };
-}
+};
+
+export default setAlert;

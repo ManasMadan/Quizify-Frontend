@@ -1,6 +1,4 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setAlert } from "../actions/index";
+import { useDispatch, useSelector, setAlert } from "../base";
 
 export default function Alert() {
   const dispatch = useDispatch();
