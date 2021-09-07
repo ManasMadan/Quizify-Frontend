@@ -6,7 +6,10 @@ const signUp = async (credentials) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      name: credentials.name,
+      name: credentials.name
+        .split(" ")
+        .map((e) => e[0].toUpperCase() + e.slice(1).toLowerCase())
+        .join(" "),
       email: credentials.email,
       password: credentials.password,
     }),

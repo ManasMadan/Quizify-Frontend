@@ -1,14 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleTheme, toggleStyle, logout } from "../actions/index";
-import Cookies from "universal-cookie";
+import { toggleTheme, toggleStyle, logout, setAlert } from "../actions/index";
+import { signOut } from "./index";
 
 export default function Navbar() {
   const dispatch = useDispatch();
   const darkTheme = useSelector((state) => state.changeTheme);
   const loggedIn = useSelector((state) => state.changeLoginState);
-  const cookies = new Cookies();
 
   return (
     <nav
@@ -60,16 +59,19 @@ export default function Navbar() {
             </li>
           </ul>
           <div className="position-absolute d-flex align-items-center justify-centent-center top-0 end-0">
-            <Link className="nav-link" to={loggedIn ? "/signout" : "/signin"}>
+            <Link className="nav-link" to={loggedIn ? "/" : "/signin"}>
               <button
                 className="btn btn-primary"
                 onClick={() => {
                   if (loggedIn) {
                     dispatch(logout());
-                    localStorage.removeItem("userName");
-                    localStorage.removeItem("userEmail");
-                    localStorage.removeItem("userId");
-                    cookies.remove("auth-token");
+                    signOut();
+                    dispatch(
+                      setAlert({
+                        type: "Success",
+                        message: "Signed Out",
+                      })
+                    );
                   }
                 }}
               >

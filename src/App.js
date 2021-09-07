@@ -12,7 +12,8 @@ import {
   CreateQuizQuestions,
   Error404,
   userData,
-  SignOut,
+  JoinQuizQuestions,
+  Alert,
 } from "./components/index";
 import { useSelector, useDispatch } from "react-redux";
 import { login, logout } from "./actions/index";
@@ -45,6 +46,7 @@ export default function App() {
   return (
     <Router>
       <Navbar />
+      <Alert />
       <Switch>
         <Route exact path="/">
           <Home />
@@ -54,25 +56,32 @@ export default function App() {
           <About />
         </Route>
 
-        <Route exact path="/signin">
-          <SignIn />
-        </Route>
-
-        <Route exact path="/signup">
-          <SignUp />
-        </Route>
-
-        <Route exact path="/signout">
-          <SignOut />
-        </Route>
+        {!loggedIn && (
+          <Route exact path="/signin">
+            <SignIn />
+          </Route>
+        )}
+        {!loggedIn && (
+          <Route exact path="/signup">
+            <SignUp />
+          </Route>
+        )}
 
         <Route exact path="/createquiz">
           <CreateQuiz />
         </Route>
 
-        <Route exact path="/createquiz/:quizcode">
-          <CreateQuizQuestions />
-        </Route>
+        {loggedIn && (
+          <Route exact path="/createquiz/:quizcode">
+            <CreateQuizQuestions />
+          </Route>
+        )}
+
+        {loggedIn && (
+          <Route exact path="/joinquiz/:quizcode">
+            <JoinQuizQuestions />
+          </Route>
+        )}
 
         <Route exact path="/joinquiz">
           <JoinQuiz />
