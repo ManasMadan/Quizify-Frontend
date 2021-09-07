@@ -24,7 +24,7 @@ export default function Question(props) {
                       <input
                         class="form-check-input mx-3"
                         type="radio"
-                        name={`option`}
+                        name={`option${_id}`}
                         id={`option${_id}`}
                       />
                       {e}
@@ -42,7 +42,7 @@ export default function Question(props) {
                       <input
                         class="form-check-input mx-3"
                         type="checkbox"
-                        name={`option`}
+                        name={`option${_id}`}
                         id={`option${_id}`}
                       />
                       {e}

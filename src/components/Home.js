@@ -1,9 +1,17 @@
-import { useSelector, useState, useHistory } from "../base";
+import {
+  useSelector,
+  useState,
+  useHistory,
+  useDispatch,
+  setAlert,
+} from "../base";
 
 export default function Home() {
   const style = useSelector((state) => state.changeStyle);
   const [quizcode, setQuizcode] = useState("");
   const history = useHistory();
+  const loggedIn = useSelector((state) => state.changeLoginState);
+  const dispatch = useDispatch();
 
   return (
     <div className="container px-4 py-5" style={style}>
@@ -32,8 +40,12 @@ export default function Home() {
             disabled={quizcode.trim() === ""}
             className="btn btn-primary mx-1"
             onClick={() => {
-              if (quizcode.trim() !== "") {
+              if (loggedIn && quizcode.trim() !== "") {
                 history.push(`/joinquiz/${quizcode}`);
+              } else {
+                dispatch(
+                  setAlert({ type: "Danger", message: "Sign in To Continue" })
+                );
               }
             }}
           >
@@ -44,8 +56,12 @@ export default function Home() {
             disabled={quizcode.trim() === ""}
             className="btn btn-primary"
             onClick={() => {
-              if (quizcode.trim() !== "") {
+              if (loggedIn && quizcode.trim() !== "") {
                 history.push(`/createquiz/${quizcode}`);
+              } else {
+                dispatch(
+                  setAlert({ type: "Danger", message: "Sign in To Continue" })
+                );
               }
             }}
           >
