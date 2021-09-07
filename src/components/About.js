@@ -17,14 +17,14 @@ export default function About() {
             borderBottom: "0px",
           }}
         >
-          <h2 className="accordion-header" id="headingTwo">
+          <h2 className="accordion-header" id="headingOne">
             <button
               className="accordion-button collapsed"
               type="button"
               data-bs-toggle="collapse"
-              data-bs-target="#collapseTwo"
+              data-bs-target="#collapseOne"
               aria-expanded="false"
-              aria-controls="collapseTwo"
+              aria-controls="collapseOne"
               style={{
                 ...style,
                 border: darkTheme ? "1px solid white" : "",
@@ -35,9 +35,9 @@ export default function About() {
             </button>
           </h2>
           <div
-            id="collapseTwo"
+            id="collapseOne"
             className="accordion-collapse collapse"
-            aria-labelledby="headingTwo"
+            aria-labelledby="headingOne"
             data-bs-parent="#accordionExample"
           >
             <div className="accordion-body">
