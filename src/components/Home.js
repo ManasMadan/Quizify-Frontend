@@ -4,6 +4,8 @@ import {
   useHistory,
   useDispatch,
   setAlert,
+  joinquizcode,
+  cookies,
 } from "../base";
 
 export default function Home() {
@@ -12,6 +14,7 @@ export default function Home() {
   const history = useHistory();
   const loggedIn = useSelector((state) => state.changeLoginState);
   const dispatch = useDispatch();
+  const authToken = cookies.get("auth-token");
 
   return (
     <div className="container px-4 py-5" style={style}>
@@ -39,9 +42,25 @@ export default function Home() {
           <button
             disabled={quizcode.trim() === ""}
             className="btn btn-primary mx-1"
-            onClick={() => {
+            onClick={async () => {
               if (loggedIn && quizcode.trim() !== "") {
-                history.push(`/joinquiz/${quizcode}`);
+                const res = await joinquizcode(authToken, quizcode);
+                if (res.length >= 0) {
+                  dispatch(
+                    setAlert({
+                      type: "Success",
+                      message: `Joined Quiz ${quizcode}`,
+                    })
+                  );
+                  history.push(`/joinquiz/${quizcode}`);
+                } else {
+                  dispatch(
+                    setAlert({
+                      type: "Danger",
+                      message: res.error,
+                    })
+                  );
+                }
               } else {
                 dispatch(
                   setAlert({ type: "Danger", message: "Sign in To Continue" })
