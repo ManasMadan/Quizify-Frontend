@@ -6,6 +6,7 @@ import {
   setAlert,
   joinquizcode,
   cookies,
+  createquizcode,
 } from "../base";
 
 export default function Home() {
@@ -74,13 +75,25 @@ export default function Home() {
           <button
             disabled={quizcode.trim() === ""}
             className="btn btn-primary"
-            onClick={() => {
+            onClick={async () => {
               if (loggedIn && quizcode.trim() !== "") {
-                history.push(`/createquiz/${quizcode}`);
-              } else {
-                dispatch(
-                  setAlert({ type: "Danger", message: "Sign in To Continue" })
-                );
+                const res = await createquizcode(authToken, quizcode);
+                if (res.length >= 0) {
+                  dispatch(
+                    setAlert({
+                      type: "Success",
+                      message: `Created Quiz ${quizcode}`,
+                    })
+                  );
+                  history.push(`/createquiz/${quizcode}`);
+                } else {
+                  dispatch(
+                    setAlert({
+                      type: "Danger",
+                      message: res.error,
+                    })
+                  );
+                }
               }
             }}
           >
