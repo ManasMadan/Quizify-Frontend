@@ -11,16 +11,36 @@ import {
   MyQuizCodes,
   CreateQuizQuestions,
   Error404,
+  userData,
+  SignOut,
 } from "./components/index";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { login, logout } from "./actions/index";
+import Cookies from "universal-cookie";
 
 export default function App() {
+  const cookies = new Cookies();
   const style = useSelector((state) => state.changeStyle);
+  const loggedIn = useSelector((state) => state.changeLoginState);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     document.body.style.backgroundColor = style.backgroundColor;
     document.body.style.color = style.color;
   }, [style]);
+
+  useEffect(() => {
+    const authToken = cookies.get("auth-token");
+    if (authToken) {
+      if (userData(authToken)) {
+        dispatch(login());
+      } else {
+        dispatch(logout());
+      }
+    } else {
+      dispatch(logout());
+    }
+  }, [loggedIn]);
 
   return (
     <Router>
@@ -40,6 +60,10 @@ export default function App() {
 
         <Route exact path="/signup">
           <SignUp />
+        </Route>
+
+        <Route exact path="/signout">
+          <SignOut />
         </Route>
 
         <Route exact path="/createquiz">

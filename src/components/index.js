@@ -8,3 +8,7 @@ export { default as MyQuizCodes } from "./MyQuizCodes";
 export { default as Navbar } from "./Navbar";
 export { default as SignIn } from "./SignIn";
 export { default as SignUp } from "./SignUp";
+export { default as userData } from "./Methods/userData";
+export { default as signIn } from "./Methods/signIn";
+export { default as signUp } from "./Methods/signUp";
+export { default as SignOut } from "./SignOut";
