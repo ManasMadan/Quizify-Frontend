@@ -1,7 +1,9 @@
-import { useSelector, Link } from "../base";
+import { useSelector, useState, useHistory } from "../base";
 
 export default function Home() {
   const style = useSelector((state) => state.changeStyle);
+  const [quizcode, setQuizcode] = useState("");
+  const history = useHistory();
 
   return (
     <div className="container px-4 py-5" style={style}>
@@ -21,20 +23,34 @@ export default function Home() {
               id="floatingInput"
               placeholder="Quiz Code"
               style={style}
+              value={quizcode}
+              onChange={(e) => setQuizcode(e.target.value)}
             />
             <label htmlFor="floatingInput">Quiz Code</label>
           </div>
-          <Link to="/joinquiz" className="btn btn-primary mx-1">
+          <button
+            disabled={quizcode.trim() === ""}
+            className="btn btn-primary mx-1"
+            onClick={() => {
+              if (quizcode.trim() !== "") {
+                history.push(`/joinquiz/${quizcode}`);
+              }
+            }}
+          >
             Join Quiz
-          </Link>
+          </button>
           <span className="mx-2">or</span>
-          <Link
-            to="/createquiz"
+          <button
+            disabled={quizcode.trim() === ""}
             className="btn btn-primary"
-            style={{ textDecoration: "none" }}
+            onClick={() => {
+              if (quizcode.trim() !== "") {
+                history.push(`/createquiz/${quizcode}`);
+              }
+            }}
           >
             Create Quiz
-          </Link>
+          </button>
         </div>
       </div>
     </div>

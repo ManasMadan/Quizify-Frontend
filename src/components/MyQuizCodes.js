@@ -43,7 +43,11 @@ export default function MyQuizCodes() {
         <div className="container d-flex align-items-center justify-content-center flex-wrap">
           {quizCodesArray.map((quizcode) => {
             return (
-              <QuizCodeElement quizcode={quizcode} deleteCode={deleteCode} />
+              <QuizCodeElement
+                key={quizcode._id}
+                quizcode={quizcode}
+                deleteCode={deleteCode}
+              />
             );
           })}
         </div>

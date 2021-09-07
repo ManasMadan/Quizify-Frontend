@@ -45,6 +45,7 @@ export default function CreateQuiz() {
           <label htmlFor="floatingInput ">Quiz Code</label>
         </div>
         <button
+          disabled={quizcode.trim() === ""}
           onClick={async () => {
             const res = await createquizcode(authToken, quizcode);
             if (res._id) {

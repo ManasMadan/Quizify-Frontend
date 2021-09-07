@@ -80,12 +80,23 @@ export default function SignUp() {
         className="btn btn-primary"
         onClick={async () => {
           const data = await signUp(credentials);
+          console.log(data);
           if (data.authtoken) {
             cookies.set("auth-token", data.authtoken);
             dispatch(login());
+            dispatch(
+              setAlert({ type: "Success", message: "Succesfully Signed Up" })
+            );
+            history.push("/");
           } else {
             dispatch(logout());
             cookies.remove("auth-token");
+            dispatch(
+              setAlert({
+                type: "Danger",
+                message: data.error || data.errors[0].msg,
+              })
+            );
           }
         }}
       >

@@ -44,6 +44,7 @@ export default function JoinQuiz() {
           <label htmlFor="floatingInput ">Quiz Code</label>
         </div>
         <button
+          disabled={quizcode.trim() === ""}
           className="btn btn-primary mx-1"
           onClick={async () => {
             const res = await joinquizcode(authToken, quizcode);

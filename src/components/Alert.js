@@ -5,7 +5,7 @@ export default function Alert() {
   const alert = useSelector((state) => state.changeAlert);
 
   return (
-    <div style={{ height: "50px" }}>
+    <div className="mb-3" style={{ height: "50px" }}>
       {alert && (
         <div
           style={{ borderRadius: "0px" }}
@@ -15,7 +15,7 @@ export default function Alert() {
           {alert.message}
           <button
             type="button"
-            class="btn-close"
+            className="btn-close"
             data-bs-dismiss="alert"
             aria-label="Close"
             onClick={() => dispatch(setAlert(null))}
