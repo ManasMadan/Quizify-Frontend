@@ -62,23 +62,7 @@ export default function Navbar() {
               </Link>
             </li>
           </ul>
-          <div className="position-absolute d-flex align-items-center justify-centent-center top-0 end-0">
-            <Link className="nav-link" to={loggedIn ? "/" : "/signin"}>
-              <button
-                className="btn btn-primary"
-                onClick={() => {
-                  if (loggedIn) {
-                    signOut();
-                    dispatch(logout());
-                    dispatch(
-                      setAlert({ type: "Success", message: "Signed Out" })
-                    );
-                  }
-                }}
-              >
-                {loggedIn ? "Sign Out" : "Sign In"}
-              </button>
-            </Link>
+          <div className="d-flex align-items-center justify-centent-center">
             <div className="form-check form-switch">
               <input
                 className="form-check-input"
@@ -96,6 +80,22 @@ export default function Navbar() {
                 Dark Mode
               </label>
             </div>
+            <Link className="nav-link" to={loggedIn ? "/" : "/signin"}>
+              <button
+                className="btn btn-primary"
+                onClick={() => {
+                  if (loggedIn) {
+                    signOut();
+                    dispatch(logout());
+                    dispatch(
+                      setAlert({ type: "Success", message: "Signed Out" })
+                    );
+                  }
+                }}
+              >
+                {loggedIn ? "Sign Out" : "Sign In"}
+              </button>
+            </Link>
           </div>
         </div>
       </div>

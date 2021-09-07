@@ -26,7 +26,7 @@ export default function JoinQuiz() {
     return (
       <div
         className="d-flex flex-column justify-content-center align-items-center"
-        style={{ height: "80vh" }}
+        style={{ height: "60vh" }}
       >
         <p style={{ width: "60vw", minWidth: "200px" }}>
           Enter The Quiz Code That Must Be Provided To You

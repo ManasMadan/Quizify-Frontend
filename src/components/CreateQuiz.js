@@ -26,7 +26,7 @@ export default function CreateQuiz() {
     return (
       <div
         className="d-flex flex-column justify-content-center align-items-center"
-        style={{ height: "80vh" }}
+        style={{ height: "60vh" }}
       >
         <p className="" style={{ width: "60vw", minWidth: "200px" }}>
           Enter A Random Quiz Code. It will be used to join the quiz.
