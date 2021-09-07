@@ -6,7 +6,7 @@ import {
   useHistory,
   useDispatch,
   setAlert,
-} from "../base";
+} from "../../base";
 
 export default function JoinQuiz() {
   const style = useSelector((state) => state.changeStyle);

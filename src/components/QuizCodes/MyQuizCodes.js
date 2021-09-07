@@ -6,7 +6,7 @@ import {
   cookies,
   QuizCodeElement,
   deletequizcode,
-} from "../base";
+} from "../../base";
 
 export default function MyQuizCodes() {
   const [quizCodesArray, setquizCodesArray] = useState([]);

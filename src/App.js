@@ -25,16 +25,21 @@ import {
 } from "./base";
 
 export default function App() {
+  // Redux States
   const style = useSelector((state) => state.changeStyle);
   const loggedIn = useSelector((state) => state.changeLoginState);
+  // Auth-Token To Be Sent in Headers
   const authToken = cookies.get("auth-token");
+  // useDispatch
   const dispatch = useDispatch();
 
+  // Change Theme On Style Variable Change
   useEffect(() => {
     document.body.style.backgroundColor = style.backgroundColor;
     document.body.style.color = style.color;
   }, [style]);
 
+  // Change Login Redux State
   useEffect(() => {
     if (authToken) {
       if (userData(authToken)) {

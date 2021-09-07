@@ -9,7 +9,7 @@ import {
   login,
   logout,
   setAlert,
-} from "../base";
+} from "../../base";
 
 export default function SignIn() {
   const dispatch = useDispatch();
@@ -69,9 +69,18 @@ export default function SignIn() {
             dispatch(login());
             dispatch(setAlert({ type: "Success", message: "Signed In" }));
             history.push("/");
+            dispatch(
+              setAlert({ type: "Success", message: "Succesfully Signed In" })
+            );
           } else {
             dispatch(logout());
             cookies.remove("auth-token");
+            dispatch(
+              setAlert({
+                type: "Danger",
+                message: data.error || data.errors[0].msg,
+              })
+            );
           }
         }}
       >

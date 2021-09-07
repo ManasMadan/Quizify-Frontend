@@ -1,4 +1,4 @@
-import { useParams, useSelector, useHistory } from "../base";
+import { useParams, useSelector, useHistory } from "../../base";
 
 export default function CreateQuizQuestions() {
   const history = useHistory();

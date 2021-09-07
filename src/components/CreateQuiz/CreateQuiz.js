@@ -6,7 +6,7 @@ import {
   useState,
   createquizcode,
   cookies,
-} from "../base";
+} from "../../base";
 
 export default function CreateQuiz() {
   const dispatch = useDispatch();

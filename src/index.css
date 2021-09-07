@@ -1,3 +1,4 @@
+/* Accordion Button Color - Dark and White Mode */
 .accordion-button::after {
   filter: invert(1);
 }

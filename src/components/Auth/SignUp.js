@@ -9,7 +9,7 @@ import {
   login,
   logout,
   setAlert,
-} from "../base";
+} from "../../base";
 
 export default function SignUp() {
   const style = useSelector((state) => state.changeStyle);

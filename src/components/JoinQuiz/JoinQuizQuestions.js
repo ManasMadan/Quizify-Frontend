@@ -1,4 +1,4 @@
-import { useParams, useSelector, useHistory } from "../base";
+import { useParams, useSelector, useHistory } from "../../base";
 
 export default function JoinQuizQuestions() {
   const { quizcode } = useParams();
