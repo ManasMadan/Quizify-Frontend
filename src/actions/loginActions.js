@@ -1,5 +1,13 @@
-export const toggleLogin = (login) => {
+const login = () => {
   return {
-    type: login ? "LOGGEDIN" : "LOGGEDOUT",
+    type: "LOGGEDIN",
   };
 };
+
+const logout = () => {
+  return {
+    type: "LOGGEDOUT",
+  };
+};
+
+export default { login, logout };

@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleTheme } from "../actions/darkThemeActions";
-import { toggleStyle } from "../actions/styleActions";
+import { toggleTheme, toggleStyle } from "../actions/index";
 
 export default function Navbar() {
   const dispatch = useDispatch();
@@ -37,11 +36,6 @@ export default function Navbar() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/signin">
-                Sign In
-              </Link>
-            </li>
-            <li className="nav-item">
               <Link className="nav-link" to="/joinquiz">
                 Join Quiz
               </Link>
@@ -62,7 +56,10 @@ export default function Navbar() {
               </Link>
             </li>
           </ul>
-          <div className="d-flex">
+          <div className="position-absolute d-flex align-items-center justify-centent-center top-0 end-0">
+            <Link className="nav-link" to="/signin">
+              <button className="btn btn-primary">Sign In</button>
+            </Link>
             <div className="form-check form-switch">
               <input
                 className="form-check-input"

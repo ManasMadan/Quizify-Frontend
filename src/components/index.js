@@ -1,0 +1,10 @@
+export { default as About } from "./About";
+export { default as CreateQuiz } from "./CreateQuiz";
+export { default as CreateQuizQuestions } from "./CreateQuizQuestions";
+export { default as Error404 } from "./Error404";
+export { default as Home } from "./Home";
+export { default as JoinQuiz } from "./JoinQuiz";
+export { default as MyQuizCodes } from "./MyQuizCodes";
+export { default as Navbar } from "./Navbar";
+export { default as SignIn } from "./SignIn";
+export { default as SignUp } from "./SignUp";

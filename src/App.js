@@ -1,15 +1,17 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Home from "./components/Home";
-import About from "./components/About";
-import SignIn from "./components/SignIn";
-import SignUp from "./components/SignUp";
-import JoinQuiz from "./components/JoinQuiz";
-import CreateQuiz from "./components/CreateQuiz";
-import MyQuizCodes from "./components/MyQuizCodes";
-import CreateQuizQuestions from "./components/CreateQuizQuestions";
-import Error404 from "./components/Error404";
+import {
+  Navbar,
+  Home,
+  About,
+  SignIn,
+  SignUp,
+  JoinQuiz,
+  CreateQuiz,
+  MyQuizCodes,
+  CreateQuizQuestions,
+  Error404,
+} from "./components/index";
 import { useSelector } from "react-redux";
 
 export default function App() {
