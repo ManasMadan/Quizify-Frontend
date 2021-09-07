@@ -22,12 +22,14 @@ import {
   useDispatch,
   login,
   logout,
+  setAlert,
 } from "./base";
 
 export default function App() {
   // Redux States
   const style = useSelector((state) => state.changeStyle);
   const loggedIn = useSelector((state) => state.changeLoginState);
+  const alert = useSelector((state) => state.changeAlert);
   // Auth-Token To Be Sent in Headers
   const authToken = cookies.get("auth-token");
   // useDispatch
@@ -38,6 +40,15 @@ export default function App() {
     document.body.style.backgroundColor = style.backgroundColor;
     document.body.style.color = style.color;
   }, [style]);
+
+  // Hide Alert After 2 seconds
+  useEffect(() => {
+    if (alert !== {}) {
+      setTimeout(() => {
+        dispatch(setAlert(null));
+      }, 5000);
+    }
+  }, [alert]);
 
   // Change Login Redux State
   useEffect(() => {
