@@ -30,6 +30,9 @@ import JoinQuizQuestions from "./components/JoinQuiz/JoinQuizQuestions";
 // Components - Quiz Code
 import MyQuizCodes from "./components/QuizCodes/MyQuizCodes";
 import QuizCodeElement from "./components/QuizCodes/QuizCodeElement";
+// Components - Question
+import Question from "./components/Questions/Question";
+import QuestionOption from "./components/Questions/QuestionOption";
 
 // Methods - Auth
 import signIn from "./components/Methods/signIn";
@@ -42,6 +45,7 @@ import joinquizcode from "./components/Methods/joinquizcode";
 import fetchallquizcodes from "./components/Methods/fetchallquizcodes";
 import deletequizcode from "./components/Methods/deletequizcode";
 // Methods - Questions
+import fetchallquestions from "./components/Methods/fetchallquestions";
 
 // Redux Actions
 // Alert
@@ -112,4 +116,8 @@ export {
   createquizcode,
   fetchallquizcodes,
   // Methods - Questions
+  fetchallquestions,
+  // Components - Questions
+  Question,
+  QuestionOption,
 };
