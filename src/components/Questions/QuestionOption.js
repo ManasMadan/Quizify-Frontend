@@ -60,7 +60,12 @@ export default function Question(props) {
           className="d-flex align-items-center justify-content-center"
           style={style}
         >
-          <span className="btn btn-primary my-2 mx-2">
+          <span
+            className="btn btn-primary my-2 mx-2"
+            onClick={() => {
+              props.deleteQuestionHandler(_id);
+            }}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -68,9 +73,6 @@ export default function Question(props) {
               fill="currentColor"
               className="bi bi-trash"
               viewBox="0 0 16 16"
-              onClick={() => {
-                props.deleteQuestionHandler(_id);
-              }}
             >
               <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
               <path
@@ -79,7 +81,12 @@ export default function Question(props) {
               />
             </svg>
           </span>
-          <span className="btn btn-primary my-2 mx-2">
+          <span
+            className="btn btn-primary my-2 mx-2"
+            onClick={() => {
+              props.editQuestionHandler(_id);
+            }}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -87,9 +94,6 @@ export default function Question(props) {
               fill="currentColor"
               className="bi bi-pencil-square"
               viewBox="0 0 16 16"
-              onClick={() => {
-                props.editQuestionHandler(_id);
-              }}
             >
               <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
               <path
