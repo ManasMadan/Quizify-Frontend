@@ -53,6 +53,14 @@ export default function Question(props) {
               })}
             </div>
           )}
+          {props.edit && questionMarks !== 0 && (
+            <div className="d-flex mt-3 align-items-center">
+              <div id="help" class="form-text mx-3">
+                Check The Correct Option and Click To Set Correct Answer
+              </div>
+              <button className="btn btn-primary">Set Correct Answer</button>
+            </div>
+          )}
         </div>
       </div>
       {props.edit && (

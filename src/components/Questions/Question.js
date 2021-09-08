@@ -13,7 +13,13 @@ export default function Question(props) {
         <div className="mb-3">
           {questionType === "ShortAnswer" ? (
             <input
-              type="email"
+              type="text"
+              disabled={props.edit}
+              placeholder={
+                props.edit
+                  ? "Here Will Be The Space to Write the Answer - Disabled While Editing The Quiz"
+                  : "Answer"
+              }
               className="form-control"
               id="answer"
               aria-describedby="emailHelp"
@@ -22,12 +28,30 @@ export default function Question(props) {
           ) : (
             <textarea
               className="form-control"
+              disabled={props.edit}
+              placeholder={
+                props.edit
+                  ? "Here Will Be The Space to Write the Answer - Disabled While Editing The Quiz"
+                  : "Answer"
+              }
               id="exampleFormControlTextarea1"
               rows="3"
               style={style}
             ></textarea>
           )}
         </div>
+        {props.edit && questionMarks !== 0 && (
+          <div className="mb-3">
+            <input
+              type="text"
+              placeholder="Write Answers Keyword - Seperated By Space For Multiple Answers"
+              className="form-control"
+              id="answer"
+              aria-describedby="emailHelp"
+              style={style}
+            />
+          </div>
+        )}
       </div>
       {props.edit && (
         <div

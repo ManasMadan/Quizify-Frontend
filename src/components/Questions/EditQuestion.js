@@ -40,6 +40,7 @@ export default function AddQuestion(props) {
               </label>
               <input
                 type="number"
+                min={0}
                 className="form-control"
                 id="QuestionMarks"
                 value={props.stateVariables.questionMarks.toString()}

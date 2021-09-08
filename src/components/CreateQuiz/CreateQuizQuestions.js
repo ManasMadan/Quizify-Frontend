@@ -92,7 +92,11 @@ export default function CreateQuizQuestions() {
   };
 
   const editQuestion = async (id) => {
-    if (option1.trim().length !== 0) {
+    if (
+      option1.trim().length !== 0 ||
+      questionType !== "MCQ" ||
+      questionType !== "CheckBoxes"
+    ) {
       const res = await editquestion(authToken, id, question);
       if (res._id) {
         let index = 0;
