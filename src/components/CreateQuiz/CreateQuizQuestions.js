@@ -92,23 +92,27 @@ export default function CreateQuizQuestions() {
   };
 
   const editQuestion = async (id) => {
-    const res = await editquestion(authToken, id, question);
-    if (res._id) {
-      let index = 0;
-      for (let i = 0; i < questions.length; i++) {
-        const element = questions[i];
-        if (element._id === id) {
-          break;
+    if (option1.trim().length !== 0) {
+      const res = await editquestion(authToken, id, question);
+      if (res._id) {
+        let index = 0;
+        for (let i = 0; i < questions.length; i++) {
+          const element = questions[i];
+          if (element._id === id) {
+            break;
+          }
+          index++;
         }
-        index++;
+        const newQuestionsArray = questions.slice(0, index);
+        newQuestionsArray.push(res);
+        newQuestionsArray.push(...questions.slice(index + 1));
+        setQuestions(newQuestionsArray);
+        dispatch(setAlert({ type: "Success", message: "Question Edited" }));
+      } else {
+        dispatch(setAlert({ type: "Danger", message: res.error }));
       }
-      const newQuestionsArray = questions.slice(0, index);
-      newQuestionsArray.push(res);
-      newQuestionsArray.push(...questions.slice(index + 1));
-      setQuestions(newQuestionsArray);
-      dispatch(setAlert({ type: "Success", message: "Question Edited" }));
     } else {
-      dispatch(setAlert({ type: "Danger", message: res.error }));
+      dispatch(setAlert({ type: "Danger", message: "Add Atleast A Option" }));
     }
     referModalClose2.current.click();
   };

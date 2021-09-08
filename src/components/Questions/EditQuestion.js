@@ -121,61 +121,110 @@ export default function AddQuestion(props) {
                   <label htmlFor="questionOption1" className="form-label">
                     Option 1
                   </label>
-                  <input
-                    placeholder="Leave Empty for none"
-                    type="text"
-                    className="form-control"
-                    id="questionOption1"
-                    value={props.stateVariables.option1}
-                    onChange={(e) =>
-                      props.stateMethods.setOption1(e.target.value)
-                    }
-                  />
+                  <div className="d-flex align-items-center justify-content-center">
+                    <input
+                      disabled={
+                        props.stateVariables.option1.trim().length === 0
+                      }
+                      class="form-check-input mx-3"
+                      type="checkbox"
+                      value=""
+                    />
+                    <input
+                      placeholder="Empty for none"
+                      type="text"
+                      className="form-control"
+                      id="questionOption1"
+                      value={props.stateVariables.option1}
+                      onChange={(e) =>
+                        props.stateMethods.setOption1(e.target.value)
+                      }
+                    />
+                  </div>
                 </div>
                 <div className="mb-3">
                   <label htmlFor="questionOption2" className="form-label">
                     Option 2
                   </label>
-                  <input
-                    placeholder="Leave Empty for none"
-                    type="text"
-                    className="form-control"
-                    id="questionOption2"
-                    value={props.stateVariables.option2}
-                    onChange={(e) =>
-                      props.stateMethods.setOption2(e.target.value)
-                    }
-                  />
+                  <div className="d-flex align-items-center justify-content-center">
+                    <input
+                      disabled={
+                        props.stateVariables.option2.trim().length === 0
+                      }
+                      class="form-check-input mx-3"
+                      type="checkbox"
+                      value=""
+                    />
+                    <input
+                      disabled={
+                        props.stateVariables.option1.trim().length === 0
+                      }
+                      placeholder="Check CheckBox To Mark As Correct Answer"
+                      type="text"
+                      className="form-control"
+                      id="questionOption2"
+                      value={props.stateVariables.option2}
+                      onChange={(e) =>
+                        props.stateMethods.setOption2(e.target.value)
+                      }
+                    />
+                  </div>
                 </div>
                 <div className="mb-3">
                   <label htmlFor="questionOption3" className="form-label">
                     Option 3
                   </label>
-                  <input
-                    placeholder="Leave Empty for none"
-                    type="text"
-                    className="form-control"
-                    id="questionOption3"
-                    value={props.stateVariables.option3}
-                    onChange={(e) =>
-                      props.stateMethods.setOption3(e.target.value)
-                    }
-                  />
+                  <div className="d-flex align-items-center justify-content-center">
+                    <input
+                      disabled={
+                        props.stateVariables.option3.trim().length === 0
+                      }
+                      class="form-check-input mx-3"
+                      type="checkbox"
+                      value=""
+                    />
+                    <input
+                      disabled={
+                        props.stateVariables.option2.trim().length === 0
+                      }
+                      placeholder="Empty for none"
+                      type="text"
+                      className="form-control"
+                      id="questionOption3"
+                      value={props.stateVariables.option3}
+                      onChange={(e) =>
+                        props.stateMethods.setOption3(e.target.value)
+                      }
+                    />
+                  </div>
                 </div>
                 <div className="mb-3">
                   <label htmlFor="questionOption4" className="form-label">
                     Option 4
                   </label>
-                  <input
-                    placeholder="Leave Empty for none"
-                    type="text"
-                    className="form-control"
-                    id="questionOption4"
-                    value={props.stateVariables.option4}
-                    onChange={(e) =>
-                      props.stateMethods.setOption4(e.target.value)
-                    }
-                  />
+                  <div className="d-flex align-items-center justify-content-center">
+                    <input
+                      disabled={
+                        props.stateVariables.option4.trim().length === 0
+                      }
+                      class="form-check-input mx-3"
+                      type="checkbox"
+                      value=""
+                    />
+                    <input
+                      disabled={
+                        props.stateVariables.option3.trim().length === 0
+                      }
+                      placeholder="Check CheckBox To Mark As Correct Answer"
+                      type="text"
+                      className="form-control"
+                      id="questionOption4"
+                      value={props.stateVariables.option4}
+                      onChange={(e) =>
+                        props.stateMethods.setOption4(e.target.value)
+                      }
+                    />
+                  </div>
                 </div>
               </>
             ) : null}
@@ -192,7 +241,9 @@ export default function AddQuestion(props) {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={() => props.editQuestion(props.stateVariables.questionId)}
+            onClick={() => {
+              props.editQuestion(props.stateVariables.questionId);
+            }}
           >
             Save changes
           </button>
