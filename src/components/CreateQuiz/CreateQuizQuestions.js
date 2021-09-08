@@ -98,9 +98,9 @@ export default function CreateQuizQuestions() {
       for (let i = 0; i < questions.length; i++) {
         const element = questions[i];
         if (element._id === id) {
-          index++;
           break;
         }
+        index++;
       }
       const newQuestionsArray = questions.slice(0, index);
       newQuestionsArray.push(res);
@@ -206,6 +206,7 @@ export default function CreateQuizQuestions() {
 
         <div className="container" style={{ textAlign: "left" }}>
           {questions.map((question) => {
+            console.log(questions);
             if (
               question.questionType === "ShortAnswer" ||
               question.questionType === "LongAnswer"
@@ -213,7 +214,6 @@ export default function CreateQuizQuestions() {
               return (
                 <Question
                   question={question}
-                  key={question._id}
                   edit={true}
                   deleteQuestionHandler={deleteQuestionHandler}
                   editQuestionHandler={editQuestionHandler}
@@ -226,7 +226,6 @@ export default function CreateQuizQuestions() {
               return (
                 <QuestionOption
                   question={question}
-                  key={question._id}
                   edit={true}
                   deleteQuestionHandler={deleteQuestionHandler}
                   editQuestionHandler={editQuestionHandler}

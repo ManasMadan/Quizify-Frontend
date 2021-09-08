@@ -6,7 +6,7 @@ export default function Question(props) {
   const style = useSelector((state) => state.changeStyle);
 
   return (
-    <div className="card my-3 position-relative">
+    <div className="card my-3 position-relative" key={_id}>
       <div className="card-body" style={style}>
         <h5 className="card-title">{questionStatement}</h5>
         <br />
