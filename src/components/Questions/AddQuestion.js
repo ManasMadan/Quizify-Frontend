@@ -3,6 +3,7 @@ import {
   createquestion,
   cookies,
   useDispatch,
+  useSelector,
   setAlert,
   useRef,
 } from "../../base";
@@ -28,10 +29,11 @@ export default function AddQuestion(props) {
   const authToken = cookies.get("auth-token");
   const dispatch = useDispatch();
   const ref = useRef();
+  const style = useSelector((state) => state.changeStyle);
 
   return (
     <div className="modal-dialog modal-dialog-scrollable">
-      <div className="modal-content">
+      <div className="modal-content" style={style}>
         <div className="modal-header">
           <h5 className="modal-title" id="exampleModalLabel">
             Add Question
