@@ -17,12 +17,14 @@ export default function Question(props) {
               className="form-control"
               id="answer"
               aria-describedby="emailHelp"
+              style={style}
             />
           ) : (
             <textarea
               className="form-control"
               id="exampleFormControlTextarea1"
               rows="3"
+              style={style}
             ></textarea>
           )}
         </div>
