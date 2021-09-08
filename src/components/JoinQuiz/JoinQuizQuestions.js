@@ -42,6 +42,8 @@ export default function JoinQuizQuestions() {
             question.questionType === "MCQ"
           ) {
             return <QuestionOption question={question} key={question._id} />;
+          } else {
+            return null;
           }
         })}
         <div

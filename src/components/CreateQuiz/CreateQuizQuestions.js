@@ -12,6 +12,10 @@ import {
   Question,
   QuestionOption,
   deletequestion,
+  editquestion,
+  fetchallquestions,
+  useEffect,
+  EditQuestion,
 } from "../../base";
 
 export default function CreateQuizQuestions() {
@@ -20,7 +24,10 @@ export default function CreateQuizQuestions() {
   const loggedIn = useSelector((state) => state.changeLoginState);
   const authToken = cookies.get("auth-token");
   const dispatch = useDispatch();
-  const ref = useRef();
+  const referModalClose = useRef();
+  const referModalClose2 = useRef();
+  const referModalOpen = useRef();
+  const referModalOpen2 = useRef();
   const [questions, setQuestions] = useState([]);
   const [questionStatement, setQuestionStatement] = useState("");
   const [questionMarks, setQuestionMarks] = useState(0);
@@ -29,6 +36,7 @@ export default function CreateQuizQuestions() {
   const [option2, setOption2] = useState("");
   const [option3, setOption3] = useState("");
   const [option4, setOption4] = useState("");
+  const [questionId, setQuestionId] = useState("");
 
   const question = {
     questionStatement,
@@ -39,10 +47,37 @@ export default function CreateQuizQuestions() {
       (e) => e.trim() !== ""
     ),
   };
-
   const deleteQuestionHandler = async (id) => {
     const res = await deletequestion(authToken, id);
-    setQuestions(questions.filter((e) => e._id === res._id));
+    setQuestions(questions.filter((e) => e._id !== res.question._id));
+  };
+  const fetchQuestions = async (authToken, quizcode) => {
+    const data = await fetchallquestions(authToken, quizcode);
+    setQuestions(data);
+  };
+
+  const editQuestionHandler = async (id) => {
+    setQuestionId(id);
+    referModalOpen2.current.click();
+    const questionData = questions.filter((e) => e._id === id)[0];
+    setQuestionStatement(questionData.questionStatement);
+    setQuestionMarks(questionData.questionMarks);
+    setQuestionType(questionData.questionType);
+    if (questionData.questionOptions.length === 4) {
+      setOption1(questionData.questionOptions[0]);
+      setOption2(questionData.questionOptions[1]);
+      setOption3(questionData.questionOptions[2]);
+      setOption4(questionData.questionOptions[3]);
+    } else if (questionData.questionOptions.length === 3) {
+      setOption1(questionData.questionOptions[0]);
+      setOption2(questionData.questionOptions[1]);
+      setOption3(questionData.questionOptions[2]);
+    } else if (questionData.questionOptions.length === 2) {
+      setOption1(questionData.questionOptions[0]);
+      setOption2(questionData.questionOptions[1]);
+    } else if (questionData.questionOptions.length === 1) {
+      setOption1(questionData.questionOptions[0]);
+    }
   };
 
   const addQuestion = async () => {
@@ -53,8 +88,34 @@ export default function CreateQuizQuestions() {
     } else {
       dispatch(setAlert({ type: "Danger", message: res.error }));
     }
-    ref.current.click();
+    referModalClose.current.click();
   };
+
+  const editQuestion = async (id) => {
+    const res = await editquestion(authToken, id, question);
+    if (res._id) {
+      let index = 0;
+      for (let i = 0; i < questions.length; i++) {
+        const element = questions[i];
+        if (element._id === id) {
+          index++;
+          break;
+        }
+      }
+      const newQuestionsArray = questions.slice(0, index);
+      newQuestionsArray.push(res);
+      newQuestionsArray.push(...questions.slice(index + 1));
+      setQuestions(newQuestionsArray);
+      dispatch(setAlert({ type: "Success", message: "Question Edited" }));
+    } else {
+      dispatch(setAlert({ type: "Danger", message: res.error }));
+    }
+    referModalClose2.current.click();
+  };
+
+  useEffect(() => {
+    fetchQuestions(authToken, quizcode);
+  }, []);
 
   if (loggedIn) {
     return (
@@ -65,10 +126,10 @@ export default function CreateQuizQuestions() {
           className="btn btn-primary"
           data-bs-toggle="modal"
           data-bs-target="#exampleModal"
+          ref={referModalOpen}
         >
           Add Question
         </button>
-
         <div
           className="modal fade"
           id="exampleModal"
@@ -79,7 +140,7 @@ export default function CreateQuizQuestions() {
           <AddQuestion
             quizcode={quizcode}
             addQuestion={addQuestion}
-            refer={ref}
+            referModalClose={referModalClose}
             stateMethods={{
               setQuestionStatement,
               setQuestionMarks,
@@ -91,6 +152,48 @@ export default function CreateQuizQuestions() {
             }}
             stateVariables={{
               questionStatement,
+              questionMarks,
+              questionType,
+              option1,
+              option2,
+              option3,
+              option4,
+            }}
+          />
+        </div>
+
+        <button
+          type="button"
+          className="btn btn-primary d-none"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal2"
+          ref={referModalOpen2}
+        >
+          Edit Question Hidden
+        </button>
+        <div
+          className="modal fade"
+          id="exampleModal2"
+          tabIndex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <EditQuestion
+            quizcode={quizcode}
+            editQuestion={editQuestion}
+            referModalClose={referModalClose2}
+            stateMethods={{
+              setQuestionStatement,
+              setQuestionMarks,
+              setQuestionType,
+              setOption1,
+              setOption2,
+              setOption3,
+              setOption4,
+            }}
+            stateVariables={{
+              questionStatement,
+              questionId,
               questionMarks,
               questionType,
               option1,
@@ -113,6 +216,7 @@ export default function CreateQuizQuestions() {
                   key={question._id}
                   edit={true}
                   deleteQuestionHandler={deleteQuestionHandler}
+                  editQuestionHandler={editQuestionHandler}
                 />
               );
             } else if (
@@ -125,8 +229,11 @@ export default function CreateQuizQuestions() {
                   key={question._id}
                   edit={true}
                   deleteQuestionHandler={deleteQuestionHandler}
+                  editQuestionHandler={editQuestionHandler}
                 />
               );
+            } else {
+              return null;
             }
           })}
         </div>

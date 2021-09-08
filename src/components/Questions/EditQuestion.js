@@ -192,7 +192,7 @@ export default function AddQuestion(props) {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={props.addQuestion}
+            onClick={() => props.editQuestion(props.stateVariables.questionId)}
           >
             Save changes
           </button>

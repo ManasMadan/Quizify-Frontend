@@ -34,6 +34,7 @@ import QuizCodeElement from "./components/QuizCodes/QuizCodeElement";
 import Question from "./components/Questions/Question";
 import QuestionOption from "./components/Questions/QuestionOption";
 import AddQuestion from "./components/Questions/AddQuestion";
+import EditQuestion from "./components/Questions/EditQuestion";
 
 // Methods - Auth
 import signIn from "./components/Methods/signIn";
@@ -49,6 +50,7 @@ import deletequizcode from "./components/Methods/deletequizcode";
 import fetchallquestions from "./components/Methods/fetchallquestions";
 import createquestion from "./components/Methods/createquestion";
 import deletequestion from "./components/Methods/deletequestion";
+import editquestion from "./components/Methods/editquestion";
 
 // Redux Actions
 // Alert
@@ -123,8 +125,10 @@ export {
   fetchallquestions,
   createquestion,
   deletequestion,
+  editquestion,
   // Components - Questions
   Question,
   AddQuestion,
   QuestionOption,
+  EditQuestion,
 };
