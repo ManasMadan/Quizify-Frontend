@@ -5,21 +5,21 @@ export default function Question(props) {
   const style = useSelector((state) => state.changeStyle);
 
   return (
-    <div class="card my-3 position-relative">
-      <div class="card-body" style={style}>
-        <h5 class="card-title">{questionStatement}</h5>
+    <div className="card my-3 position-relative">
+      <div className="card-body" style={style}>
+        <h5 className="card-title">{questionStatement}</h5>
         <br />
-        <div class="mb-3">
+        <div className="mb-3">
           {questionType === "ShortAnswer" ? (
             <input
               type="email"
-              class="form-control"
+              className="form-control"
               id="answer"
               aria-describedby="emailHelp"
             />
           ) : (
             <textarea
-              class="form-control"
+              className="form-control"
               id="exampleFormControlTextarea1"
               rows="3"
             ></textarea>
