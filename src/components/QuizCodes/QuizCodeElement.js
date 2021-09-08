@@ -17,7 +17,7 @@ export default function QuizCodeElement(props) {
           Created On{" "}
           {`${dateObj.getDate()}/${dateObj.getMonth()}/${dateObj.getFullYear()}`}
         </p>
-        <Link className="btn btn-primary mx-2" to={`editquiz/${quizcode}`}>
+        <Link className="btn btn-primary mx-2" to={`createquiz/${quizcode}`}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"

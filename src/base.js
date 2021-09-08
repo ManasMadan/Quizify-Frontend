@@ -48,6 +48,7 @@ import deletequizcode from "./components/Methods/deletequizcode";
 // Methods - Questions
 import fetchallquestions from "./components/Methods/fetchallquestions";
 import createquestion from "./components/Methods/createquestion";
+import deletequestion from "./components/Methods/deletequestion";
 
 // Redux Actions
 // Alert
@@ -121,6 +122,7 @@ export {
   // Methods - Questions
   fetchallquestions,
   createquestion,
+  deletequestion,
   // Components - Questions
   Question,
   AddQuestion,

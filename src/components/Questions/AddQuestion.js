@@ -1,34 +1,6 @@
-import {
-  useState,
-  createquestion,
-  cookies,
-  useDispatch,
-  useSelector,
-  setAlert,
-  useRef,
-} from "../../base";
+import { useSelector } from "../../base";
 
 export default function AddQuestion(props) {
-  const [questionStatement, setQuestionStatement] = useState("");
-  const [questionMarks, setQuestionMarks] = useState(0);
-  const [questionType, setQuestionType] = useState("");
-  const [option1, setOption1] = useState("");
-  const [option2, setOption2] = useState("");
-  const [option3, setOption3] = useState("");
-  const [option4, setOption4] = useState("");
-  const quizcode = props.quizcode;
-  const question = {
-    questionStatement,
-    questionMarks,
-    questionType,
-    quizcode,
-    questionOptions: [option1, option2, option3, option4].filter(
-      (e) => e.trim() !== ""
-    ),
-  };
-  const authToken = cookies.get("auth-token");
-  const dispatch = useDispatch();
-  const ref = useRef();
   const style = useSelector((state) => state.changeStyle);
 
   return (
@@ -55,8 +27,10 @@ export default function AddQuestion(props) {
                 type="text"
                 className="form-control"
                 id="QuestionStatement"
-                value={questionStatement}
-                onChange={(e) => setQuestionStatement(e.target.value)}
+                value={props.stateVariables.questionStatement}
+                onChange={(e) =>
+                  props.stateMethods.setQuestionStatement(e.target.value)
+                }
               />
             </div>
             <div className="mb-3">
@@ -67,8 +41,10 @@ export default function AddQuestion(props) {
                 type="number"
                 className="form-control"
                 id="QuestionMarks"
-                value={questionMarks.toString()}
-                onChange={(e) => setQuestionMarks(parseInt(e.target.value))}
+                value={props.stateVariables.questionMarks.toString()}
+                onChange={(e) =>
+                  props.stateMethods.setQuestionMarks(parseInt(e.target.value))
+                }
               />
             </div>
             <div className="dropdown">
@@ -79,7 +55,9 @@ export default function AddQuestion(props) {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                {questionType === "" ? "Question Type" : questionType}
+                {props.stateVariables.questionType === ""
+                  ? "Question Type"
+                  : props.stateVariables.questionType}
               </button>
               <ul
                 className="dropdown-menu"
@@ -91,7 +69,7 @@ export default function AddQuestion(props) {
                     name="questionType"
                     onClick={(e) => {
                       e.preventDefault();
-                      setQuestionType(e.target.textContent);
+                      props.stateMethods.setQuestionType(e.target.textContent);
                     }}
                   >
                     MCQ
@@ -103,7 +81,7 @@ export default function AddQuestion(props) {
                     name="questionType"
                     onClick={(e) => {
                       e.preventDefault();
-                      setQuestionType(e.target.textContent);
+                      props.stateMethods.setQuestionType(e.target.textContent);
                     }}
                   >
                     CheckBoxes
@@ -115,7 +93,7 @@ export default function AddQuestion(props) {
                     name="questionType"
                     onClick={(e) => {
                       e.preventDefault();
-                      setQuestionType(e.target.textContent);
+                      props.stateMethods.setQuestionType(e.target.textContent);
                     }}
                   >
                     ShortAnswer
@@ -127,7 +105,7 @@ export default function AddQuestion(props) {
                     name="questionType"
                     onClick={(e) => {
                       e.preventDefault();
-                      setQuestionType(e.target.textContent);
+                      props.stateMethods.setQuestionType(e.target.textContent);
                     }}
                   >
                     LongAnswer
@@ -135,7 +113,8 @@ export default function AddQuestion(props) {
                 </li>
               </ul>
             </div>
-            {questionType === "MCQ" || questionType === "CheckBoxes" ? (
+            {props.stateVariables.questionType === "MCQ" ||
+            props.stateVariables.questionType === "CheckBoxes" ? (
               <>
                 <div className="mb-3">
                   <label htmlFor="questionOption1" className="form-label">
@@ -146,8 +125,10 @@ export default function AddQuestion(props) {
                     type="text"
                     className="form-control"
                     id="questionOption1"
-                    value={option1}
-                    onChange={(e) => setOption1(e.target.value)}
+                    value={props.stateVariables.option1}
+                    onChange={(e) =>
+                      props.stateMethods.setOption1(e.target.value)
+                    }
                   />
                 </div>
                 <div className="mb-3">
@@ -159,8 +140,10 @@ export default function AddQuestion(props) {
                     type="text"
                     className="form-control"
                     id="questionOption2"
-                    value={option2}
-                    onChange={(e) => setOption2(e.target.value)}
+                    value={props.stateVariables.option2}
+                    onChange={(e) =>
+                      props.stateMethods.setOption2(e.target.value)
+                    }
                   />
                 </div>
                 <div className="mb-3">
@@ -172,8 +155,10 @@ export default function AddQuestion(props) {
                     type="text"
                     className="form-control"
                     id="questionOption3"
-                    value={option3}
-                    onChange={(e) => setOption3(e.target.value)}
+                    value={props.stateVariables.option3}
+                    onChange={(e) =>
+                      props.stateMethods.setOption3(e.target.value)
+                    }
                   />
                 </div>
                 <div className="mb-3">
@@ -185,8 +170,10 @@ export default function AddQuestion(props) {
                     type="text"
                     className="form-control"
                     id="questionOption4"
-                    value={option4}
-                    onChange={(e) => setOption4(e.target.value)}
+                    value={props.stateVariables.option4}
+                    onChange={(e) =>
+                      props.stateMethods.setOption4(e.target.value)
+                    }
                   />
                 </div>
               </>
@@ -198,24 +185,14 @@ export default function AddQuestion(props) {
             type="button"
             className="btn btn-secondary"
             data-bs-dismiss="modal"
-            ref={ref}
+            ref={props.refer}
           >
             Close
           </button>
           <button
             type="button"
             className="btn btn-primary"
-            onClick={async () => {
-              const res = await createquestion(authToken, question);
-              if (res._id) {
-                dispatch(
-                  setAlert({ type: "Success", message: "Question Created" })
-                );
-              } else {
-                dispatch(setAlert({ type: "Danger", message: res.error }));
-              }
-              ref.current.click();
-            }}
+            onClick={props.addQuestion}
           >
             Save changes
           </button>
