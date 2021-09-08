@@ -210,30 +210,33 @@ export default function CreateQuizQuestions() {
 
         <div className="container" style={{ textAlign: "left" }}>
           {questions.map((question) => {
-            console.log(questions);
             if (
               question.questionType === "ShortAnswer" ||
               question.questionType === "LongAnswer"
             ) {
               return (
-                <Question
-                  question={question}
-                  edit={true}
-                  deleteQuestionHandler={deleteQuestionHandler}
-                  editQuestionHandler={editQuestionHandler}
-                />
+                <div key={question._id}>
+                  <Question
+                    question={question}
+                    edit={true}
+                    deleteQuestionHandler={deleteQuestionHandler}
+                    editQuestionHandler={editQuestionHandler}
+                  />
+                </div>
               );
             } else if (
               question.questionType === "CheckBoxes" ||
               question.questionType === "MCQ"
             ) {
               return (
-                <QuestionOption
-                  question={question}
-                  edit={true}
-                  deleteQuestionHandler={deleteQuestionHandler}
-                  editQuestionHandler={editQuestionHandler}
-                />
+                <div key={question._id}>
+                  <QuestionOption
+                    question={question}
+                    edit={true}
+                    deleteQuestionHandler={deleteQuestionHandler}
+                    editQuestionHandler={editQuestionHandler}
+                  />
+                </div>
               );
             } else {
               return null;

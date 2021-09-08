@@ -80,7 +80,6 @@ export default function SignUp() {
         className="btn btn-primary"
         onClick={async () => {
           const data = await signUp(credentials);
-          console.log(data);
           if (data.authtoken) {
             cookies.set("auth-token", data.authtoken);
             dispatch(login());
