@@ -129,7 +129,7 @@ export default function CreateQuizQuestions() {
     setOption3("");
     setOption4("");
     setQuestionId("");
-    setQuestionMarks("");
+    setQuestionMarks(0);
     setQuestionStatement("");
     setQuestionType("");
   };

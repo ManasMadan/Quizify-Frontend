@@ -40,18 +40,6 @@ export default function Question(props) {
             ></textarea>
           )}
         </div>
-        {props.edit && questionMarks !== 0 && (
-          <div className="mb-3">
-            <input
-              type="text"
-              placeholder="Write Answers Keyword - Seperated By Space For Multiple Answers"
-              className="form-control"
-              id="answer"
-              aria-describedby="emailHelp"
-              style={style}
-            />
-          </div>
-        )}
       </div>
       {props.edit && (
         <div
