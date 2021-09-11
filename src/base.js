@@ -33,8 +33,7 @@ import QuizCodeElement from "./components/QuizCodes/QuizCodeElement";
 // Components - Question
 import Question from "./components/Questions/Question";
 import QuestionOption from "./components/Questions/QuestionOption";
-import AddQuestion from "./components/Questions/AddQuestion";
-import EditQuestion from "./components/Questions/EditQuestion";
+import AddEditQuestion from "./components/Questions/AddEditQuestion";
 
 // Methods - Auth
 import signIn from "./components/Methods/signIn";
@@ -128,7 +127,6 @@ export {
   editquestion,
   // Components - Questions
   Question,
-  AddQuestion,
+  AddEditQuestion,
   QuestionOption,
-  EditQuestion,
 };

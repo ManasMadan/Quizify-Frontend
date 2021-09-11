@@ -2,7 +2,7 @@ import {
   useParams,
   useSelector,
   useHistory,
-  AddQuestion,
+  AddEditQuestion,
   createquestion,
   cookies,
   useDispatch,
@@ -15,7 +15,6 @@ import {
   editquestion,
   fetchallquestions,
   useEffect,
-  EditQuestion,
 } from "../../base";
 
 export default function CreateQuizQuestions() {
@@ -24,20 +23,23 @@ export default function CreateQuizQuestions() {
   const loggedIn = useSelector((state) => state.changeLoginState);
   const authToken = cookies.get("auth-token");
   const dispatch = useDispatch();
-  const referModalClose = useRef();
-  const referModalClose2 = useRef();
-  const referModalOpen = useRef();
-  const referModalOpen2 = useRef();
+  // Modal Open and Close Question
+  const referModalCloseAddQuestion = useRef();
+  const referModalCloseEditQuestion = useRef();
+  const referModalOpenEditQuestion = useRef();
+  // Questions List
   const [questions, setQuestions] = useState([]);
+  // Question Data States
   const [questionStatement, setQuestionStatement] = useState("");
   const [questionMarks, setQuestionMarks] = useState(0);
   const [questionType, setQuestionType] = useState("");
+  // Question Options
   const [option1, setOption1] = useState("");
   const [option2, setOption2] = useState("");
   const [option3, setOption3] = useState("");
   const [option4, setOption4] = useState("");
   const [questionId, setQuestionId] = useState("");
-
+  // Question Object Using State Variables
   const question = {
     questionStatement,
     questionMarks,
@@ -47,18 +49,19 @@ export default function CreateQuizQuestions() {
       (e) => e.trim() !== ""
     ),
   };
-  const deleteQuestionHandler = async (id) => {
-    const res = await deletequestion(authToken, id);
-    setQuestions(questions.filter((e) => e._id !== res.question._id));
-  };
+
+  // Fetch, Edit, Delete and Add Question Handlers
   const fetchQuestions = async (authToken, quizcode) => {
     const data = await fetchallquestions(authToken, quizcode);
     setQuestions(data);
   };
-
+  const deleteQuestionHandler = async (id) => {
+    const res = await deletequestion(authToken, id);
+    setQuestions(questions.filter((e) => e._id !== res.question._id));
+  };
   const editQuestionHandler = async (id) => {
     setQuestionId(id);
-    referModalOpen2.current.click();
+    referModalOpenEditQuestion.current.click();
     const questionData = questions.filter((e) => e._id === id)[0];
     setQuestionStatement(questionData.questionStatement);
     setQuestionMarks(questionData.questionMarks);
@@ -79,7 +82,6 @@ export default function CreateQuizQuestions() {
       setOption1(questionData.questionOptions[0]);
     }
   };
-
   const addQuestion = async () => {
     const res = await createquestion(authToken, question);
     if (res._id) {
@@ -88,9 +90,9 @@ export default function CreateQuizQuestions() {
     } else {
       dispatch(setAlert({ type: "Danger", message: res.error }));
     }
-    referModalClose.current.click();
+    referModalCloseAddQuestion.current.click();
+    setStateVariablesToInitialState();
   };
-
   const editQuestion = async (id) => {
     if (
       option1.trim().length !== 0 ||
@@ -118,9 +120,21 @@ export default function CreateQuizQuestions() {
     } else {
       dispatch(setAlert({ type: "Danger", message: "Add Atleast A Option" }));
     }
-    referModalClose2.current.click();
+    referModalCloseEditQuestion.current.click();
+    setStateVariablesToInitialState();
+  };
+  const setStateVariablesToInitialState = () => {
+    setOption1("");
+    setOption2("");
+    setOption3("");
+    setOption4("");
+    setQuestionId("");
+    setQuestionMarks("");
+    setQuestionStatement("");
+    setQuestionType("");
   };
 
+  // Fetch Questions On Page Arriving
   useEffect(() => {
     fetchQuestions(authToken, quizcode);
   }, []);
@@ -134,7 +148,7 @@ export default function CreateQuizQuestions() {
           className="btn btn-primary"
           data-bs-toggle="modal"
           data-bs-target="#exampleModal"
-          ref={referModalOpen}
+          onClick={setStateVariablesToInitialState}
         >
           Add Question
         </button>
@@ -145,10 +159,9 @@ export default function CreateQuizQuestions() {
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"
         >
-          <AddQuestion
-            quizcode={quizcode}
-            addQuestion={addQuestion}
-            referModalClose={referModalClose}
+          <AddEditQuestion
+            method={addQuestion}
+            referModalClose={referModalCloseAddQuestion}
             stateMethods={{
               setQuestionStatement,
               setQuestionMarks,
@@ -175,7 +188,7 @@ export default function CreateQuizQuestions() {
           className="btn btn-primary d-none"
           data-bs-toggle="modal"
           data-bs-target="#exampleModal2"
-          ref={referModalOpen2}
+          ref={referModalOpenEditQuestion}
         >
           Edit Question Hidden
         </button>
@@ -186,10 +199,9 @@ export default function CreateQuizQuestions() {
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"
         >
-          <EditQuestion
-            quizcode={quizcode}
-            editQuestion={editQuestion}
-            referModalClose={referModalClose2}
+          <AddEditQuestion
+            method={() => editQuestion(questionId)}
+            referModalClose={referModalCloseEditQuestion}
             stateMethods={{
               setQuestionStatement,
               setQuestionMarks,
@@ -201,7 +213,6 @@ export default function CreateQuizQuestions() {
             }}
             stateVariables={{
               questionStatement,
-              questionId,
               questionMarks,
               questionType,
               option1,
