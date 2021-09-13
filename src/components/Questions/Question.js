@@ -1,9 +1,15 @@
 import { useSelector } from "../../base";
 
 export default function Question(props) {
-  const { questionStatement, questionMarks, questionType, _id } =
-    props.question;
+  const {
+    questionStatement,
+    questionMarks,
+    questionType,
+    _id,
+    correctAnswers,
+  } = props.question;
   const style = useSelector((state) => state.changeStyle);
+  const showCorrectAnswers = props.edit && questionMarks !== 0;
 
   return (
     <div className="card my-3 position-relative" key={_id}>
@@ -41,6 +47,15 @@ export default function Question(props) {
           )}
         </div>
       </div>
+
+      {showCorrectAnswers && (
+        <div style={style}>
+          <div className="mx-5">
+            Correct Answers : {correctAnswers.join(", ")}
+          </div>
+        </div>
+      )}
+
       {props.edit && (
         <div
           className="d-flex align-items-center justify-content-center"

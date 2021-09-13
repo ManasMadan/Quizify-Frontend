@@ -39,6 +39,9 @@ export default function CreateQuizQuestions() {
   const [option3, setOption3] = useState("");
   const [option4, setOption4] = useState("");
   const [questionId, setQuestionId] = useState("");
+  // Correct Answer
+  const [correctAnswersOptions, setCorrectAnswersOptions] = useState([]);
+  const [correctAnswerText, setCorrectAnswerText] = useState("");
   // Question Object Using State Variables
   const question = {
     questionStatement,
@@ -48,6 +51,13 @@ export default function CreateQuizQuestions() {
     questionOptions: [option1, option2, option3, option4].filter(
       (e) => e.trim() !== ""
     ),
+    correctAnswers:
+      questionType === "ShortAnswer" || questionType === "LongAnswer"
+        ? correctAnswerText
+            .split(" ")
+            .map((e) => e.trim().toLowerCase())
+            .filter((e) => e !== "")
+        : correctAnswersOptions,
   };
 
   // Fetch, Edit, Delete and Add Question Handlers
@@ -66,6 +76,19 @@ export default function CreateQuizQuestions() {
     setQuestionStatement(questionData.questionStatement);
     setQuestionMarks(questionData.questionMarks);
     setQuestionType(questionData.questionType);
+
+    if (
+      questionData.questionType === "ShortAnswer" ||
+      questionData.questionType === "LongAnswer"
+    ) {
+      setCorrectAnswerText(questionData.correctAnswers.join(" "));
+    } else if (
+      questionData.questionType === "MCQ" ||
+      questionData.questionType === "CheckBoxes"
+    ) {
+      setCorrectAnswersOptions(questionData.correctAnswers);
+    }
+
     if (questionData.questionOptions.length === 4) {
       setOption1(questionData.questionOptions[0]);
       setOption2(questionData.questionOptions[1]);
@@ -123,6 +146,7 @@ export default function CreateQuizQuestions() {
     referModalCloseEditQuestion.current.click();
     setStateVariablesToInitialState();
   };
+
   const setStateVariablesToInitialState = () => {
     setOption1("");
     setOption2("");
@@ -132,6 +156,8 @@ export default function CreateQuizQuestions() {
     setQuestionMarks(0);
     setQuestionStatement("");
     setQuestionType("");
+    setCorrectAnswerText("");
+    setCorrectAnswersOptions([]);
   };
 
   // Fetch Questions On Page Arriving
@@ -170,6 +196,8 @@ export default function CreateQuizQuestions() {
               setOption2,
               setOption3,
               setOption4,
+              setCorrectAnswersOptions,
+              setCorrectAnswerText,
             }}
             stateVariables={{
               questionStatement,
@@ -179,6 +207,8 @@ export default function CreateQuizQuestions() {
               option2,
               option3,
               option4,
+              correctAnswersOptions,
+              correctAnswerText,
             }}
           />
         </div>
@@ -210,6 +240,8 @@ export default function CreateQuizQuestions() {
               setOption2,
               setOption3,
               setOption4,
+              setCorrectAnswersOptions,
+              setCorrectAnswerText,
             }}
             stateVariables={{
               questionStatement,
@@ -219,6 +251,8 @@ export default function CreateQuizQuestions() {
               option2,
               option3,
               option4,
+              correctAnswersOptions,
+              correctAnswerText,
             }}
           />
         </div>

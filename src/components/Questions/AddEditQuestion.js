@@ -1,7 +1,9 @@
-import { useSelector } from "../../base";
+import { setAlert, useSelector, useDispatch } from "../../base";
 
 export default function AddQuestion(props) {
   const style = useSelector((state) => state.changeStyle);
+  const dispatch = useDispatch();
+
   const referModalClose = props.referModalClose;
   const setQuestionStatement = props.stateMethods.setQuestionStatement;
   const setQuestionMarks = props.stateMethods.setQuestionMarks;
@@ -10,6 +12,8 @@ export default function AddQuestion(props) {
   const setOption2 = props.stateMethods.setOption2;
   const setOption3 = props.stateMethods.setOption3;
   const setOption4 = props.stateMethods.setOption4;
+  const setCorrectAnswersOptions = props.stateMethods.setCorrectAnswersOptions;
+  const setCorrectAnswerText = props.stateMethods.setCorrectAnswerText;
 
   const questionStatement = props.stateVariables.questionStatement;
   const questionMarks = props.stateVariables.questionMarks;
@@ -18,6 +22,30 @@ export default function AddQuestion(props) {
   const option2 = props.stateVariables.option2;
   const option3 = props.stateVariables.option3;
   const option4 = props.stateVariables.option4;
+  const correctAnswersOptions = props.stateVariables.correctAnswersOptions;
+  const correctAnswerText = props.stateVariables.correctAnswerText;
+
+  const optionsAreNotSame =
+    (option1 !== option2 &&
+      option1 !== option3 &&
+      option1 !== option4 &&
+      option2 !== option3 &&
+      option2 !== option4 &&
+      option3 !== option4) ||
+    option1 === "" ||
+    option2 === "" ||
+    option3 === "" ||
+    option4 === "";
+
+  const addRemoveCorrectAnswer = (option) => {
+    if (correctAnswersOptions.includes(option)) {
+      setCorrectAnswersOptions(
+        correctAnswersOptions.filter((e) => e !== option)
+      );
+    } else {
+      setCorrectAnswersOptions(correctAnswersOptions.concat(option));
+    }
+  };
 
   return (
     <div className="modal-dialog modal-dialog-scrollable">
@@ -56,6 +84,7 @@ export default function AddQuestion(props) {
                 type="number"
                 className="form-control"
                 id="QuestionMarks"
+                min={0}
                 value={questionMarks.toString()}
                 onChange={(e) => setQuestionMarks(parseInt(e.target.value))}
               />
@@ -183,6 +212,117 @@ export default function AddQuestion(props) {
                 </div>
               </>
             ) : null}
+
+            <div className={`${questionMarks === 0 ? "d-none" : ""}`}>
+              {questionType === "MCQ" || questionType === "CheckBoxes" ? (
+                <>
+                  <div className="mb-3 my-3">Correct Answer</div>
+                  <div className="d-flex mb-3 my-3">
+                    <div
+                      className={`form-check mx-3 ${
+                        option1.trim().length === 0 ? "d-none" : ""
+                      }`}
+                    >
+                      <input
+                        checked={correctAnswersOptions.includes(option1)}
+                        onChange={() => addRemoveCorrectAnswer(option1)}
+                        className="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id="correctAnswerOption1"
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="correctAnswerOption1"
+                      >
+                        {option1}
+                      </label>
+                    </div>
+                    <div
+                      className={`form-check mx-3 ${
+                        option2.trim().length === 0 ? "d-none" : ""
+                      }`}
+                    >
+                      <input
+                        checked={correctAnswersOptions.includes(option2)}
+                        onChange={() => addRemoveCorrectAnswer(option2)}
+                        className="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id="correctAnswerOption2"
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="correctAnswerOption2"
+                      >
+                        {option2}
+                      </label>
+                    </div>
+                  </div>
+                  <div className="d-flex mb-3 my-3">
+                    <div
+                      className={`form-check mx-3 ${
+                        option3.trim().length === 0 ? "d-none" : ""
+                      }`}
+                    >
+                      <input
+                        checked={correctAnswersOptions.includes(option3)}
+                        onChange={() => addRemoveCorrectAnswer(option3)}
+                        className="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id="correctAnswerOption3"
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="correctAnswerOption3"
+                      >
+                        {option3}
+                      </label>
+                    </div>
+                    <div
+                      className={`form-check mx-3 ${
+                        option4.trim().length === 0 ? "d-none" : ""
+                      }`}
+                    >
+                      <input
+                        checked={correctAnswersOptions.includes(option4)}
+                        onChange={() => addRemoveCorrectAnswer(option4)}
+                        className="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id="correctAnswerOption4"
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="correctAnswerOption4"
+                      >
+                        {option4}
+                      </label>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div className="mb-3 my-3">
+                  <label htmlFor="correctAnswerInputBox" className="form-label">
+                    Correct Answer
+                  </label>
+                  <div className="mb-3 my-2">
+                    Enter Correct Answer's Keywords Seperated By Space, The
+                    Marks Will Be Awarded If The Answer Contains any one of the
+                    Keywords.
+                  </div>
+                  <input
+                    value={correctAnswerText}
+                    onChange={(e) => setCorrectAnswerText(e.target.value)}
+                    placeholder="Enter Correct Answer's Keywords Seperated By Space"
+                    type="text"
+                    className="form-control"
+                    id="correctAnswerInputBox"
+                  />
+                </div>
+              )}
+            </div>
           </form>
         </div>
         <div className="modal-footer">
@@ -196,7 +336,53 @@ export default function AddQuestion(props) {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={props.method}
+            onClick={() => {
+              if (
+                questionMarks > 0 &&
+                (questionType === "MCQ" || questionType === "CheckBoxes") &&
+                correctAnswersOptions.length === 0
+              ) {
+                dispatch(
+                  setAlert({
+                    type: "Danger",
+                    message:
+                      "Atleast Add A Correct Option as Marks Is Greater than 0",
+                  })
+                );
+                return;
+              }
+
+              if (
+                questionMarks > 0 &&
+                (questionType === "ShortAnswer" ||
+                  questionType === "LongAsnwer") &&
+                correctAnswerText.trim().length === 0
+              ) {
+                dispatch(
+                  setAlert({
+                    type: "Danger",
+                    message:
+                      "Atleast Add A Correct Option as Marks Is Greater than 0",
+                  })
+                );
+                return;
+              }
+
+              if (
+                questionType === "ShortAnswer" ||
+                questionType === "LongAnswer" ||
+                optionsAreNotSame
+              ) {
+                props.method();
+              } else {
+                dispatch(
+                  setAlert({
+                    type: "Danger",
+                    message: "Options Cannot Be Same",
+                  })
+                );
+              }
+            }}
           >
             Save changes
           </button>
