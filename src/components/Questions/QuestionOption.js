@@ -11,7 +11,7 @@ export default function Question(props) {
   } = props.question;
   const style = useSelector((state) => state.changeStyle);
   const showCorrectAnswers = props.edit && questionMarks !== 0;
-
+  let key = 1;
   return (
     <div className="card my-3 position-relative" key={_id}>
       <div className="card-body" style={style}>
@@ -22,17 +22,15 @@ export default function Question(props) {
             <div className="d-flex flex-column">
               {questionOptions.map((e) => {
                 return (
-                  <>
-                    <span>
-                      <input
-                        className="form-check-input mx-3"
-                        type="radio"
-                        name={`option${_id}`}
-                        id={`option${_id}`}
-                      />
-                      {e}
-                    </span>
-                  </>
+                  <span key={++key}>
+                    <input
+                      className="form-check-input mx-3"
+                      type="radio"
+                      name={`option${_id}`}
+                      id={`option${_id}`}
+                    />
+                    {e}
+                  </span>
                 );
               })}
             </div>
@@ -41,7 +39,7 @@ export default function Question(props) {
               {questionOptions.map((e) => {
                 return (
                   <>
-                    <span>
+                    <span key={++key}>
                       <input
                         className="form-check-input mx-3"
                         type="checkbox"
