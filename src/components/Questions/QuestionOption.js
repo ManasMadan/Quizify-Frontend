@@ -24,10 +24,10 @@ export default function Question(props) {
                 return (
                   <span key={++key}>
                     <input
-                      className="form-check-input mx-3"
+                      className="form-check-input mx-3 questionOptionRadio"
                       type="radio"
                       name={`option${_id}`}
-                      id={`option${_id}`}
+                      id={`${_id}`}
                     />
                     {e}
                   </span>
@@ -41,10 +41,10 @@ export default function Question(props) {
                   <>
                     <span key={++key}>
                       <input
-                        className="form-check-input mx-3"
+                        className="form-check-input mx-3 questionOptionCheckBox"
                         type="checkbox"
                         name={`option${_id}`}
-                        id={`option${_id}`}
+                        id={`${_id}`}
                       />
                       {e}
                     </span>

@@ -17,6 +17,7 @@ export default function JoinQuizQuestions() {
   const authToken = cookies.get("auth-token");
 
   const [questions, setQuestions] = useState([]);
+  const [answersSelected, setAnswersSelected] = useState([]);
 
   const fetchQuestions = async (authToken, quizcode) => {
     const data = await fetchallquestions(authToken, quizcode);
@@ -25,6 +26,12 @@ export default function JoinQuizQuestions() {
 
   useEffect(() => {
     fetchQuestions(authToken, quizcode);
+    const init = [];
+    questions.forEach((e) => {
+      init.push({ questionID: e._id, optionsSelected: [] });
+    });
+
+    setAnswersSelected(init);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -54,6 +61,63 @@ export default function JoinQuizQuestions() {
           <button
             className="btn btn-primary"
             style={{ width: "10vw", height: "10vh" }}
+            onClick={() => {
+              const answers = [];
+              const idsUsed = [];
+
+              const textSolution = Array(
+                ...document.getElementsByClassName("textSolution")
+              );
+
+              const questionOptionRadio = Array(
+                ...document.getElementsByClassName("questionOptionRadio")
+              );
+
+              const questionOptionCheckBox = Array(
+                ...document.getElementsByClassName("questionOptionCheckBox")
+              );
+
+              textSolution.forEach((e) => {
+                answers.push({ questionID: e.id, optionsSelected: e.value });
+                idsUsed.push(e.id);
+              });
+
+              questionOptionRadio.forEach((e) => {
+                if (e.checked) {
+                  answers.push({
+                    questionID: e.id,
+                    optionsSelected: e.nextSibling.data,
+                  });
+                  idsUsed.push(e.id);
+                }
+              });
+
+              if (questions.length !== idsUsed.length) {
+                for (let i = 0; i < questions.length; i++) {
+                  if (idsUsed.indexOf(questions[i]._id) === -1) {
+                    answers.push({
+                      questionID: questions[i]._id,
+                      optionsSelected: [],
+                    });
+                  }
+                }
+              }
+
+              questionOptionCheckBox.forEach((e) => {
+                if (e.checked) {
+                  for (let i = 0; i < answers.length; i++) {
+                    const element = answers[i];
+                    if (element.questionID === e.id) {
+                      element.optionsSelected = element.optionsSelected.concat(
+                        e.nextSibling.data
+                      );
+                    }
+                  }
+                }
+              });
+
+              setAnswersSelected(answers);
+            }}
           >
             Submit
           </button>

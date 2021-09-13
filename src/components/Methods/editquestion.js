@@ -3,9 +3,14 @@ const editquestion = async (authToken, id, question) => {
     question.correctAnswers = [];
   }
 
-  question.correctAnswers = question.correctAnswers.filter((e) =>
-    question.questionOptions.includes(e)
-  );
+  if (
+    question.questionType === "MCQ" ||
+    question.questionType === "CheckBoxes"
+  ) {
+    question.correctAnswers = question.correctAnswers.filter((e) =>
+      question.questionOptions.includes(e)
+    );
+  }
 
   const url = `${process.env.REACT_APP_API_HOST_URL}/api/questions/updatequestion/${id}`;
   const response = await fetch(url, {

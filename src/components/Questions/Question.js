@@ -26,21 +26,21 @@ export default function Question(props) {
                   ? "Here Will Be The Space to Write the Answer - Disabled While Editing The Quiz"
                   : "Answer"
               }
-              className="form-control"
-              id="answer"
+              className="form-control textSolution"
+              id={_id}
               aria-describedby="emailHelp"
               style={style}
             />
           ) : (
             <textarea
-              className="form-control"
+              className="form-control textSolution"
               disabled={props.edit}
               placeholder={
                 props.edit
                   ? "Here Will Be The Space to Write the Answer - Disabled While Editing The Quiz"
                   : "Answer"
               }
-              id="exampleFormControlTextarea1"
+              id={_id}
               rows="3"
               style={style}
             ></textarea>
