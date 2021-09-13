@@ -86,6 +86,8 @@ export default function SignUp() {
             dispatch(
               setAlert({ type: "Success", message: "Succesfully Signed Up" })
             );
+            window.scrollTo({ top: 0, behavior: "smooth" });
+
             history.push("/");
           } else {
             dispatch(logout());
@@ -96,6 +98,7 @@ export default function SignUp() {
                 message: data.error || data.errors[0].msg,
               })
             );
+            window.scrollTo({ top: 0, behavior: "smooth" });
           }
         }}
       >

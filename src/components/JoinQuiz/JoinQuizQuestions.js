@@ -1,5 +1,6 @@
 import {
   useParams,
+  useDispatch,
   useSelector,
   useHistory,
   Question,
@@ -8,30 +9,42 @@ import {
   useState,
   useEffect,
   cookies,
+  createsubmission,
+  setAlert,
 } from "../../base";
 
 export default function JoinQuizQuestions() {
   const { quizcode } = useParams();
+  const dispatch = useDispatch();
   const loggedIn = useSelector((state) => state.changeLoginState);
   const history = useHistory();
   const authToken = cookies.get("auth-token");
-
   const [questions, setQuestions] = useState([]);
-  const [answersSelected, setAnswersSelected] = useState([]);
 
   const fetchQuestions = async (authToken, quizcode) => {
     const data = await fetchallquestions(authToken, quizcode);
     setQuestions(data);
   };
 
+  const handleSubmission = async (authToken, quizcode, answers) => {
+    const res = await createsubmission(authToken, quizcode, answers);
+    if (res.submission) {
+      dispatch(
+        setAlert({ type: "Success", message: "Submitted Successfully" })
+      );
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      dispatch(setAlert({ type: "Danger", message: "Some Error Occured" }));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   useEffect(() => {
     fetchQuestions(authToken, quizcode);
-    const init = [];
-    questions.forEach((e) => {
-      init.push({ questionID: e._id, optionsSelected: [] });
-    });
-
-    setAnswersSelected(init);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -116,7 +129,7 @@ export default function JoinQuizQuestions() {
                 }
               });
 
-              setAnswersSelected(answers);
+              handleSubmission(authToken, quizcode, answers);
             }}
           >
             Submit

@@ -53,6 +53,7 @@ export default function Home() {
                       message: `Joined Quiz ${quizcode}`,
                     })
                   );
+                  window.scrollTo({ top: 0, behavior: "smooth" });
                   history.push(`/joinquiz/${quizcode}`);
                 } else {
                   dispatch(
@@ -61,11 +62,13 @@ export default function Home() {
                       message: res.error,
                     })
                   );
+                  window.scrollTo({ top: 0, behavior: "smooth" });
                 }
               } else {
                 dispatch(
                   setAlert({ type: "Danger", message: "Sign in To Continue" })
                 );
+                window.scrollTo({ top: 0, behavior: "smooth" });
               }
             }}
           >
@@ -85,6 +88,7 @@ export default function Home() {
                       message: `Created Quiz ${quizcode}`,
                     })
                   );
+                  window.scrollTo({ top: 0, behavior: "smooth" });
                   history.push(`/createquiz/${quizcode}`);
                 } else {
                   dispatch(
@@ -93,6 +97,7 @@ export default function Home() {
                       message: res.error,
                     })
                   );
+                  window.scrollTo({ top: 0, behavior: "smooth" });
                 }
               }
             }}

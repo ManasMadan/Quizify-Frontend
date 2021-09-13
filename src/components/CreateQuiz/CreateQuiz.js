@@ -58,6 +58,7 @@ export default function CreateQuiz() {
                     res.error === undefined ? res.errors[0].msg : res.error,
                 })
               );
+              window.scrollTo({ top: 0, behavior: "smooth" });
             }
           }}
           className="btn btn-primary"

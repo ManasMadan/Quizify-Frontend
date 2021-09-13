@@ -68,10 +68,14 @@ export default function SignIn() {
             cookies.set("auth-token", data.authtoken);
             dispatch(login());
             dispatch(setAlert({ type: "Success", message: "Signed In" }));
+            window.scrollTo({ top: 0, behavior: "smooth" });
+
+            window.scrollTo({ top: 0, behavior: "smooth" });
             history.push("/");
             dispatch(
               setAlert({ type: "Success", message: "Succesfully Signed In" })
             );
+            window.scrollTo({ top: 0, behavior: "smooth" });
           } else {
             dispatch(logout());
             cookies.remove("auth-token");
@@ -81,6 +85,7 @@ export default function SignIn() {
                 message: data.error || data.errors[0].msg,
               })
             );
+            window.scrollTo({ top: 0, behavior: "smooth" });
           }
         }}
       >
