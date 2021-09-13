@@ -163,6 +163,7 @@ export default function CreateQuizQuestions() {
   // Fetch Questions On Page Arriving
   useEffect(() => {
     fetchQuestions(authToken, quizcode);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loggedIn) {

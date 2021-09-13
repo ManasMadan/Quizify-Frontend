@@ -48,6 +48,7 @@ export default function App() {
         dispatch(setAlert(null));
       }, 5000);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [alert]);
 
   // Change Login Redux State
@@ -61,6 +62,7 @@ export default function App() {
     } else {
       dispatch(logout());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedIn]);
 
   return (

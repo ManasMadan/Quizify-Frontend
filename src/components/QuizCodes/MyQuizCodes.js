@@ -28,6 +28,7 @@ export default function MyQuizCodes() {
 
   useEffect(() => {
     fetchQuizCodes(authToken);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!loggedIn) {

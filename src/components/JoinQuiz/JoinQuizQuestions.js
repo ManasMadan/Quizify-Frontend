@@ -25,6 +25,7 @@ export default function JoinQuizQuestions() {
 
   useEffect(() => {
     fetchQuestions(authToken, quizcode);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loggedIn) {
