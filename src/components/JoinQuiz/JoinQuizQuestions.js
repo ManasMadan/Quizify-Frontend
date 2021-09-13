@@ -33,12 +33,11 @@ export default function JoinQuizQuestions() {
         setAlert({ type: "Success", message: "Submitted Successfully" })
       );
       window.scrollTo({ top: 0, behavior: "smooth" });
-
+    } else if (res.error) {
+      dispatch(setAlert({ type: "Danger", message: res.error }));
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
       dispatch(setAlert({ type: "Danger", message: "Some Error Occured" }));
-      window.scrollTo({ top: 0, behavior: "smooth" });
-
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };

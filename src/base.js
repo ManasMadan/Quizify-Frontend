@@ -34,6 +34,9 @@ import QuizCodeElement from "./components/QuizCodes/QuizCodeElement";
 import Question from "./components/Questions/Question";
 import QuestionOption from "./components/Questions/QuestionOption";
 import AddEditQuestion from "./components/Questions/AddEditQuestion";
+// Components - Submissions
+import MySubmissions from "./components/MySubmissions/MySubmissions";
+import MySubmissionsItem from "./components/MySubmissions/MySubmissionsItem";
 
 // Methods - Auth
 import signIn from "./components/Methods/signIn";
@@ -52,6 +55,7 @@ import deletequestion from "./components/Methods/deletequestion";
 import editquestion from "./components/Methods/editquestion";
 // Methods - Submissions
 import createsubmission from "./components/Methods/createsubmission";
+import fetchallmysubmissions from "./components/Methods/fetchallmysubmissions";
 
 // Redux Actions
 // Alert
@@ -97,6 +101,9 @@ export {
   // Components - Quiz Code
   MyQuizCodes,
   QuizCodeElement,
+  // Components - Submissions
+  MySubmissions,
+  MySubmissionsItem,
   // Components
   Navbar,
   Home,
@@ -129,6 +136,7 @@ export {
   editquestion,
   // Methods - Submissions
   createsubmission,
+  fetchallmysubmissions,
   // Components - Questions
   Question,
   AddEditQuestion,

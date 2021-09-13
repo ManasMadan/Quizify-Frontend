@@ -23,6 +23,7 @@ import {
   login,
   logout,
   setAlert,
+  MySubmissions,
 } from "./base";
 
 export default function App() {
@@ -108,6 +109,10 @@ export default function App() {
 
         <Route exact path="/myquizcodes">
           <MyQuizCodes />
+        </Route>
+
+        <Route exact path="/mysubmissions">
+          <MySubmissions />
         </Route>
 
         <Route>
