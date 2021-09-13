@@ -59,7 +59,7 @@ export default function Question(props) {
       {showCorrectAnswers && (
         <div style={style}>
           <div className="mx-5">
-            Correct Answers : {correctAnswers.join(", ")}
+            Correct Answers : {!correctAnswers ? "" : correctAnswers.join(", ")}
           </div>
         </div>
       )}

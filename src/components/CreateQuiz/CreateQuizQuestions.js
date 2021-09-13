@@ -81,7 +81,11 @@ export default function CreateQuizQuestions() {
       questionData.questionType === "ShortAnswer" ||
       questionData.questionType === "LongAnswer"
     ) {
-      setCorrectAnswerText(questionData.correctAnswers.join(" "));
+      setCorrectAnswerText(
+        !questionData.correctAnswers
+          ? ""
+          : questionData.correctAnswers.join(" ")
+      );
     } else if (
       questionData.questionType === "MCQ" ||
       questionData.questionType === "CheckBoxes"

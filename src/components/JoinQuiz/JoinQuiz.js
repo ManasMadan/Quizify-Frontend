@@ -49,7 +49,6 @@ export default function JoinQuiz() {
           className="btn btn-primary mx-1"
           onClick={async () => {
             const quizcoderes = await checkquizcode(authToken, quizcode);
-            console.log(quizcoderes);
             if (!quizcoderes.error) {
               if (!quizcoderes.quizcode.deleted) {
                 const res = await joinquizcode(authToken, quizcode);

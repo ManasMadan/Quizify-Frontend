@@ -224,7 +224,11 @@ export default function AddQuestion(props) {
                       }`}
                     >
                       <input
-                        checked={correctAnswersOptions.includes(option1)}
+                        checked={
+                          !correctAnswersOptions
+                            ? false
+                            : correctAnswersOptions.includes(option1)
+                        }
                         onChange={() => addRemoveCorrectAnswer(option1)}
                         className="form-check-input"
                         type="checkbox"
@@ -244,7 +248,11 @@ export default function AddQuestion(props) {
                       }`}
                     >
                       <input
-                        checked={correctAnswersOptions.includes(option2)}
+                        checked={
+                          !correctAnswersOptions
+                            ? false
+                            : correctAnswersOptions.includes(option2)
+                        }
                         onChange={() => addRemoveCorrectAnswer(option2)}
                         className="form-check-input"
                         type="checkbox"
@@ -266,7 +274,11 @@ export default function AddQuestion(props) {
                       }`}
                     >
                       <input
-                        checked={correctAnswersOptions.includes(option3)}
+                        checked={
+                          !correctAnswersOptions
+                            ? false
+                            : correctAnswersOptions.includes(option3)
+                        }
                         onChange={() => addRemoveCorrectAnswer(option3)}
                         className="form-check-input"
                         type="checkbox"
@@ -286,7 +298,11 @@ export default function AddQuestion(props) {
                       }`}
                     >
                       <input
-                        checked={correctAnswersOptions.includes(option4)}
+                        checked={
+                          !correctAnswersOptions
+                            ? false
+                            : correctAnswersOptions.includes(option4)
+                        }
                         onChange={() => addRemoveCorrectAnswer(option4)}
                         className="form-check-input"
                         type="checkbox"
