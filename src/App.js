@@ -24,6 +24,7 @@ import {
   logout,
   setAlert,
   MySubmissions,
+  MyQuizSubmission,
 } from "./base";
 
 export default function App() {
@@ -113,6 +114,10 @@ export default function App() {
 
         <Route exact path="/mysubmissions">
           <MySubmissions />
+        </Route>
+
+        <Route exact path="/mysubmissions/:quizcode">
+          <MyQuizSubmission />
         </Route>
 
         <Route>

@@ -6,6 +6,7 @@ import {
   useHistory,
   useDispatch,
   setAlert,
+  checkquizcode,
 } from "../../base";
 
 export default function JoinQuiz() {
@@ -47,25 +48,46 @@ export default function JoinQuiz() {
           disabled={quizcode.trim() === ""}
           className="btn btn-primary mx-1"
           onClick={async () => {
-            const res = await joinquizcode(authToken, quizcode);
-            if (res.length >= 0) {
-              dispatch(
-                setAlert({
-                  type: "Success",
-                  message: `Joined Quiz ${quizcode}`,
-                })
-              );
-              window.scrollTo({ top: 0, behavior: "smooth" });
+            const quizcoderes = await checkquizcode(authToken, quizcode);
+            console.log(quizcoderes);
+            if (!quizcoderes.error) {
+              if (!quizcoderes.quizcode.deleted) {
+                const res = await joinquizcode(authToken, quizcode);
+                if (res.length >= 0) {
+                  dispatch(
+                    setAlert({
+                      type: "Success",
+                      message: `Joined Quiz ${quizcode}`,
+                    })
+                  );
+                  window.scrollTo({ top: 0, behavior: "smooth" });
 
-              history.push(`/joinquiz/${quizcode}`);
+                  history.push(`/joinquiz/${quizcode}`);
+                } else {
+                  dispatch(
+                    setAlert({
+                      type: "Danger",
+                      message: res.error,
+                    })
+                  );
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }
+              } else {
+                dispatch(
+                  setAlert({
+                    type: "Danger",
+                    message: "QuizCode Has Been Deleted",
+                  })
+                );
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
             } else {
               dispatch(
                 setAlert({
                   type: "Danger",
-                  message: res.error,
+                  message: "Enter A Valid Quizcode",
                 })
               );
-              window.scrollTo({ top: 0, behavior: "smooth" });
             }
           }}
         >

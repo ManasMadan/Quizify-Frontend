@@ -37,6 +37,7 @@ import AddEditQuestion from "./components/Questions/AddEditQuestion";
 // Components - Submissions
 import MySubmissions from "./components/MySubmissions/MySubmissions";
 import MySubmissionsItem from "./components/MySubmissions/MySubmissionsItem";
+import MyQuizSubmission from "./components/MySubmissions/MyQuizSubmission";
 
 // Methods - Auth
 import signIn from "./components/Methods/signIn";
@@ -48,6 +49,7 @@ import createquizcode from "./components/Methods/createquizcode";
 import joinquizcode from "./components/Methods/joinquizcode";
 import fetchallquizcodes from "./components/Methods/fetchallquizcodes";
 import deletequizcode from "./components/Methods/deletequizcode";
+import checkquizcode from "./components/Methods/checkquizcode";
 // Methods - Questions
 import fetchallquestions from "./components/Methods/fetchallquestions";
 import createquestion from "./components/Methods/createquestion";
@@ -104,6 +106,7 @@ export {
   // Components - Submissions
   MySubmissions,
   MySubmissionsItem,
+  MyQuizSubmission,
   // Components
   Navbar,
   Home,
@@ -129,6 +132,7 @@ export {
   deletequizcode,
   createquizcode,
   fetchallquizcodes,
+  checkquizcode,
   // Methods - Questions
   fetchallquestions,
   createquestion,

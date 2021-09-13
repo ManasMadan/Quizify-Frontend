@@ -12,9 +12,11 @@ export default function MySubmissions() {
   const loggedIn = useSelector((state) => state.changeLoginState);
   const [mySubmissions, setMySubmissions] = useState([]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
     const res = await fetchallmysubmissions(authToken);
     setMySubmissions(res);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!loggedIn) {
