@@ -6,6 +6,7 @@ import {
   cookies,
   QuizCodeElement,
   deletequizcode,
+  undeletequizcode,
 } from "../../base";
 
 export default function MyQuizCodes() {
@@ -24,6 +25,17 @@ export default function MyQuizCodes() {
     newQuizCodesArray.forEach((code) => {
       if (code.quizcode === quizcode) {
         code.deleted = true;
+      }
+    });
+    setquizCodesArray([...newQuizCodesArray]);
+  };
+
+  const undeleteCode = async (authToken, quizcode) => {
+    undeletequizcode(authToken, quizcode);
+    const newQuizCodesArray = quizCodesArray;
+    newQuizCodesArray.forEach((code) => {
+      if (code.quizcode === quizcode) {
+        code.deleted = false;
       }
     });
     setquizCodesArray([...newQuizCodesArray]);
@@ -53,7 +65,7 @@ export default function MyQuizCodes() {
               <QuizCodeElement
                 key={quizcode._id}
                 quizcode={quizcode}
-                deleteCode={deleteCode}
+                method={quizcode.deleted ? undeleteCode : deleteCode}
               />
             );
           })}

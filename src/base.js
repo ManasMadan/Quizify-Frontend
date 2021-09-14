@@ -49,6 +49,7 @@ import createquizcode from "./components/Methods/createquizcode";
 import joinquizcode from "./components/Methods/joinquizcode";
 import fetchallquizcodes from "./components/Methods/fetchallquizcodes";
 import deletequizcode from "./components/Methods/deletequizcode";
+import undeletequizcode from "./components/Methods/undeletequizcode";
 import checkquizcode from "./components/Methods/checkquizcode";
 // Methods - Questions
 import fetchallquestions from "./components/Methods/fetchallquestions";
@@ -130,6 +131,7 @@ export {
   // Methods - QuizCodes
   joinquizcode,
   deletequizcode,
+  undeletequizcode,
   createquizcode,
   fetchallquizcodes,
   checkquizcode,
