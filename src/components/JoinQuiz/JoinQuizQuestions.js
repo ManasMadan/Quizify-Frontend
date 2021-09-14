@@ -10,7 +10,9 @@ import {
   useEffect,
   cookies,
   createsubmission,
+  createsubmittedby,
   setAlert,
+  fetchallquestionsanswers,
 } from "../../base";
 
 export default function JoinQuizQuestions() {
@@ -20,6 +22,7 @@ export default function JoinQuizQuestions() {
   const history = useHistory();
   const authToken = cookies.get("auth-token");
   const [questions, setQuestions] = useState([]);
+  const [submission, setSubmission] = useState([]);
 
   const fetchQuestions = async (authToken, quizcode) => {
     const data = await fetchallquestions(authToken, quizcode);
@@ -40,6 +43,45 @@ export default function JoinQuizQuestions() {
       dispatch(setAlert({ type: "Danger", message: "Some Error Occured" }));
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
+  };
+
+  const fetchSolutions = async () => {
+    const userId = localStorage.getItem("userId");
+    const res = await fetchallquestionsanswers(authToken, quizcode, userId);
+    return res;
+  };
+
+  const submit = async () => {
+    const questionsWithAnswers = await fetchSolutions();
+
+    for (let j = 0; j < questionsWithAnswers.length; j++) {
+      for (let i = 0; i < submission.length; i++) {
+        if (questionsWithAnswers[j]._id === submission[i].questionID) {
+          console.log("Manas");
+          const updated = questionsWithAnswers[j];
+          updated.marked = submission[i].optionsSelected;
+          updated.marksAwarded = 0;
+          if (
+            typeof updated.marked == "string" &&
+            (updated.questionType === "ShortAnswer" ||
+              updated.questionType === "LongAnswer")
+          ) {
+            updated.marked = updated.marked.toLowerCase();
+          }
+
+          for (let k = 0; k < updated.correctAnswers.length; k++) {
+            if (updated.marked.includes(updated.correctAnswers[k])) {
+              updated.marksAwarded = updated.questionMarks;
+              break;
+            }
+          }
+          questionsWithAnswers[j] = updated;
+          break;
+        }
+      }
+    }
+
+    return questionsWithAnswers;
   };
 
   useEffect(() => {
@@ -133,7 +175,10 @@ export default function JoinQuizQuestions() {
                 }
               });
 
-              handleSubmission(authToken, quizcode, answers, email);
+              setSubmission(answers);
+              createsubmittedby(authToken, quizcode);
+              const res = await submit();
+              await handleSubmission(authToken, quizcode, res, email);
             }}
           >
             Submit

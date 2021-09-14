@@ -59,6 +59,7 @@ import deletequestion from "./components/Methods/deletequestion";
 import editquestion from "./components/Methods/editquestion";
 // Methods - Submissions
 import createsubmission from "./components/Methods/createsubmission";
+import createsubmittedby from "./components/Methods/createsubmittedby";
 import fetchallmysubmissions from "./components/Methods/fetchallmysubmissions";
 
 // Redux Actions
@@ -145,6 +146,7 @@ export {
   // Methods - Submissions
   createsubmission,
   fetchallmysubmissions,
+  createsubmittedby,
   // Components - Questions
   Question,
   AddEditQuestion,
