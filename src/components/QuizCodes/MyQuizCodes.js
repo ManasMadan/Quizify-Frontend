@@ -20,10 +20,13 @@ export default function MyQuizCodes() {
 
   const deleteCode = async (authToken, quizcode) => {
     deletequizcode(authToken, quizcode);
-    const newQuizCodesArray = quizCodesArray.filter(
-      (code) => code.quizcode !== quizcode
-    );
-    setquizCodesArray(newQuizCodesArray);
+    const newQuizCodesArray = quizCodesArray;
+    newQuizCodesArray.forEach((code) => {
+      if (code.quizcode === quizcode) {
+        code.deleted = true;
+      }
+    });
+    setquizCodesArray([...newQuizCodesArray]);
   };
 
   useEffect(() => {
@@ -42,6 +45,9 @@ export default function MyQuizCodes() {
       <div className="container">
         <h2>Your Quiz Codes</h2>
         <div className="container d-flex align-items-center justify-content-center flex-wrap">
+          <div className="container d-flex align-items-center justify-content-center">
+            <h4>Quizcodes</h4>
+          </div>
           {quizCodesArray.map((quizcode) => {
             return (
               <QuizCodeElement
