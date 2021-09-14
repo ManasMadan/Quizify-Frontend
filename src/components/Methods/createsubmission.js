@@ -1,4 +1,4 @@
-const createsubmission = async (authToken, quizcode, answers) => {
+const createsubmission = async (authToken, quizcode, answers, email) => {
   const url = `${process.env.REACT_APP_API_HOST_URL}/api/submissions/createsubmission`;
   const response = await fetch(url, {
     method: "POST",
@@ -6,7 +6,7 @@ const createsubmission = async (authToken, quizcode, answers) => {
       "Content-Type": "application/json",
       "auth-token": authToken,
     },
-    body: JSON.stringify({ quizcode, answers }),
+    body: JSON.stringify({ quizcode, answers, email }),
   });
 
   const data = await response.json();

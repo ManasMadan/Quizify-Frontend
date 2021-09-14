@@ -1,6 +1,6 @@
 import { useSelector } from "../../base";
 
-export default function Question(props) {
+export default function QuestionOption(props) {
   const {
     questionStatement,
     questionMarks,
@@ -11,6 +11,8 @@ export default function Question(props) {
   } = props.question;
   const style = useSelector((state) => state.changeStyle);
   const showCorrectAnswers = props.edit && questionMarks !== 0;
+  const showCorrectAnswersMarks = props.view && questionMarks !== 0;
+
   let key = 1;
   return (
     <div className="card my-3 position-relative" key={_id}>
@@ -28,6 +30,7 @@ export default function Question(props) {
                       type="radio"
                       name={`option${_id}`}
                       id={`${_id}`}
+                      checked={e === props.marked}
                     />
                     {e}
                   </span>
@@ -45,12 +48,23 @@ export default function Question(props) {
                         type="checkbox"
                         name={`option${_id}`}
                         id={`${_id}`}
+                        checked={props.marked.includes(e)}
                       />
                       {e}
                     </span>
                   </>
                 );
               })}
+            </div>
+          )}
+          {showCorrectAnswersMarks && (
+            <div className="container mt-3" style={style}>
+              Correct Answers : {props.correctAnswer.join(", ")}
+            </div>
+          )}
+          {props.view && (
+            <div className="container mt-3" style={style}>
+              Marks Awarded : {props.marksAwarded}
             </div>
           )}
         </div>
@@ -129,3 +143,7 @@ export default function Question(props) {
     </div>
   );
 }
+
+QuestionOption.defaultProps = {
+  marked: [],
+};

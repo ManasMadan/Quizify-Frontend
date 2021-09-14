@@ -10,6 +10,7 @@ export default function Question(props) {
   } = props.question;
   const style = useSelector((state) => state.changeStyle);
   const showCorrectAnswers = props.edit && questionMarks !== 0;
+  const showCorrectAnswersMarks = props.view && questionMarks !== 0;
 
   return (
     <div className="card my-3 position-relative" key={_id}>
@@ -21,6 +22,7 @@ export default function Question(props) {
             <input
               type="text"
               disabled={props.edit}
+              value={props.marked || null}
               placeholder={
                 props.edit
                   ? "Here Will Be The Space to Write the Answer - Disabled While Editing The Quiz"
@@ -35,6 +37,7 @@ export default function Question(props) {
             <textarea
               className="form-control textSolution"
               disabled={props.edit}
+              value={props.marked || null}
               placeholder={
                 props.edit
                   ? "Here Will Be The Space to Write the Answer - Disabled While Editing The Quiz"
@@ -44,6 +47,17 @@ export default function Question(props) {
               rows="3"
               style={style}
             ></textarea>
+          )}
+
+          {showCorrectAnswersMarks && (
+            <div className="container mt-3" style={style}>
+              Correct Answers : {props.correctAnswer.join(", ")}
+            </div>
+          )}
+          {props.view && (
+            <div className="container mt-3" style={style}>
+              Marks Awarded : {props.marksAwarded}
+            </div>
           )}
         </div>
       </div>
@@ -105,6 +119,7 @@ export default function Question(props) {
           </span>
         </div>
       )}
+
       <div
         style={{
           display: "flex",

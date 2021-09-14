@@ -26,8 +26,8 @@ export default function JoinQuizQuestions() {
     setQuestions(data);
   };
 
-  const handleSubmission = async (authToken, quizcode, answers) => {
-    const res = await createsubmission(authToken, quizcode, answers);
+  const handleSubmission = async (authToken, quizcode, answers, email) => {
+    const res = await createsubmission(authToken, quizcode, answers, email);
     if (res.submission) {
       dispatch(
         setAlert({ type: "Success", message: "Submitted Successfully" })
@@ -73,10 +73,15 @@ export default function JoinQuizQuestions() {
           <button
             className="btn btn-primary"
             style={{ width: "10vw", height: "10vh" }}
-            onClick={() => {
+            onClick={async () => {
               const answers = [];
               const idsUsed = [];
-
+              const email = await localStorage.getItem("userEmail");
+              if (!email) {
+                dispatch(
+                  setAlert({ type: "Danger", message: "Sign In To Continue" })
+                );
+              }
               const textSolution = Array(
                 ...document.getElementsByClassName("textSolution")
               );
@@ -128,7 +133,7 @@ export default function JoinQuizQuestions() {
                 }
               });
 
-              handleSubmission(authToken, quizcode, answers);
+              handleSubmission(authToken, quizcode, answers, email);
             }}
           >
             Submit
