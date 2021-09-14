@@ -25,7 +25,6 @@ export default function MyQuizSubmission() {
 
   useEffect(async () => {
     const res = await fetchSubmission();
-    console.log(submission);
     setSubmission(res);
   }, []);
 

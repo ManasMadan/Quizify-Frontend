@@ -53,11 +53,9 @@ export default function JoinQuizQuestions() {
 
   const submit = async () => {
     const questionsWithAnswers = await fetchSolutions();
-
     for (let j = 0; j < questionsWithAnswers.length; j++) {
       for (let i = 0; i < submission.length; i++) {
         if (questionsWithAnswers[j]._id === submission[i].questionID) {
-          console.log("Manas");
           const updated = questionsWithAnswers[j];
           updated.marked = submission[i].optionsSelected;
           updated.marksAwarded = 0;
@@ -89,6 +87,17 @@ export default function JoinQuizQuestions() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(async () => {
+    if (submission.length > 0) {
+      const email = await localStorage.getItem("userEmail");
+      const data = await createsubmittedby(authToken, quizcode);
+      const res = await submit();
+      console.log(res);
+      await handleSubmission(authToken, quizcode, res, email);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [submission]);
+
   if (loggedIn) {
     return (
       <div className="container">
@@ -118,6 +127,7 @@ export default function JoinQuizQuestions() {
             onClick={async () => {
               const answers = [];
               const idsUsed = [];
+
               const email = await localStorage.getItem("userEmail");
               if (!email) {
                 dispatch(
@@ -175,10 +185,7 @@ export default function JoinQuizQuestions() {
                 }
               });
 
-              setSubmission(answers);
-              createsubmittedby(authToken, quizcode);
-              const res = await submit();
-              await handleSubmission(authToken, quizcode, res, email);
+              setSubmission([...answers]);
             }}
           >
             Submit

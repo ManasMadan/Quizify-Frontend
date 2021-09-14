@@ -30,7 +30,9 @@ export default function QuestionOption(props) {
                       type="radio"
                       name={`option${_id}`}
                       id={`${_id}`}
-                      checked={e === props.marked || null}
+                      checked={
+                        e === props.marked || (props.view ? false : null)
+                      }
                     />
                     {e}
                   </span>
@@ -48,7 +50,10 @@ export default function QuestionOption(props) {
                         type="checkbox"
                         name={`option${_id}`}
                         id={`${_id}`}
-                        checked={props.marked.includes(e) || null}
+                        checked={
+                          props.marked.includes(e) ||
+                          (props.view ? false : null)
+                        }
                       />
                       {e}
                     </span>
