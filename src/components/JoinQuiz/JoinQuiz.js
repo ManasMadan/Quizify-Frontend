@@ -62,7 +62,6 @@ export default function JoinQuiz() {
                 return;
               }
             }
-            console.log(submissions);
 
             const quizcoderes = await checkquizcode(authToken, quizcode);
             if (!quizcoderes.error) {

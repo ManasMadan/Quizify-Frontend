@@ -7,6 +7,7 @@ import {
   joinquizcode,
   cookies,
   createquizcode,
+  fetchallmysubmissions,
 } from "../base";
 
 export default function Home() {
@@ -44,6 +45,20 @@ export default function Home() {
             disabled={quizcode.trim() === ""}
             className="btn btn-primary mx-1"
             onClick={async () => {
+              const submissions = await fetchallmysubmissions(authToken);
+              for (let i = 0; i < submissions.length; i++) {
+                const submission = submissions[i];
+                if (submission.quizcode === quizcode) {
+                  dispatch(
+                    setAlert({
+                      type: "Danger",
+                      message: "You Have Already Submitted",
+                    })
+                  );
+                  return;
+                }
+              }
+
               if (loggedIn && quizcode.trim() !== "") {
                 const res = await joinquizcode(authToken, quizcode);
                 if (res.length >= 0) {
