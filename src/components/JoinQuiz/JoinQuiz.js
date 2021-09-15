@@ -7,6 +7,7 @@ import {
   useDispatch,
   setAlert,
   checkquizcode,
+  fetchallmysubmissions,
 } from "../../base";
 
 export default function JoinQuiz() {
@@ -48,6 +49,21 @@ export default function JoinQuiz() {
           disabled={quizcode.trim() === ""}
           className="btn btn-primary mx-1"
           onClick={async () => {
+            const submissions = await fetchallmysubmissions(authToken);
+            for (let i = 0; i < submissions.length; i++) {
+              const submission = submissions[i];
+              if (submission.quizcode === quizcode) {
+                dispatch(
+                  setAlert({
+                    type: "Danger",
+                    message: "You Have Already Submitted",
+                  })
+                );
+                return;
+              }
+            }
+            console.log(submissions);
+
             const quizcoderes = await checkquizcode(authToken, quizcode);
             if (!quizcoderes.error) {
               if (!quizcoderes.quizcode.deleted) {
