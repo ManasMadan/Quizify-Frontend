@@ -16,7 +16,9 @@ export default function QuizCodeElement(props) {
         <h5 className="card-title">{quizcode}</h5>
         <p className="card-text">
           Created On{" "}
-          {`${dateObj.getDate()}/${dateObj.getMonth()}/${dateObj.getFullYear()}`}
+          {`${dateObj.getDate()}/${
+            dateObj.getMonth() + 1
+          }/${dateObj.getFullYear()}`}
         </p>
         {!deleted && (
           <Link className="btn btn-primary mx-1" to={`createquiz/${quizcode}`}>

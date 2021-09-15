@@ -13,7 +13,9 @@ export default function MySubmissionsItem(props) {
         <h5 className="card-title">{props.submission.quizcode}</h5>
         <p className="card-text">
           Submitted On{" "}
-          {`${dateObj.getDate()}/${dateObj.getMonth()}/${dateObj.getFullYear()}`}
+          {`${dateObj.getDate()}/${
+            dateObj.getMonth() + 1
+          }/${dateObj.getFullYear()}`}
         </p>
         <p className="card-text">
           Marks Obtained : {props.submission.marksAwarded} /{" "}
