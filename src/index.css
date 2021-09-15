@@ -2,3 +2,7 @@
 .accordion-button::after {
   filter: invert(1);
 }
+
+.submissionsTable::-webkit-scrollbar {
+  display: none;
+}

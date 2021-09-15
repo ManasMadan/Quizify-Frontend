@@ -19,7 +19,7 @@ export default function QuizCodeElement(props) {
           {`${dateObj.getDate()}/${dateObj.getMonth()}/${dateObj.getFullYear()}`}
         </p>
         {!deleted && (
-          <Link className="btn btn-primary mx-2" to={`createquiz/${quizcode}`}>
+          <Link className="btn btn-primary mx-1" to={`createquiz/${quizcode}`}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -38,7 +38,7 @@ export default function QuizCodeElement(props) {
         )}
         {!deleted && (
           <div
-            className="btn btn-primary mx-2"
+            className="btn btn-primary mx-1"
             onClick={() => props.method(authToken, quizcode)}
           >
             <svg
@@ -59,7 +59,7 @@ export default function QuizCodeElement(props) {
         )}
         {!deleted && (
           <div
-            className="btn btn-primary mx-2"
+            className="btn btn-primary mx-1"
             onClick={() => history.push(`/myquizcodes/${quizcode}`)}
           >
             <svg
@@ -76,7 +76,7 @@ export default function QuizCodeElement(props) {
         )}
         {deleted && (
           <div
-            className="btn btn-primary mx-2"
+            className="btn btn-primary mx-1"
             onClick={() => props.method(authToken, quizcode)}
           >
             <svg

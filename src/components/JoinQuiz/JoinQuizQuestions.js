@@ -36,13 +36,15 @@ export default function JoinQuizQuestions() {
     marksAwarded,
     email
   ) => {
+    const name = localStorage.getItem("userName");
     const res = await createsubmission(
       authToken,
       quizcode,
       answers,
       totalMarks,
       marksAwarded,
-      email
+      email,
+      name
     );
     sessionStorage.setItem(
       "mySubmissions",

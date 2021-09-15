@@ -4,7 +4,8 @@ const createsubmission = async (
   answers,
   totalMarks,
   marksAwarded,
-  email
+  email,
+  name
 ) => {
   const url = `${process.env.REACT_APP_API_HOST_URL}/api/submissions/createsubmission`;
   const response = await fetch(url, {
@@ -19,6 +20,7 @@ const createsubmission = async (
       totalMarks,
       marksAwarded,
       email,
+      name,
     }),
   });
 

@@ -103,7 +103,7 @@ export default function Home() {
             onClick={async () => {
               if (loggedIn && quizcode.trim() !== "") {
                 const res = await createquizcode(authToken, quizcode);
-                if (res.length >= 0) {
+                if (res.quizcode) {
                   dispatch(
                     setAlert({
                       type: "Success",
