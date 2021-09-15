@@ -14,7 +14,7 @@ const fetchallquizcodes = async (authToken) => {
   });
   const data = await response.json();
   if (authToken) {
-    sessionStorage.setItem("myQuizcodes", JSON.stringify(data));
+    sessionStorage.setItem("myQuizcodes", JSON.stringify(data.quizcodes));
   }
   return data.quizcodes;
 };

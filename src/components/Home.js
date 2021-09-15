@@ -45,6 +45,12 @@ export default function Home() {
             disabled={quizcode.trim() === ""}
             className="btn btn-primary mx-1"
             onClick={async () => {
+              if (!loggedIn) {
+                dispatch(
+                  setAlert({ type: "Danger", message: "Sign in To Continue" })
+                );
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
               if (authToken) {
                 const submissions = await fetchallmysubmissions(authToken);
                 for (let i = 0; i < submissions.length; i++) {

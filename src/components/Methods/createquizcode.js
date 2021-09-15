@@ -9,6 +9,14 @@ const createquizcode = async (authToken, quizcode) => {
     body: JSON.stringify({ quizcode }),
   });
   const data = await response.json();
+  if (authToken && data.quizcode) {
+    sessionStorage.setItem(
+      "myQuizcodes",
+      JSON.stringify(
+        (JSON.parse(sessionStorage.getItem("myQuizcodes")) || []).concat(data)
+      )
+    );
+  }
   return data;
 };
 
