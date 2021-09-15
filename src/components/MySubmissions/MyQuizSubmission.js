@@ -23,9 +23,11 @@ export default function MyQuizSubmission() {
     }
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
     const res = await fetchSubmission();
     setSubmission(res);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

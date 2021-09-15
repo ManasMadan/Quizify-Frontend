@@ -13,7 +13,7 @@ import {
   QuestionOption,
   deletequestion,
   editquestion,
-  fetchallquestions,
+  fetchallquestionsanswers,
   useEffect,
 } from "../../base";
 
@@ -62,7 +62,8 @@ export default function CreateQuizQuestions() {
 
   // Fetch, Edit, Delete and Add Question Handlers
   const fetchQuestions = async (authToken, quizcode) => {
-    const data = await fetchallquestions(authToken, quizcode);
+    const userId = localStorage.getItem("userId");
+    const data = await fetchallquestionsanswers(authToken, quizcode, userId);
     setQuestions(data);
   };
   const deleteQuestionHandler = async (id) => {

@@ -87,10 +87,11 @@ export default function JoinQuizQuestions() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
     if (submission.length > 0) {
       const email = await localStorage.getItem("userEmail");
-      const data = await createsubmittedby(authToken, quizcode);
+      await createsubmittedby(authToken, quizcode);
       const res = await submit();
       console.log(res);
       await handleSubmission(authToken, quizcode, res, email);

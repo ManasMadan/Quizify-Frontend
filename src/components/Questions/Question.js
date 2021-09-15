@@ -22,7 +22,7 @@ export default function Question(props) {
             <input
               type="text"
               disabled={props.edit}
-              value={props.marked || null}
+              value={props.marked || undefined}
               placeholder={
                 props.edit
                   ? "Here Will Be The Space to Write the Answer - Disabled While Editing The Quiz"
@@ -37,7 +37,7 @@ export default function Question(props) {
             <textarea
               className="form-control textSolution"
               disabled={props.edit}
-              value={props.marked || null}
+              value={props.marked || undefined}
               placeholder={
                 props.edit
                   ? "Here Will Be The Space to Write the Answer - Disabled While Editing The Quiz"
