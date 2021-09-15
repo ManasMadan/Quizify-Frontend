@@ -53,6 +53,10 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [alert]);
 
+  window.onbeforeunload = function () {
+    sessionStorage.clear();
+  };
+
   // Change Login Redux State
   useEffect(() => {
     if (authToken) {

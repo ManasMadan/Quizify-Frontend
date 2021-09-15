@@ -15,8 +15,10 @@ export default function MyQuizCodes() {
   const authToken = cookies.get("auth-token");
 
   const fetchQuizCodes = async (authToken) => {
-    const data = (await fetchallquizcodes(authToken)).quizcodes;
-    setquizCodesArray(data);
+    if (authToken) {
+      const data = await fetchallquizcodes(authToken);
+      setquizCodesArray(data);
+    }
   };
 
   const deleteCode = async (authToken, quizcode) => {
@@ -28,6 +30,7 @@ export default function MyQuizCodes() {
       }
     });
     setquizCodesArray([...newQuizCodesArray]);
+    sessionStorage.setItem("myQuizcodes", JSON.stringify(newQuizCodesArray));
   };
 
   const undeleteCode = async (authToken, quizcode) => {
@@ -39,6 +42,7 @@ export default function MyQuizCodes() {
       }
     });
     setquizCodesArray([...newQuizCodesArray]);
+    sessionStorage.setItem("myQuizcodes", JSON.stringify(newQuizCodesArray));
   };
 
   useEffect(() => {

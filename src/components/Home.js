@@ -45,45 +45,47 @@ export default function Home() {
             disabled={quizcode.trim() === ""}
             className="btn btn-primary mx-1"
             onClick={async () => {
-              const submissions = await fetchallmysubmissions(authToken);
-              for (let i = 0; i < submissions.length; i++) {
-                const submission = submissions[i];
-                if (submission.quizcode === quizcode) {
-                  dispatch(
-                    setAlert({
-                      type: "Danger",
-                      message: "You Have Already Submitted",
-                    })
-                  );
-                  return;
+              if (authToken) {
+                const submissions = await fetchallmysubmissions(authToken);
+                for (let i = 0; i < submissions.length; i++) {
+                  const submission = submissions[i];
+                  if (submission.quizcode === quizcode) {
+                    dispatch(
+                      setAlert({
+                        type: "Danger",
+                        message: "You Have Already Submitted",
+                      })
+                    );
+                    return;
+                  }
                 }
-              }
 
-              if (loggedIn && quizcode.trim() !== "") {
-                const res = await joinquizcode(authToken, quizcode);
-                if (res.length >= 0) {
-                  dispatch(
-                    setAlert({
-                      type: "Success",
-                      message: `Joined Quiz ${quizcode}`,
-                    })
-                  );
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                  history.push(`/joinquiz/${quizcode}`);
+                if (loggedIn && quizcode.trim() !== "") {
+                  const res = await joinquizcode(authToken, quizcode);
+                  if (res.length >= 0) {
+                    dispatch(
+                      setAlert({
+                        type: "Success",
+                        message: `Joined Quiz ${quizcode}`,
+                      })
+                    );
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                    history.push(`/joinquiz/${quizcode}`);
+                  } else {
+                    dispatch(
+                      setAlert({
+                        type: "Danger",
+                        message: res.error,
+                      })
+                    );
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }
                 } else {
                   dispatch(
-                    setAlert({
-                      type: "Danger",
-                      message: res.error,
-                    })
+                    setAlert({ type: "Danger", message: "Sign in To Continue" })
                   );
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }
-              } else {
-                dispatch(
-                  setAlert({ type: "Danger", message: "Sign in To Continue" })
-                );
-                window.scrollTo({ top: 0, behavior: "smooth" });
               }
             }}
           >

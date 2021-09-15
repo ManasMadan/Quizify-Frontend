@@ -14,8 +14,10 @@ export default function MySubmissions() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
-    const res = await fetchallmysubmissions(authToken);
-    setMySubmissions(res);
+    if (authToken) {
+      const res = await fetchallmysubmissions(authToken);
+      setMySubmissions(res);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

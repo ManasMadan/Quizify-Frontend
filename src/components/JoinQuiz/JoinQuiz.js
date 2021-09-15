@@ -49,39 +49,49 @@ export default function JoinQuiz() {
           disabled={quizcode.trim() === ""}
           className="btn btn-primary mx-1"
           onClick={async () => {
-            const submissions = await fetchallmysubmissions(authToken);
-            for (let i = 0; i < submissions.length; i++) {
-              const submission = submissions[i];
-              if (submission.quizcode === quizcode) {
-                dispatch(
-                  setAlert({
-                    type: "Danger",
-                    message: "You Have Already Submitted",
-                  })
-                );
-                return;
-              }
-            }
-
-            const quizcoderes = await checkquizcode(authToken, quizcode);
-            if (!quizcoderes.error) {
-              if (!quizcoderes.quizcode.deleted) {
-                const res = await joinquizcode(authToken, quizcode);
-                if (res.length >= 0) {
+            if (authToken) {
+              const submissions = await fetchallmysubmissions(authToken);
+              for (let i = 0; i < submissions.length; i++) {
+                const submission = submissions[i];
+                if (submission.quizcode === quizcode) {
                   dispatch(
                     setAlert({
-                      type: "Success",
-                      message: `Joined Quiz ${quizcode}`,
+                      type: "Danger",
+                      message: "You Have Already Submitted",
                     })
                   );
-                  window.scrollTo({ top: 0, behavior: "smooth" });
+                  return;
+                }
+              }
 
-                  history.push(`/joinquiz/${quizcode}`);
+              const quizcoderes = await checkquizcode(authToken, quizcode);
+              if (!quizcoderes.error) {
+                if (!quizcoderes.quizcode.deleted) {
+                  const res = await joinquizcode(authToken, quizcode);
+                  if (res.length >= 0) {
+                    dispatch(
+                      setAlert({
+                        type: "Success",
+                        message: `Joined Quiz ${quizcode}`,
+                      })
+                    );
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+
+                    history.push(`/joinquiz/${quizcode}`);
+                  } else {
+                    dispatch(
+                      setAlert({
+                        type: "Danger",
+                        message: res.error,
+                      })
+                    );
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }
                 } else {
                   dispatch(
                     setAlert({
                       type: "Danger",
-                      message: res.error,
+                      message: "QuizCode Has Been Deleted",
                     })
                   );
                   window.scrollTo({ top: 0, behavior: "smooth" });
@@ -90,18 +100,10 @@ export default function JoinQuiz() {
                 dispatch(
                   setAlert({
                     type: "Danger",
-                    message: "QuizCode Has Been Deleted",
+                    message: "Enter A Valid Quizcode",
                   })
                 );
-                window.scrollTo({ top: 0, behavior: "smooth" });
               }
-            } else {
-              dispatch(
-                setAlert({
-                  type: "Danger",
-                  message: "Enter A Valid Quizcode",
-                })
-              );
             }
           }}
         >

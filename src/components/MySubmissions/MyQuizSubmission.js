@@ -14,11 +14,13 @@ export default function MyQuizSubmission() {
   const [submission, setSubmission] = useState({ answers: [] });
 
   const fetchSubmission = async () => {
-    const res = await fetchallmysubmissions(authToken);
-    for (let i = 0; i < res.length; i++) {
-      const element = res[i];
-      if (element.quizcode === quizcode) {
-        return element;
+    if (authToken) {
+      const res = await fetchallmysubmissions(authToken);
+      for (let i = 0; i < res.length; i++) {
+        const element = res[i];
+        if (element.quizcode === quizcode) {
+          return element;
+        }
       }
     }
   };
