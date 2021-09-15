@@ -3,12 +3,11 @@ import {
   useState,
   useEffect,
   fetchallmysubmissions,
-  cookies,
   useSelector,
 } from "../../base";
 
 export default function MySubmissions() {
-  const authToken = cookies.get("auth-token");
+  const authToken = localStorage.getItem("auth-token");
   const loggedIn = useSelector((state) => state.changeLoginState);
   const [mySubmissions, setMySubmissions] = useState([]);
 

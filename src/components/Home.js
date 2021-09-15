@@ -5,7 +5,6 @@ import {
   useDispatch,
   setAlert,
   joinquizcode,
-  cookies,
   createquizcode,
   fetchallmysubmissions,
 } from "../base";
@@ -16,7 +15,7 @@ export default function Home() {
   const history = useHistory();
   const loggedIn = useSelector((state) => state.changeLoginState);
   const dispatch = useDispatch();
-  const authToken = cookies.get("auth-token");
+  const authToken = localStorage.getItem("auth-token");
 
   return (
     <div className="container px-4 py-5" style={style}>

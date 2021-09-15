@@ -17,7 +17,6 @@ import {
   JoinQuizQuestions,
   Alert,
   useSelector,
-  cookies,
   userData,
   useDispatch,
   login,
@@ -25,6 +24,7 @@ import {
   setAlert,
   MySubmissions,
   MyQuizSubmission,
+  MyQuizCodeStats,
 } from "./base";
 
 export default function App() {
@@ -33,7 +33,7 @@ export default function App() {
   const loggedIn = useSelector((state) => state.changeLoginState);
   const alert = useSelector((state) => state.changeAlert);
   // Auth-Token To Be Sent in Headers
-  const authToken = cookies.get("auth-token");
+  const authToken = localStorage.getItem("auth-token");
   // useDispatch
   const dispatch = useDispatch();
 
@@ -122,6 +122,10 @@ export default function App() {
 
         <Route exact path="/mysubmissions/:quizcode">
           <MyQuizSubmission />
+        </Route>
+
+        <Route exact path="/myquizcodes/:quizcode">
+          <MyQuizCodeStats />
         </Route>
 
         <Route>

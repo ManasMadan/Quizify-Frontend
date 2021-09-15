@@ -5,7 +5,6 @@ import {
   useSelector,
   useDispatch,
   signUp,
-  cookies,
   login,
   logout,
   setAlert,
@@ -81,7 +80,7 @@ export default function SignUp() {
         onClick={async () => {
           const data = await signUp(credentials);
           if (data.authtoken) {
-            cookies.set("auth-token", data.authtoken);
+            localStorage.setItem("auth-token", data.authtoken);
             dispatch(login());
             dispatch(
               setAlert({ type: "Success", message: "Succesfully Signed Up" })
@@ -91,7 +90,7 @@ export default function SignUp() {
             history.push("/");
           } else {
             dispatch(logout());
-            cookies.remove("auth-token");
+            localStorage.removeItem("auth-token");
             dispatch(
               setAlert({
                 type: "Danger",

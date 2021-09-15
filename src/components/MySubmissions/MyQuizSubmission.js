@@ -3,14 +3,13 @@ import {
   useEffect,
   useParams,
   fetchallmysubmissions,
-  cookies,
   Question,
   QuestionOption,
 } from "../../base";
 
 export default function MyQuizSubmission() {
   const { quizcode } = useParams();
-  const authToken = cookies.get("auth-token");
+  const authToken = localStorage.getItem("auth-token");
   const [submission, setSubmission] = useState({ answers: [] });
 
   const fetchSubmission = async () => {

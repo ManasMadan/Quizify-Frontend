@@ -3,7 +3,6 @@ import {
   useEffect,
   useState,
   fetchallquizcodes,
-  cookies,
   QuizCodeElement,
   deletequizcode,
   undeletequizcode,
@@ -12,7 +11,7 @@ import {
 export default function MyQuizCodes() {
   const [quizCodesArray, setquizCodesArray] = useState([]);
   const loggedIn = useSelector((state) => state.changeLoginState);
-  const authToken = cookies.get("auth-token");
+  const authToken = localStorage.getItem("auth-token");
 
   const fetchQuizCodes = async (authToken) => {
     if (authToken) {

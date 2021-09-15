@@ -1,8 +1,9 @@
-import { useSelector, cookies, Link } from "../../base";
+import { useSelector, Link, useHistory } from "../../base";
 
 export default function QuizCodeElement(props) {
+  const history = useHistory();
   const style = useSelector((state) => state.changeStyle);
-  const authToken = cookies.get("auth-token");
+  const authToken = localStorage.getItem("auth-token");
   const { date, quizcode, deleted } = props.quizcode;
   const dateObj = new Date(date);
 
@@ -59,7 +60,7 @@ export default function QuizCodeElement(props) {
         {!deleted && (
           <div
             className="btn btn-primary mx-2"
-            onClick={() => console.log("Stats")}
+            onClick={() => history.push(`/myquizcodes/${quizcode}`)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

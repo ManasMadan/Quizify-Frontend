@@ -8,7 +8,6 @@ import {
   fetchallquestions,
   useState,
   useEffect,
-  cookies,
   createsubmission,
   createsubmittedby,
   setAlert,
@@ -20,7 +19,7 @@ export default function JoinQuizQuestions() {
   const dispatch = useDispatch();
   const loggedIn = useSelector((state) => state.changeLoginState);
   const history = useHistory();
-  const authToken = cookies.get("auth-token");
+  const authToken = localStorage.getItem("auth-token");
   const [questions, setQuestions] = useState([]);
   const [submission, setSubmission] = useState([]);
 

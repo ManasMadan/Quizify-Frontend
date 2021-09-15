@@ -9,7 +9,6 @@ import {
   useParams,
 } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import Cookies from "universal-cookie";
 
 // Components
 import Navbar from "./components/Navbar";
@@ -29,6 +28,7 @@ import JoinQuiz from "./components/JoinQuiz/JoinQuiz";
 import JoinQuizQuestions from "./components/JoinQuiz/JoinQuizQuestions";
 // Components - Quiz Code
 import MyQuizCodes from "./components/QuizCodes/MyQuizCodes";
+import MyQuizCodeStats from "./components/QuizCodes/MyQuizCodeStats";
 import QuizCodeElement from "./components/QuizCodes/QuizCodeElement";
 // Components - Question
 import Question from "./components/Questions/Question";
@@ -72,9 +72,6 @@ import toggleStyle from "./actions/styleActions";
 import login from "./actions/loginActions";
 import logout from "./actions/logoutActions";
 
-// Declaring cookies
-const cookies = new Cookies();
-
 // Single Export
 export {
   // Modules - react
@@ -92,8 +89,6 @@ export {
   // Modules - react-redux
   useSelector,
   useDispatch,
-  // Modules - Cookie
-  cookies,
   // Components - Auth
   SignIn,
   SignUp,
@@ -106,6 +101,7 @@ export {
   // Components - Quiz Code
   MyQuizCodes,
   QuizCodeElement,
+  MyQuizCodeStats,
   // Components - Submissions
   MySubmissions,
   MySubmissionsItem,

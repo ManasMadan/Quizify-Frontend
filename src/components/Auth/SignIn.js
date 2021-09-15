@@ -5,7 +5,6 @@ import {
   useSelector,
   useDispatch,
   signIn,
-  cookies,
   login,
   logout,
   setAlert,
@@ -65,7 +64,7 @@ export default function SignIn() {
         onClick={async () => {
           const data = await signIn(credentials);
           if (data.authtoken) {
-            cookies.set("auth-token", data.authtoken);
+            localStorage.setItem("auth-token", data.authtoken);
             dispatch(login());
             dispatch(setAlert({ type: "Success", message: "Signed In" }));
             window.scrollTo({ top: 0, behavior: "smooth" });
@@ -78,7 +77,7 @@ export default function SignIn() {
             window.scrollTo({ top: 0, behavior: "smooth" });
           } else {
             dispatch(logout());
-            cookies.remove("auth-token");
+            localStorage.removeItem("auth-token");
             dispatch(
               setAlert({
                 type: "Danger",

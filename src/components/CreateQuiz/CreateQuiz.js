@@ -5,7 +5,6 @@ import {
   useSelector,
   useState,
   createquizcode,
-  cookies,
 } from "../../base";
 
 export default function CreateQuiz() {
@@ -14,7 +13,7 @@ export default function CreateQuiz() {
   const style = useSelector((state) => state.changeStyle);
   const [quizcode, setQuizCode] = useState("");
   let history = useHistory();
-  const authToken = cookies.get("auth-token");
+  const authToken = localStorage.getItem("auth-token");
 
   if (!loggedIn) {
     return (

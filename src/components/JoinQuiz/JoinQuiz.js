@@ -1,7 +1,6 @@
 import {
   useSelector,
   joinquizcode,
-  cookies,
   useState,
   useHistory,
   useDispatch,
@@ -13,7 +12,7 @@ import {
 export default function JoinQuiz() {
   const style = useSelector((state) => state.changeStyle);
   const loggedIn = useSelector((state) => state.changeLoginState);
-  const authToken = cookies.get("auth-token");
+  const authToken = localStorage.getItem("auth-token");
   const [quizcode, setQuizCode] = useState("");
   let history = useHistory();
   const dispatch = useDispatch();

@@ -4,7 +4,6 @@ import {
   useHistory,
   AddEditQuestion,
   createquestion,
-  cookies,
   useDispatch,
   setAlert,
   useRef,
@@ -21,7 +20,7 @@ export default function CreateQuizQuestions() {
   const history = useHistory();
   const { quizcode } = useParams();
   const loggedIn = useSelector((state) => state.changeLoginState);
-  const authToken = cookies.get("auth-token");
+  const authToken = localStorage.getItem("auth-token");
   const dispatch = useDispatch();
   // Modal Open and Close Question
   const referModalCloseAddQuestion = useRef();
