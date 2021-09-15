@@ -32,8 +32,8 @@ export default function MySubmissions() {
       <div className="container">
         <h2>My Submissions</h2>
         <div className="container d-flex align-items-center justify-content-center flex-wrap">
-          {mySubmissions.map((question) => (
-            <MySubmissionsItem question={question} />
+          {mySubmissions.map((submission) => (
+            <MySubmissionsItem submission={submission} />
           ))}
         </div>
       </div>

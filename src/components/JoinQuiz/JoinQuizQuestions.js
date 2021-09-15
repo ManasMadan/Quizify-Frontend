@@ -29,8 +29,23 @@ export default function JoinQuizQuestions() {
     setQuestions(data);
   };
 
-  const handleSubmission = async (authToken, quizcode, answers, email) => {
-    const res = await createsubmission(authToken, quizcode, answers, email);
+  const handleSubmission = async (
+    authToken,
+    quizcode,
+    answers,
+    totalMarks,
+    marksAwarded,
+    email
+  ) => {
+    console.log(totalMarks);
+    const res = await createsubmission(
+      authToken,
+      quizcode,
+      answers,
+      totalMarks,
+      marksAwarded,
+      email
+    );
     if (res.submission) {
       dispatch(
         setAlert({ type: "Success", message: "Submitted Successfully" })
@@ -53,7 +68,10 @@ export default function JoinQuizQuestions() {
 
   const submit = async () => {
     const questionsWithAnswers = await fetchSolutions();
+    let totalMarks = 0;
+    let marksAwarded = 0;
     for (let j = 0; j < questionsWithAnswers.length; j++) {
+      totalMarks += questionsWithAnswers[j].questionMarks;
       for (let i = 0; i < submission.length; i++) {
         if (questionsWithAnswers[j]._id === submission[i].questionID) {
           const updated = questionsWithAnswers[j];
@@ -70,6 +88,7 @@ export default function JoinQuizQuestions() {
           for (let k = 0; k < updated.correctAnswers.length; k++) {
             if (updated.marked.includes(updated.correctAnswers[k])) {
               updated.marksAwarded = updated.questionMarks;
+              marksAwarded += updated.questionMarks;
               break;
             }
           }
@@ -79,7 +98,7 @@ export default function JoinQuizQuestions() {
       }
     }
 
-    return questionsWithAnswers;
+    return { questionsWithAnswers, marksAwarded, totalMarks };
   };
 
   useEffect(() => {
@@ -92,9 +111,15 @@ export default function JoinQuizQuestions() {
     if (submission.length > 0) {
       const email = await localStorage.getItem("userEmail");
       await createsubmittedby(authToken, quizcode);
-      const res = await submit();
-      console.log(res);
-      await handleSubmission(authToken, quizcode, res, email);
+      const { questionsWithAnswers, totalMarks, marksAwarded } = await submit();
+      await handleSubmission(
+        authToken,
+        quizcode,
+        questionsWithAnswers,
+        totalMarks,
+        marksAwarded,
+        email
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submission]);
