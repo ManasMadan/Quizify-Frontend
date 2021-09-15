@@ -65,9 +65,9 @@ export default function MyQuizCodeStats() {
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"
         >
-          <div className="modal-dialog">
+          <div className="modal-dialog" style={style}>
             <div className="modal-content">
-              <div className="modal-header">
+              <div className="modal-header" style={style}>
                 <h5 className="modal-title" id="exampleModalLabel">
                   {answers.name}'s Submission
                 </h5>
@@ -78,7 +78,7 @@ export default function MyQuizCodeStats() {
                   aria-label="Close"
                 ></button>
               </div>
-              <div className="modal-body">
+              <div className="modal-body" style={style}>
                 <div className="container">
                   <div className="d-flex align-items-container justify-content-center">
                     <h3>Quizcode : {quizcode}</h3>

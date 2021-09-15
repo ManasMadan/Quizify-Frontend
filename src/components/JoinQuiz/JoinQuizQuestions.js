@@ -157,7 +157,12 @@ export default function JoinQuizQuestions() {
         >
           <button
             className="btn btn-primary"
-            style={{ width: "10vw", height: "10vh" }}
+            style={{
+              width: "10vw",
+              height: "10vh",
+              minWidth: "80px",
+              minHeight: "40px",
+            }}
             onClick={async () => {
               const answers = [];
               const idsUsed = [];
