@@ -12,8 +12,9 @@ export default function About() {
           className="accordion-item"
           style={{
             ...style,
-            border: darkTheme ? "1px solid white" : "",
-            borderBottom: "0px",
+            borderRight: darkTheme ? "1px solid white" : "",
+            borderLeft: darkTheme ? "1px solid white" : "",
+            borderTop: darkTheme ? "1px solid white" : "",
           }}
         >
           <h2 className="accordion-header" id="headingOne">
@@ -26,8 +27,9 @@ export default function About() {
               aria-controls="collapseOne"
               style={{
                 ...style,
-                border: darkTheme ? "1px solid white" : "",
-                borderBottom: "0px",
+                borderRight: darkTheme ? "1px solid white" : "",
+                borderLeft: darkTheme ? "1px solid white" : "",
+                borderTop: darkTheme ? "1px solid white" : "",
               }}
             >
               Open Source
@@ -48,8 +50,9 @@ export default function About() {
           className="accordion-item"
           style={{
             ...style,
-            border: darkTheme ? "1px solid white" : "",
-            borderBottom: "0px",
+            borderRight: darkTheme ? "1px solid white" : "",
+            borderLeft: darkTheme ? "1px solid white" : "",
+            borderTop: darkTheme ? "1px solid white" : "",
           }}
         >
           <h2 className="accordion-header" id="headingTwo">
@@ -62,8 +65,9 @@ export default function About() {
               aria-controls="collapseTwo"
               style={{
                 ...style,
-                border: darkTheme ? "1px solid white" : "",
-                borderBottom: "0px",
+                borderRight: darkTheme ? "1px solid white" : "",
+                borderLeft: darkTheme ? "1px solid white" : "",
+                borderTop: darkTheme ? "1px solid white" : "",
               }}
             >
               Free To Use
@@ -84,8 +88,9 @@ export default function About() {
           className="accordion-item"
           style={{
             ...style,
-            border: darkTheme ? "1px solid white" : "",
-            borderBottom: "0px",
+            borderRight: darkTheme ? "1px solid white" : "",
+            borderLeft: darkTheme ? "1px solid white" : "",
+            borderTop: darkTheme ? "1px solid white" : "",
           }}
         >
           <h2 className="accordion-header" id="headingThree">
