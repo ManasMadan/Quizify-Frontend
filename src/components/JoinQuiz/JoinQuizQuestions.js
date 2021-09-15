@@ -37,7 +37,6 @@ export default function JoinQuizQuestions() {
     marksAwarded,
     email
   ) => {
-    console.log(totalMarks);
     const res = await createsubmission(
       authToken,
       quizcode,
@@ -45,6 +44,14 @@ export default function JoinQuizQuestions() {
       totalMarks,
       marksAwarded,
       email
+    );
+    sessionStorage.setItem(
+      "mySubmissions",
+      JSON.stringify(
+        JSON.parse(sessionStorage.getItem("mySubmissions")).concat(
+          res.submission
+        )
+      )
     );
     if (res.submission) {
       dispatch(
