@@ -60,11 +60,7 @@ export default function App() {
   // Change Login Redux State
   useEffect(() => {
     if (authToken) {
-      if (userData(authToken)) {
-        dispatch(login());
-      } else {
-        dispatch(logout());
-      }
+      dispatch(login());
     } else {
       dispatch(logout());
     }
