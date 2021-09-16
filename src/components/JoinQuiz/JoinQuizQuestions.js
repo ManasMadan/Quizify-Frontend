@@ -116,23 +116,26 @@ export default function JoinQuizQuestions() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(async () => {
-    dispatch(setLoading(true));
-    if (submission.length > 0) {
-      const email = await localStorage.getItem("userEmail");
-      await createsubmittedby(authToken, quizcode);
-      const { questionsWithAnswers, totalMarks, marksAwarded } = await submit();
-      await handleSubmission(
-        authToken,
-        quizcode,
-        questionsWithAnswers,
-        totalMarks,
-        marksAwarded,
-        email
-      );
-    }
-    dispatch(setLoading(false));
+  useEffect(() => {
+    const myfunction = async () => {
+      dispatch(setLoading(true));
+      if (submission.length > 0) {
+        const email = await localStorage.getItem("userEmail");
+        await createsubmittedby(authToken, quizcode);
+        const { questionsWithAnswers, totalMarks, marksAwarded } =
+          await submit();
+        await handleSubmission(
+          authToken,
+          quizcode,
+          questionsWithAnswers,
+          totalMarks,
+          marksAwarded,
+          email
+        );
+      }
+      dispatch(setLoading(false));
+    };
+    myfunction();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submission]);
 

@@ -17,12 +17,10 @@ export default function MyQuizCodes() {
   const dispatch = useDispatch();
 
   const fetchQuizCodes = async (authToken) => {
-    dispatch(setLoading(true));
     if (authToken) {
       const data = await fetchallquizcodes(authToken);
       setquizCodesArray(data);
     }
-    dispatch(setLoading(false));
   };
 
   const deleteCode = async (authToken, quizcode) => {
@@ -56,7 +54,9 @@ export default function MyQuizCodes() {
   };
 
   useEffect(() => {
+    dispatch(setLoading(true));
     fetchQuizCodes(authToken);
+    dispatch(setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

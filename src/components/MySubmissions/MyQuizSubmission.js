@@ -27,12 +27,14 @@ export default function MyQuizSubmission() {
     }
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(async () => {
-    dispatch(setLoading(true));
-    const res = await fetchSubmission();
-    setSubmission(res);
-    dispatch(setLoading(false));
+  useEffect(() => {
+    const myfunction = async () => {
+      dispatch(setLoading(true));
+      const res = await fetchSubmission();
+      setSubmission(res);
+      dispatch(setLoading(false));
+    };
+    myfunction();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

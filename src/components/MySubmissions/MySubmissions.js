@@ -7,6 +7,7 @@ import {
   useDispatch,
   setLoading,
 } from "../../base";
+import LoaderComponent from "../LoaderComponent";
 
 export default function MySubmissions() {
   const dispatch = useDispatch();
@@ -14,13 +15,15 @@ export default function MySubmissions() {
   const loggedIn = useSelector((state) => state.changeLoginState);
   const [mySubmissions, setMySubmissions] = useState([]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(async () => {
+  useEffect(() => {
     dispatch(setLoading(true));
-    if (authToken) {
-      const res = await fetchallmysubmissions(authToken);
-      setMySubmissions(res);
-    }
+    const myfunction = async () => {
+      if (authToken) {
+        const res = await fetchallmysubmissions(authToken);
+        setMySubmissions(res);
+      }
+    };
+    myfunction();
     dispatch(setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

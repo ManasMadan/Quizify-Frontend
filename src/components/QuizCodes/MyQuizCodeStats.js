@@ -22,11 +22,13 @@ export default function MyQuizCodeStats() {
   const ref = useRef();
   const dispatch = useDispatch();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(async () => {
-    dispatch(setLoading(true));
-    const data = await fetchallquizcodesubmissions(authToken, quizcode);
-    setSubmissions(data);
+  useEffect(() => {
+    const myfunction = async () => {
+      dispatch(setLoading(true));
+      const data = await fetchallquizcodesubmissions(authToken, quizcode);
+      setSubmissions(data);
+    };
+    myfunction();
     dispatch(setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
