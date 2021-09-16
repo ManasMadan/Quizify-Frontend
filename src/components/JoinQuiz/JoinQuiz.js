@@ -7,7 +7,6 @@ import {
   setAlert,
   checkquizcode,
   fetchallmysubmissions,
-  setLoading,
 } from "../../base";
 
 export default function JoinQuiz() {
@@ -49,7 +48,6 @@ export default function JoinQuiz() {
           disabled={quizcode.trim() === ""}
           className="btn btn-primary mx-1"
           onClick={async () => {
-            dispatch(setLoading(true));
             if (authToken) {
               const submissions = await fetchallmysubmissions(authToken);
               for (let i = 0; i < submissions.length; i++) {
@@ -106,7 +104,6 @@ export default function JoinQuiz() {
                 );
               }
             }
-            dispatch(setLoading(false));
           }}
         >
           Join Quiz

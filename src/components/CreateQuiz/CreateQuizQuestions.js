@@ -14,7 +14,6 @@ import {
   editquestion,
   fetchallquestionsanswers,
   useEffect,
-  setLoading,
 } from "../../base";
 
 export default function CreateQuizQuestions() {
@@ -62,17 +61,13 @@ export default function CreateQuizQuestions() {
 
   // Fetch, Edit, Delete and Add Question Handlers
   const fetchQuestions = async (authToken, quizcode) => {
-    dispatch(setLoading(true));
     const userId = localStorage.getItem("userId");
     const data = await fetchallquestionsanswers(authToken, quizcode, userId);
     setQuestions(data);
-    dispatch(setLoading(false));
   };
   const deleteQuestionHandler = async (id) => {
-    dispatch(setLoading(true));
     const res = await deletequestion(authToken, id);
     setQuestions(questions.filter((e) => e._id !== res.question._id));
-    dispatch(setLoading(false));
   };
   const editQuestionHandler = async (id) => {
     setQuestionId(id);
@@ -115,7 +110,6 @@ export default function CreateQuizQuestions() {
     }
   };
   const addQuestion = async () => {
-    dispatch(setLoading(true));
     const res = await createquestion(authToken, question);
     if (res._id) {
       dispatch(setAlert({ type: "Success", message: "Question Created" }));
@@ -128,10 +122,8 @@ export default function CreateQuizQuestions() {
     }
     referModalCloseAddQuestion.current.click();
     setStateVariablesToInitialState();
-    dispatch(setLoading(false));
   };
   const editQuestion = async (id) => {
-    dispatch(setLoading(true));
     if (
       option1.trim().length !== 0 ||
       questionType !== "MCQ" ||
@@ -163,7 +155,6 @@ export default function CreateQuizQuestions() {
     }
     referModalCloseEditQuestion.current.click();
     setStateVariablesToInitialState();
-    dispatch(setLoading(false));
   };
 
   const setStateVariablesToInitialState = () => {
@@ -181,9 +172,7 @@ export default function CreateQuizQuestions() {
 
   // Fetch Questions On Page Arriving
   useEffect(() => {
-    dispatch(setLoading(true));
     fetchQuestions(authToken, quizcode);
-    dispatch(setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

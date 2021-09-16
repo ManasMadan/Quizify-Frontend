@@ -1,7 +1,7 @@
 // Modules
 import { React, useState, useEffect, useRef } from "react";
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Link,
   Switch,
   Route,
@@ -16,7 +16,6 @@ import Home from "./components/Home";
 import About from "./components/About";
 import Error404 from "./components/Error404";
 import Alert from "./components/Alert";
-import LoaderComponent from "./components/LoaderComponent";
 
 // Components - Auth
 import SignIn from "./components/Auth/SignIn";
@@ -73,8 +72,6 @@ import toggleStyle from "./actions/styleActions";
 // Auth
 import login from "./actions/loginActions";
 import logout from "./actions/logoutActions";
-// Loading
-import setLoading from "./actions/loadingActions";
 
 // Single Export
 export {
@@ -116,7 +113,6 @@ export {
   About,
   Error404,
   Alert,
-  LoaderComponent,
   // Redux Actions
   // Alert
   setAlert,
@@ -126,8 +122,6 @@ export {
   // Auth
   login,
   logout,
-  // Loading
-  setLoading,
   // Methods - Auth
   signIn,
   signOut,

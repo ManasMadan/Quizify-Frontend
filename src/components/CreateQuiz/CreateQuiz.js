@@ -5,7 +5,6 @@ import {
   useSelector,
   useState,
   createquizcode,
-  setLoading,
 } from "../../base";
 
 export default function CreateQuiz() {
@@ -47,7 +46,6 @@ export default function CreateQuiz() {
         <button
           disabled={quizcode.trim() === ""}
           onClick={async () => {
-            dispatch(setLoading(true));
             const res = await createquizcode(authToken, quizcode);
             if (res._id) {
               history.push(`/createquiz/${quizcode}`);
@@ -61,7 +59,6 @@ export default function CreateQuiz() {
               );
               window.scrollTo({ top: 0, behavior: "smooth" });
             }
-            dispatch(setLoading(false));
           }}
           className="btn btn-primary"
           style={{ textDecoration: "none" }}

@@ -1,4 +1,4 @@
-import { setAlert, useSelector, useDispatch, setLoading } from "../../base";
+import { setAlert, useSelector, useDispatch } from "../../base";
 
 export default function AddQuestion(props) {
   const style = useSelector((state) => state.changeStyle);
@@ -353,7 +353,6 @@ export default function AddQuestion(props) {
             type="button"
             className="btn btn-primary"
             onClick={() => {
-              dispatch(setLoading(true));
               if (
                 questionMarks > 0 &&
                 (questionType === "MCQ" || questionType === "CheckBoxes") &&
@@ -404,7 +403,6 @@ export default function AddQuestion(props) {
                 );
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }
-              dispatch(setLoading(false));
             }}
           >
             Save changes

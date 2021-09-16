@@ -8,8 +8,6 @@ import {
   Question,
   QuestionOption,
   useRef,
-  setLoading,
-  useDispatch,
 } from "../../base";
 
 export default function MyQuizCodeStats() {
@@ -20,16 +18,13 @@ export default function MyQuizCodeStats() {
   const [answers, setAnswers] = useState({ answers: [], name: "", email: "" });
   const authToken = localStorage.getItem("auth-token");
   const ref = useRef();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const myfunction = async () => {
-      dispatch(setLoading(true));
       const data = await fetchallquizcodesubmissions(authToken, quizcode);
       setSubmissions(data);
     };
     myfunction();
-    dispatch(setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
