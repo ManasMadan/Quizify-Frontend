@@ -8,6 +8,7 @@ import {
   login,
   logout,
   setAlert,
+  setLoading,
 } from "../../base";
 
 export default function SignUp() {
@@ -78,6 +79,7 @@ export default function SignUp() {
         type="submit"
         className="btn btn-primary"
         onClick={async () => {
+          dispatch(setLoading(true));
           const data = await signUp(credentials);
           if (data.authtoken) {
             localStorage.setItem("auth-token", data.authtoken);
@@ -99,6 +101,7 @@ export default function SignUp() {
             );
             window.scrollTo({ top: 0, behavior: "smooth" });
           }
+          dispatch(setLoading(false));
         }}
       >
         SignUp
