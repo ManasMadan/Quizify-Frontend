@@ -1,26 +1,33 @@
 import {
   useSelector,
+  useDispatch,
   useEffect,
   useState,
   fetchallquizcodes,
   QuizCodeElement,
   deletequizcode,
   undeletequizcode,
+  setLoading,
 } from "../../base";
 
 export default function MyQuizCodes() {
   const [quizCodesArray, setquizCodesArray] = useState([]);
   const loggedIn = useSelector((state) => state.changeLoginState);
   const authToken = localStorage.getItem("auth-token");
+  const dispatch = useDispatch();
 
   const fetchQuizCodes = async (authToken) => {
+    dispatch(setLoading(true));
     if (authToken) {
       const data = await fetchallquizcodes(authToken);
       setquizCodesArray(data);
     }
+    dispatch(setLoading(false));
   };
 
   const deleteCode = async (authToken, quizcode) => {
+    dispatch(setLoading(true));
+
     deletequizcode(authToken, quizcode);
     const newQuizCodesArray = quizCodesArray;
     newQuizCodesArray.forEach((code) => {
@@ -30,9 +37,12 @@ export default function MyQuizCodes() {
     });
     setquizCodesArray([...newQuizCodesArray]);
     sessionStorage.setItem("myQuizcodes", JSON.stringify(newQuizCodesArray));
+    dispatch(setLoading(false));
   };
 
   const undeleteCode = async (authToken, quizcode) => {
+    dispatch(setLoading(true));
+
     undeletequizcode(authToken, quizcode);
     const newQuizCodesArray = quizCodesArray;
     newQuizCodesArray.forEach((code) => {
@@ -42,6 +52,7 @@ export default function MyQuizCodes() {
     });
     setquizCodesArray([...newQuizCodesArray]);
     sessionStorage.setItem("myQuizcodes", JSON.stringify(newQuizCodesArray));
+    dispatch(setLoading(false));
   };
 
   useEffect(() => {

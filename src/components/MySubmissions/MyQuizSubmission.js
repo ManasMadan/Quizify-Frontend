@@ -1,13 +1,16 @@
 import {
   useState,
+  useDispatch,
   useEffect,
   useParams,
   fetchallmysubmissions,
   Question,
   QuestionOption,
+  setLoading,
 } from "../../base";
 
 export default function MyQuizSubmission() {
+  const dispatch = useDispatch();
   const { quizcode } = useParams();
   const authToken = localStorage.getItem("auth-token");
   const [submission, setSubmission] = useState({ answers: [] });
@@ -26,8 +29,10 @@ export default function MyQuizSubmission() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
+    dispatch(setLoading(true));
     const res = await fetchSubmission();
     setSubmission(res);
+    dispatch(setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

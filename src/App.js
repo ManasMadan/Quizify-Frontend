@@ -25,11 +25,14 @@ import {
   MySubmissions,
   MyQuizSubmission,
   MyQuizCodeStats,
+  LoaderComponent,
+  setLoading,
 } from "./base";
 
 export default function App() {
   // Redux States
   const style = useSelector((state) => state.changeStyle);
+  const loading = useSelector((state) => state.changeLoadingState);
   const loggedIn = useSelector((state) => state.changeLoginState);
   const alert = useSelector((state) => state.changeAlert);
   // Auth-Token To Be Sent in Headers
@@ -59,6 +62,7 @@ export default function App() {
 
   // Change Login Redux State
   useEffect(() => {
+    dispatch(setLoading(true));
     if (authToken) {
       if (userData(authToken)) {
         dispatch(login());
@@ -68,70 +72,75 @@ export default function App() {
     } else {
       dispatch(logout());
     }
+    dispatch(setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedIn]);
 
-  return (
-    <Router>
-      <Navbar />
-      <Alert />
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-
-        <Route exact path="/about">
-          <About />
-        </Route>
-
-        {!loggedIn && (
-          <Route exact path="/signin">
-            <SignIn />
+  if (loading) {
+    return <LoaderComponent />;
+  } else {
+    return (
+      <Router>
+        <Navbar />
+        <Alert />
+        <Switch>
+          <Route exact path="/">
+            <Home />
           </Route>
-        )}
 
-        {!loggedIn && (
-          <Route exact path="/signup">
-            <SignUp />
+          <Route exact path="/about">
+            <About />
           </Route>
-        )}
 
-        <Route exact path="/createquiz">
-          <CreateQuiz />
-        </Route>
+          {!loggedIn && (
+            <Route exact path="/signin">
+              <SignIn />
+            </Route>
+          )}
 
-        <Route exact path="/createquiz/:quizcode">
-          <CreateQuizQuestions />
-        </Route>
+          {!loggedIn && (
+            <Route exact path="/signup">
+              <SignUp />
+            </Route>
+          )}
 
-        <Route exact path="/joinquiz/:quizcode">
-          <JoinQuizQuestions />
-        </Route>
+          <Route exact path="/createquiz">
+            <CreateQuiz />
+          </Route>
 
-        <Route exact path="/joinquiz">
-          <JoinQuiz />
-        </Route>
+          <Route exact path="/createquiz/:quizcode">
+            <CreateQuizQuestions />
+          </Route>
 
-        <Route exact path="/myquizcodes">
-          <MyQuizCodes />
-        </Route>
+          <Route exact path="/joinquiz/:quizcode">
+            <JoinQuizQuestions />
+          </Route>
 
-        <Route exact path="/mysubmissions">
-          <MySubmissions />
-        </Route>
+          <Route exact path="/joinquiz">
+            <JoinQuiz />
+          </Route>
 
-        <Route exact path="/mysubmissions/:quizcode">
-          <MyQuizSubmission />
-        </Route>
+          <Route exact path="/myquizcodes">
+            <MyQuizCodes />
+          </Route>
 
-        <Route exact path="/myquizcodes/:quizcode">
-          <MyQuizCodeStats />
-        </Route>
+          <Route exact path="/mysubmissions">
+            <MySubmissions />
+          </Route>
 
-        <Route>
-          <Error404 />
-        </Route>
-      </Switch>
-    </Router>
-  );
+          <Route exact path="/mysubmissions/:quizcode">
+            <MyQuizSubmission />
+          </Route>
+
+          <Route exact path="/myquizcodes/:quizcode">
+            <MyQuizCodeStats />
+          </Route>
+
+          <Route>
+            <Error404 />
+          </Route>
+        </Switch>
+      </Router>
+    );
+  }
 }

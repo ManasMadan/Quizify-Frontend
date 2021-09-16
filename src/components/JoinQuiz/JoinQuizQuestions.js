@@ -12,6 +12,7 @@ import {
   createsubmittedby,
   setAlert,
   fetchallquestionsanswers,
+  setLoading,
 } from "../../base";
 
 export default function JoinQuizQuestions() {
@@ -24,8 +25,10 @@ export default function JoinQuizQuestions() {
   const [submission, setSubmission] = useState([]);
 
   const fetchQuestions = async (authToken, quizcode) => {
+    dispatch(setLoading(true));
     const data = await fetchallquestions(authToken, quizcode);
     setQuestions(data);
+    dispatch(setLoading(false));
   };
 
   const handleSubmission = async (
@@ -105,7 +108,6 @@ export default function JoinQuizQuestions() {
         }
       }
     }
-
     return { questionsWithAnswers, marksAwarded, totalMarks };
   };
 
@@ -116,6 +118,7 @@ export default function JoinQuizQuestions() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
+    dispatch(setLoading(true));
     if (submission.length > 0) {
       const email = await localStorage.getItem("userEmail");
       await createsubmittedby(authToken, quizcode);
@@ -129,6 +132,7 @@ export default function JoinQuizQuestions() {
         email
       );
     }
+    dispatch(setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submission]);
 
@@ -164,6 +168,7 @@ export default function JoinQuizQuestions() {
               minHeight: "40px",
             }}
             onClick={async () => {
+              dispatch(setLoading(true));
               const answers = [];
               const idsUsed = [];
 
@@ -225,6 +230,7 @@ export default function JoinQuizQuestions() {
               });
 
               setSubmission([...answers]);
+              dispatch(setLoading(false));
             }}
           >
             Submit
