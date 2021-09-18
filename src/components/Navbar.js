@@ -7,12 +7,17 @@ import {
   useSelector,
   Link,
   signOut,
+  useRef,
 } from "../base";
 
 export default function Navbar() {
   const dispatch = useDispatch();
   const darkTheme = useSelector((state) => state.changeTheme);
   const loggedIn = useSelector((state) => state.changeLoginState);
+  const ref = useRef();
+  const closeMenu = () => {
+    ref.current.click();
+  };
   return (
     <nav
       className={`navbar navbar-expand-lg navbar-${
@@ -20,7 +25,7 @@ export default function Navbar() {
       } bg-${darkTheme ? "dark" : "light"}`}
     >
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/">
+        <Link className="navbar-brand" to="/" onClick={closeMenu}>
           Quiziz
         </Link>
         <button
@@ -31,38 +36,48 @@ export default function Navbar() {
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
           aria-label="Toggle navigation"
+          ref={ref}
         >
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link className="nav-link" aria-current="page" to="/">
+              <Link
+                className="nav-link"
+                aria-current="page"
+                to="/"
+                onClick={closeMenu}
+              >
                 Home
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/joinquiz">
+              <Link className="nav-link" to="/joinquiz" onClick={closeMenu}>
                 Join Quiz
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/createquiz">
+              <Link className="nav-link" to="/createquiz" onClick={closeMenu}>
                 Create Quiz
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/myquizcodes">
+              <Link className="nav-link" to="/myquizcodes" onClick={closeMenu}>
                 My Quiz Codes
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/mysubmissions">
+              <Link
+                className="nav-link"
+                to="/mysubmissions"
+                onClick={closeMenu}
+              >
                 My Submissions
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/about">
+              <Link className="nav-link" to="/about" onClick={closeMenu}>
                 About
               </Link>
             </li>
@@ -85,7 +100,11 @@ export default function Navbar() {
                 Dark Mode
               </label>
             </div>
-            <Link className="nav-link" to={loggedIn ? "/" : "/signin"}>
+            <Link
+              className="nav-link"
+              to={loggedIn ? "/" : "/signin"}
+              onClick={closeMenu}
+            >
               <button
                 className="btn btn-primary"
                 onClick={() => {
