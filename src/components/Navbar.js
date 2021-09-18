@@ -16,7 +16,9 @@ export default function Navbar() {
   const loggedIn = useSelector((state) => state.changeLoginState);
   const ref = useRef();
   const closeMenu = () => {
-    ref.current.click();
+    if (window.innerWidth < 992) {
+      ref.current.click();
+    }
   };
   return (
     <nav
