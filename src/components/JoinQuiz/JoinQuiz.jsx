@@ -1,12 +1,12 @@
 import {
   useSelector,
-  joinquizcode,
+  fetchallquestions,
   useState,
   useHistory,
   useDispatch,
   setAlert,
   checkquizcode,
-  fetchallmysubmissions,
+  fetchallusersubmissions,
 } from "../../base";
 
 export default function JoinQuiz() {
@@ -49,7 +49,7 @@ export default function JoinQuiz() {
           className="btn btn-primary mx-1"
           onClick={async () => {
             if (authToken) {
-              const submissions = await fetchallmysubmissions(authToken);
+              const submissions = await fetchallusersubmissions(authToken);
               for (let i = 0; i < submissions.length; i++) {
                 const submission = submissions[i];
                 if (submission.quizcode === quizcode) {
@@ -66,7 +66,7 @@ export default function JoinQuiz() {
               const quizcoderes = await checkquizcode(authToken, quizcode);
               if (!quizcoderes.error) {
                 if (!quizcoderes.quizcode.deleted) {
-                  const res = await joinquizcode(authToken, quizcode);
+                  const res = await fetchallquestions(authToken, quizcode);
                   if (res.length >= 0) {
                     dispatch(
                       setAlert({

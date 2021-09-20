@@ -2,7 +2,7 @@ import {
   MySubmissionsItem,
   useState,
   useEffect,
-  fetchallmysubmissions,
+  fetchallusersubmissions,
   useSelector,
 } from "../../base";
 
@@ -14,7 +14,7 @@ export default function MySubmissions() {
   useEffect(() => {
     const myfunction = async () => {
       if (authToken) {
-        const res = await fetchallmysubmissions(authToken);
+        const res = await fetchallusersubmissions(authToken);
         setMySubmissions(res);
       }
     };

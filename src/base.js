@@ -40,28 +40,30 @@ import MySubmissionsItem from "./components/MySubmissions/MySubmissionsItem";
 import MyQuizSubmission from "./components/MySubmissions/MyQuizSubmission";
 
 // Methods - Auth
-import signIn from "./components/Methods/signIn";
-import signOut from "./components/Methods/signOut";
-import signUp from "./components/Methods/signUp";
-import userData from "./components/Methods/userData";
+import { signIn, signUp, signOut, userData } from "./components/Methods/myauth";
 // Methods - QuizCode
-import createquizcode from "./components/Methods/createquizcode";
-import joinquizcode from "./components/Methods/joinquizcode";
-import fetchallquizcodes from "./components/Methods/fetchallquizcodes";
-import deletequizcode from "./components/Methods/deletequizcode";
-import undeletequizcode from "./components/Methods/undeletequizcode";
-import checkquizcode from "./components/Methods/checkquizcode";
+import {
+  createquizcode,
+  fetchallquizcodes,
+  archivequizcode,
+  unarchivequizcode,
+  checkquizcode,
+} from "./components/Methods/quizcode";
 // Methods - Questions
-import fetchallquestions from "./components/Methods/fetchallquestions";
-import fetchallquestionsanswers from "./components/Methods/fetchallquestionsanswers";
-import createquestion from "./components/Methods/createquestion";
-import deletequestion from "./components/Methods/deletequestion";
-import editquestion from "./components/Methods/editquestion";
+import {
+  fetchallquestions,
+  fetchallquestionsanswers,
+  createquestion,
+  deletequestion,
+  editquestion,
+} from "./components/Methods/questions";
 // Methods - Submissions
-import createsubmission from "./components/Methods/createsubmission";
-import createsubmittedby from "./components/Methods/createsubmittedby";
-import fetchallmysubmissions from "./components/Methods/fetchallmysubmissions";
-import fetchallquizcodesubmissions from "./components/Methods/fetchallquizcodesubmissions";
+import {
+  createsubmission,
+  createsubmittedby,
+  fetchallusersubmissions,
+  fetchallquizcodesubmissions,
+} from "./components/Methods/submissions";
 
 // Redux Actions
 // Alert
@@ -128,9 +130,8 @@ export {
   signUp,
   userData,
   // Methods - QuizCodes
-  joinquizcode,
-  deletequizcode,
-  undeletequizcode,
+  archivequizcode,
+  unarchivequizcode,
   createquizcode,
   fetchallquizcodes,
   checkquizcode,
@@ -142,7 +143,7 @@ export {
   editquestion,
   // Methods - Submissions
   createsubmission,
-  fetchallmysubmissions,
+  fetchallusersubmissions,
   fetchallquizcodesubmissions,
   createsubmittedby,
   // Components - Questions

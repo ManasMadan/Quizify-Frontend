@@ -4,9 +4,9 @@ import {
   useHistory,
   useDispatch,
   setAlert,
-  joinquizcode,
+  fetchallquestions,
   createquizcode,
-  fetchallmysubmissions,
+  fetchallusersubmissions,
 } from "../base";
 
 export default function Home() {
@@ -51,7 +51,7 @@ export default function Home() {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }
               if (authToken) {
-                const submissions = await fetchallmysubmissions(authToken);
+                const submissions = await fetchallusersubmissions(authToken);
                 for (let i = 0; i < submissions.length; i++) {
                   const submission = submissions[i];
                   if (submission.quizcode === quizcode) {
@@ -66,7 +66,7 @@ export default function Home() {
                 }
 
                 if (loggedIn && quizcode.trim() !== "") {
-                  const res = await joinquizcode(authToken, quizcode);
+                  const res = await fetchallquestions(authToken, quizcode);
                   if (res.length >= 0) {
                     dispatch(
                       setAlert({

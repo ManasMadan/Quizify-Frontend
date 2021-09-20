@@ -2,7 +2,7 @@ import {
   useState,
   useEffect,
   useParams,
-  fetchallmysubmissions,
+  fetchallusersubmissions,
   Question,
   QuestionOption,
 } from "../../base";
@@ -14,7 +14,7 @@ export default function MyQuizSubmission() {
 
   const fetchSubmission = async () => {
     if (authToken) {
-      const res = await fetchallmysubmissions(authToken);
+      const res = await fetchallusersubmissions(authToken);
       for (let i = 0; i < res.length; i++) {
         const element = res[i];
         if (element.quizcode === quizcode) {

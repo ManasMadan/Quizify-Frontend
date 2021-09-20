@@ -4,8 +4,8 @@ import {
   useState,
   fetchallquizcodes,
   QuizCodeElement,
-  deletequizcode,
-  undeletequizcode,
+  archivequizcode,
+  unarchivequizcode,
 } from "../../base";
 
 export default function MyQuizCodes() {
@@ -20,8 +20,8 @@ export default function MyQuizCodes() {
     }
   };
 
-  const deleteCode = async (authToken, quizcode) => {
-    deletequizcode(authToken, quizcode);
+  const archiveQuizCode = async (authToken, quizcode) => {
+    archivequizcode(authToken, quizcode);
     const newQuizCodesArray = quizCodesArray;
     newQuizCodesArray.forEach((code) => {
       if (code.quizcode === quizcode) {
@@ -32,8 +32,8 @@ export default function MyQuizCodes() {
     sessionStorage.setItem("myQuizcodes", JSON.stringify(newQuizCodesArray));
   };
 
-  const undeleteCode = async (authToken, quizcode) => {
-    undeletequizcode(authToken, quizcode);
+  const unarchiveQuizCode = async (authToken, quizcode) => {
+    unarchivequizcode(authToken, quizcode);
     const newQuizCodesArray = quizCodesArray;
     newQuizCodesArray.forEach((code) => {
       if (code.quizcode === quizcode) {
@@ -68,7 +68,7 @@ export default function MyQuizCodes() {
               <QuizCodeElement
                 key={quizcode._id}
                 quizcode={quizcode}
-                method={quizcode.deleted ? undeleteCode : deleteCode}
+                method={quizcode.deleted ? unarchiveQuizCode : archiveQuizCode}
               />
             );
           })}
