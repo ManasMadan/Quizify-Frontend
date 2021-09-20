@@ -6,21 +6,27 @@ import {
   QuizCodeElement,
   archivequizcode,
   unarchivequizcode,
+  useDispatch,
+  setLoading,
 } from "../../base";
 
 export default function MyQuizCodes() {
   const [quizCodesArray, setquizCodesArray] = useState([]);
   const loggedIn = useSelector((state) => state.changeLoginState);
   const authToken = localStorage.getItem("auth-token");
+  const dispatch = useDispatch();
 
   const fetchQuizCodes = async (authToken) => {
+    dispatch(setLoading(true));
     if (authToken) {
       const data = await fetchallquizcodes(authToken);
       setquizCodesArray(data);
     }
+    dispatch(setLoading(false));
   };
 
   const archiveQuizCode = async (authToken, quizcode) => {
+    dispatch(setLoading(true));
     archivequizcode(authToken, quizcode);
     const newQuizCodesArray = quizCodesArray;
     newQuizCodesArray.forEach((code) => {
@@ -30,9 +36,11 @@ export default function MyQuizCodes() {
     });
     setquizCodesArray([...newQuizCodesArray]);
     sessionStorage.setItem("myQuizcodes", JSON.stringify(newQuizCodesArray));
+    dispatch(setLoading(false));
   };
 
   const unarchiveQuizCode = async (authToken, quizcode) => {
+    dispatch(setLoading(true));
     unarchivequizcode(authToken, quizcode);
     const newQuizCodesArray = quizCodesArray;
     newQuizCodesArray.forEach((code) => {
@@ -42,6 +50,7 @@ export default function MyQuizCodes() {
     });
     setquizCodesArray([...newQuizCodesArray]);
     sessionStorage.setItem("myQuizcodes", JSON.stringify(newQuizCodesArray));
+    dispatch(setLoading(false));
   };
 
   useEffect(() => {

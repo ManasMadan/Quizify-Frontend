@@ -16,6 +16,7 @@ import Home from "./components/Home";
 import About from "./components/About";
 import Error404 from "./components/Error404";
 import Alert from "./components/Alert";
+import Loading from "./components/Loading";
 
 // Components - Auth
 import SignIn from "./components/Auth/SignIn";
@@ -68,6 +69,8 @@ import {
 // Redux Actions
 // Alert
 import setAlert from "./actions/alertActions";
+// Loading
+import setLoading from "./actions/loadingActions";
 // DarkTheme
 import toggleTheme from "./actions/darkThemeActions";
 import toggleStyle from "./actions/styleActions";
@@ -115,9 +118,12 @@ export {
   About,
   Error404,
   Alert,
+  Loading,
   // Redux Actions
   // Alert
   setAlert,
+  // Loading
+  setLoading,
   // Dark Theme
   toggleStyle,
   toggleTheme,

@@ -25,6 +25,7 @@ import {
   MySubmissions,
   MyQuizSubmission,
   MyQuizCodeStats,
+  Loading,
 } from "./base";
 
 export default function App() {
@@ -32,6 +33,7 @@ export default function App() {
   const style = useSelector((state) => state.changeStyle);
   const loggedIn = useSelector((state) => state.changeLoginState);
   const alert = useSelector((state) => state.changeAlert);
+  const loading = useSelector((state) => state.changeLoading);
   // Auth-Token To Be Sent in Headers
   const authToken = localStorage.getItem("auth-token");
   // useDispatch
@@ -71,8 +73,15 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedIn]);
 
+  useEffect(() => {
+    document.getElementById("overlay").style.display = loading
+      ? "block"
+      : "none";
+  }, [loading]);
+
   return (
     <Router>
+      <Loading />
       <Navbar />
       <Alert />
       <Switch>

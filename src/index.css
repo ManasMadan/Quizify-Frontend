@@ -6,3 +6,23 @@
 .submissionsTable::-webkit-scrollbar {
   display: none;
 }
+
+#overlay {
+  position: fixed;
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  text-align: center;
+}
+
+#spinner {
+  height: 25vh;
+  width: 25vh;
+  margin-top: 40vh;
+}

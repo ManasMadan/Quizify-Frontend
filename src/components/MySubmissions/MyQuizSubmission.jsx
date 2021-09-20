@@ -5,23 +5,29 @@ import {
   fetchallusersubmissions,
   Question,
   QuestionOption,
+  useDispatch,
+  setLoading,
 } from "../../base";
 
 export default function MyQuizSubmission() {
   const { quizcode } = useParams();
   const authToken = localStorage.getItem("auth-token");
   const [submission, setSubmission] = useState({ answers: [] });
+  const dispatch = useDispatch();
 
   const fetchSubmission = async () => {
+    dispatch(setLoading(true));
     if (authToken) {
       const res = await fetchallusersubmissions(authToken);
       for (let i = 0; i < res.length; i++) {
         const element = res[i];
         if (element.quizcode === quizcode) {
+          dispatch(setLoading(false));
           return element;
         }
       }
     }
+    dispatch(setLoading(false));
   };
 
   useEffect(() => {

@@ -8,6 +8,7 @@ import {
   login,
   logout,
   setAlert,
+  setLoading,
 } from "../../base";
 
 export default function SignIn() {
@@ -26,42 +27,47 @@ export default function SignIn() {
 
   return (
     <div className="container my-5" style={style}>
-      <div className="mb-3">
-        <label htmlFor="email" className="form-label">
-          Email address
-        </label>
-        <input
-          type="email"
-          className="form-control"
-          id="email"
-          aria-describedby="emailHelp"
-          style={style}
-          name="email"
-          value={credentials.email}
-          onChange={onChange}
-        />
-        <div id="emailHelp" className="form-text" style={style}>
-          We'll never share your email with anyone else.
+      <form>
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label">
+            Email address
+          </label>
+          <input
+            type="email"
+            className="form-control"
+            id="email"
+            aria-describedby="emailHelp"
+            style={style}
+            name="email"
+            value={credentials.email}
+            onChange={onChange}
+            autoComplete="username"
+          />
+          <div id="emailHelp" className="form-text" style={style}>
+            We'll never share your email with anyone else.
+          </div>
         </div>
-      </div>
-      <div className="mb-3">
-        <label htmlFor="password" className="form-label">
-          Password
-        </label>
-        <input
-          type="password"
-          className="form-control"
-          name="password"
-          id="password"
-          value={credentials.password}
-          onChange={onChange}
-          style={style}
-        />
-      </div>
+        <div className="mb-3">
+          <label htmlFor="password" className="form-label">
+            Password
+          </label>
+          <input
+            type="password"
+            className="form-control"
+            name="password"
+            id="password"
+            value={credentials.password}
+            onChange={onChange}
+            style={style}
+            autoComplete="current-password"
+          />
+        </div>
+      </form>
       <button
         type="submit"
         className="btn btn-primary"
         onClick={async () => {
+          dispatch(setLoading(true));
           const data = await signIn(credentials);
           if (data.authtoken) {
             localStorage.setItem("auth-token", data.authtoken);
@@ -86,6 +92,7 @@ export default function SignIn() {
             );
             window.scrollTo({ top: 0, behavior: "smooth" });
           }
+          dispatch(setLoading(false));
         }}
       >
         SignIn

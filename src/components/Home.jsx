@@ -7,6 +7,7 @@ import {
   fetchallquestions,
   createquizcode,
   fetchallusersubmissions,
+  setLoading,
 } from "../base";
 
 export default function Home() {
@@ -44,6 +45,7 @@ export default function Home() {
             disabled={quizcode.trim() === ""}
             className="btn btn-primary mx-1"
             onClick={async () => {
+              dispatch(setLoading(true));
               if (!loggedIn) {
                 dispatch(
                   setAlert({ type: "Danger", message: "Sign in To Continue" })
@@ -92,6 +94,7 @@ export default function Home() {
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }
               }
+              dispatch(setLoading(false));
             }}
           >
             Join Quiz
@@ -101,6 +104,7 @@ export default function Home() {
             disabled={quizcode.trim() === ""}
             className="btn btn-primary"
             onClick={async () => {
+              dispatch(setLoading(true));
               if (loggedIn && quizcode.trim() !== "") {
                 const res = await createquizcode(authToken, quizcode);
                 if (res.quizcode) {
@@ -122,6 +126,7 @@ export default function Home() {
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }
               }
+              dispatch(setLoading(false));
             }}
           >
             Create Quiz

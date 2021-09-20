@@ -12,6 +12,7 @@ import {
   createsubmittedby,
   setAlert,
   fetchallquestionsanswers,
+  setLoading,
 } from "../../base";
 
 export default function JoinQuizQuestions() {
@@ -24,8 +25,10 @@ export default function JoinQuizQuestions() {
   const [submission, setSubmission] = useState([]);
 
   const fetchQuestions = async (authToken, quizcode) => {
+    dispatch(setLoading(true));
     const data = await fetchallquestions(authToken, quizcode);
     setQuestions(data);
+    dispatch(setLoading(false));
   };
 
   const handleSubmission = async (
@@ -36,6 +39,7 @@ export default function JoinQuizQuestions() {
     marksAwarded,
     email
   ) => {
+    dispatch(setLoading(true));
     const name = localStorage.getItem("userName");
     const res = await createsubmission(
       authToken,
@@ -66,15 +70,19 @@ export default function JoinQuizQuestions() {
       dispatch(setAlert({ type: "Danger", message: "Some Error Occured" }));
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
+    dispatch(setLoading(false));
   };
 
   const fetchSolutions = async () => {
+    dispatch(setLoading(true));
     const userId = localStorage.getItem("userId");
     const res = await fetchallquestionsanswers(authToken, quizcode, userId);
+    dispatch(setLoading(false));
     return res;
   };
 
   const submit = async () => {
+    dispatch(setLoading(true));
     const questionsWithAnswers = await fetchSolutions();
     let totalMarks = 0;
     let marksAwarded = 0;
@@ -105,6 +113,7 @@ export default function JoinQuizQuestions() {
         }
       }
     }
+    dispatch(setLoading(false));
     return { questionsWithAnswers, marksAwarded, totalMarks };
   };
 
@@ -166,6 +175,7 @@ export default function JoinQuizQuestions() {
               minHeight: "40px",
             }}
             onClick={async () => {
+              dispatch(setLoading(true));
               const answers = [];
               const idsUsed = [];
 
@@ -227,6 +237,7 @@ export default function JoinQuizQuestions() {
               });
 
               setSubmission([...answers]);
+              dispatch(setLoading(false));
             }}
           >
             Submit

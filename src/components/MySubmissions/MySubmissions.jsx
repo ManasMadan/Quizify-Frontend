@@ -4,19 +4,24 @@ import {
   useEffect,
   fetchallusersubmissions,
   useSelector,
+  setLoading,
+  useDispatch,
 } from "../../base";
 
 export default function MySubmissions() {
   const authToken = localStorage.getItem("auth-token");
   const loggedIn = useSelector((state) => state.changeLoginState);
   const [mySubmissions, setMySubmissions] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const myfunction = async () => {
+      dispatch(setLoading(true));
       if (authToken) {
         const res = await fetchallusersubmissions(authToken);
         setMySubmissions(res);
       }
+      dispatch(setLoading(false));
     };
     myfunction();
     // eslint-disable-next-line react-hooks/exhaustive-deps
