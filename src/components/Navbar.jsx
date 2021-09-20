@@ -87,6 +87,7 @@ export default function Navbar() {
           <div className="d-flex align-items-center justify-centent-center">
             <div className="form-check form-switch">
               <input
+                checked={darkTheme}
                 className="form-check-input"
                 onClick={() => {
                   dispatch(toggleTheme(darkTheme));
