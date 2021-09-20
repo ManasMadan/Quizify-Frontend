@@ -19,6 +19,7 @@ export default function SignUp() {
     name: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
 
   const onChange = (e) => {
@@ -74,10 +75,30 @@ export default function SignUp() {
           style={style}
         />
       </div>
+      <div className="mb-3">
+        <label htmlFor="password" className="form-label">
+          Confirm Password
+        </label>
+        <input
+          type="password"
+          className="form-control"
+          id="password"
+          name="confirmPassword"
+          value={credentials.confirmPassword}
+          onChange={onChange}
+          style={style}
+        />
+      </div>
       <button
         type="submit"
         className="btn btn-primary"
         onClick={async () => {
+          if (credentials.password !== credentials.confirmPassword) {
+            dispatch(
+              setAlert({ type: "Danger", message: "Passwords Must be Same" })
+            );
+            return;
+          }
           const data = await signUp(credentials);
           if (data.authtoken) {
             localStorage.setItem("auth-token", data.authtoken);
