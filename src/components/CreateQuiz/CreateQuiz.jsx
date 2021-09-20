@@ -55,8 +55,7 @@ export default function CreateQuiz() {
               dispatch(
                 setAlert({
                   type: "Danger",
-                  message:
-                    res.error === undefined ? res.errors[0].msg : res.error,
+                  message: res.error || res.errors[0].msg,
                 })
               );
               window.scrollTo({ top: 0, behavior: "smooth" });

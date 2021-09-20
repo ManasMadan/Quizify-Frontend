@@ -63,6 +63,7 @@ export default function Home() {
                         message: "You Have Already Submitted",
                       })
                     );
+                    dispatch(setLoading(false));
                     return;
                   }
                 }
@@ -120,7 +121,7 @@ export default function Home() {
                   dispatch(
                     setAlert({
                       type: "Danger",
-                      message: res.error,
+                      message: res.error || res.errors[0].msg,
                     })
                   );
                   window.scrollTo({ top: 0, behavior: "smooth" });

@@ -61,15 +61,19 @@ export default function App() {
 
   // Change Login Redux State
   useEffect(() => {
-    if (authToken) {
-      if (userData(authToken)) {
-        dispatch(login());
+    const myFunc = async () => {
+      if (authToken) {
+        const data = await userData(authToken);
+        if (data) {
+          dispatch(login());
+        } else {
+          dispatch(logout());
+        }
       } else {
         dispatch(logout());
       }
-    } else {
-      dispatch(logout());
-    }
+    };
+    myFunc();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedIn]);
 

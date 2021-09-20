@@ -23,6 +23,7 @@ export default function JoinQuizQuestions() {
   const authToken = localStorage.getItem("auth-token");
   const [questions, setQuestions] = useState([]);
   const [submission, setSubmission] = useState([]);
+  const [submitted, setSubmitted] = useState(false);
 
   const fetchQuestions = async (authToken, quizcode) => {
     dispatch(setLoading(true));
@@ -39,7 +40,6 @@ export default function JoinQuizQuestions() {
     marksAwarded,
     email
   ) => {
-    dispatch(setLoading(true));
     const name = localStorage.getItem("userName");
     const res = await createsubmission(
       authToken,
@@ -50,14 +50,16 @@ export default function JoinQuizQuestions() {
       email,
       name
     );
-    sessionStorage.setItem(
-      "mySubmissions",
-      JSON.stringify(
-        JSON.parse(sessionStorage.getItem("mySubmissions")).concat(
-          res.submission
+    if (res._id) {
+      sessionStorage.setItem(
+        "mySubmissions",
+        JSON.stringify(
+          (JSON.parse(sessionStorage.getItem("mySubmissions")) || []).concat(
+            res.submission
+          )
         )
-      )
-    );
+      );
+    }
     if (res.submission) {
       dispatch(
         setAlert({ type: "Success", message: "Submitted Successfully" })
@@ -67,22 +69,19 @@ export default function JoinQuizQuestions() {
       dispatch(setAlert({ type: "Danger", message: res.error }));
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
+      setSubmitted(false);
       dispatch(setAlert({ type: "Danger", message: "Some Error Occured" }));
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
-    dispatch(setLoading(false));
   };
 
   const fetchSolutions = async () => {
-    dispatch(setLoading(true));
     const userId = localStorage.getItem("userId");
     const res = await fetchallquestionsanswers(authToken, quizcode, userId);
-    dispatch(setLoading(false));
     return res;
   };
 
   const submit = async () => {
-    dispatch(setLoading(true));
     const questionsWithAnswers = await fetchSolutions();
     let totalMarks = 0;
     let marksAwarded = 0;
@@ -113,7 +112,6 @@ export default function JoinQuizQuestions() {
         }
       }
     }
-    dispatch(setLoading(false));
     return { questionsWithAnswers, marksAwarded, totalMarks };
   };
 
@@ -137,6 +135,7 @@ export default function JoinQuizQuestions() {
           marksAwarded,
           email
         );
+        dispatch(setLoading(false));
       }
     };
     myfunction();
@@ -168,13 +167,15 @@ export default function JoinQuizQuestions() {
         >
           <button
             className="btn btn-primary"
+            disabled={submitted}
             style={{
               width: "10vw",
               height: "10vh",
               minWidth: "80px",
               minHeight: "40px",
             }}
-            onClick={async () => {
+            onClick={async (e) => {
+              e.target.disabled = true;
               dispatch(setLoading(true));
               const answers = [];
               const idsUsed = [];
@@ -237,7 +238,6 @@ export default function JoinQuizQuestions() {
               });
 
               setSubmission([...answers]);
-              dispatch(setLoading(false));
             }}
           >
             Submit
