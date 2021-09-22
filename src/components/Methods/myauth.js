@@ -35,7 +35,7 @@ const signUp = async (credentials) => {
       email: credentials.email,
       password: credentials.password,
     }),
-  });
+  }).catch((e) => console.log(e));
   const data = await response.json();
   return data;
 };

@@ -28,7 +28,7 @@ export default function Navbar() {
     >
       <div className="container-fluid">
         <Link className="navbar-brand" to="/" onClick={closeMenu}>
-          Quiziz
+          Quizify
         </Link>
         <button
           className="navbar-toggler"

@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import App from "./App";
 import store from "./store";
 import "./index.css";
+import { register } from "./serviceWorkerRegistration";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -13,3 +14,5 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById("root")
 );
+
+register();

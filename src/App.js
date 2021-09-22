@@ -4,6 +4,7 @@ import {
   Router,
   Switch,
   Route,
+  useState,
   Navbar,
   Home,
   About,
@@ -27,6 +28,7 @@ import {
   MyQuizCodeStats,
   Loading,
 } from "./base";
+import Offline from "./components/Offline";
 
 export default function App() {
   // Redux States
@@ -36,6 +38,8 @@ export default function App() {
   const loading = useSelector((state) => state.changeLoading);
   // Auth-Token To Be Sent in Headers
   const authToken = localStorage.getItem("auth-token");
+  // Online State
+  const [online, setOnline] = useState(true);
   // useDispatch
   const dispatch = useDispatch();
 
@@ -55,9 +59,27 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [alert]);
 
+  // Clear Session Storage On Reload
   window.onbeforeunload = function () {
     sessionStorage.clear();
   };
+
+  // Check Online / Offline Status
+  window.addEventListener("load", () => {
+    function handleNetworkChange(event) {
+      if (navigator.onLine) {
+        setOnline(true);
+      } else {
+        setOnline(false);
+      }
+    }
+
+    window.addEventListener("online", handleNetworkChange);
+    window.addEventListener("offline", handleNetworkChange);
+  });
+  useEffect(() => {
+    setOnline(navigator.onLine);
+  }, []);
 
   // Change Login Redux State
   useEffect(() => {
@@ -77,74 +99,79 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedIn]);
 
+  // Show Overlay On Loading
   useEffect(() => {
     document.getElementById("overlay").style.display = loading
       ? "block"
       : "none";
   }, [loading]);
 
-  return (
-    <Router>
-      <Loading />
-      <Navbar />
-      <Alert />
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-
-        <Route exact path="/about">
-          <About />
-        </Route>
-
-        {!loggedIn && (
-          <Route exact path="/signin">
-            <SignIn />
+  if (!online) {
+    return <Offline />;
+  } else {
+    return (
+      <Router>
+        <Loading />
+        <Navbar />
+        <Alert />
+        <Switch>
+          <Route exact path="/">
+            <Home />
           </Route>
-        )}
 
-        {!loggedIn && (
-          <Route exact path="/signup">
-            <SignUp />
+          <Route exact path="/about">
+            <About />
           </Route>
-        )}
 
-        <Route exact path="/createquiz">
-          <CreateQuiz />
-        </Route>
+          {!loggedIn && (
+            <Route exact path="/signin">
+              <SignIn />
+            </Route>
+          )}
 
-        <Route exact path="/createquiz/:quizcode">
-          <CreateQuizQuestions />
-        </Route>
+          {!loggedIn && (
+            <Route exact path="/signup">
+              <SignUp />
+            </Route>
+          )}
 
-        <Route exact path="/joinquiz/:quizcode">
-          <JoinQuizQuestions />
-        </Route>
+          <Route exact path="/createquiz">
+            <CreateQuiz />
+          </Route>
 
-        <Route exact path="/joinquiz">
-          <JoinQuiz />
-        </Route>
+          <Route exact path="/createquiz/:quizcode">
+            <CreateQuizQuestions />
+          </Route>
 
-        <Route exact path="/myquizcodes">
-          <MyQuizCodes />
-        </Route>
+          <Route exact path="/joinquiz/:quizcode">
+            <JoinQuizQuestions />
+          </Route>
 
-        <Route exact path="/mysubmissions">
-          <MySubmissions />
-        </Route>
+          <Route exact path="/joinquiz">
+            <JoinQuiz />
+          </Route>
 
-        <Route exact path="/mysubmissions/:quizcode">
-          <MyQuizSubmission />
-        </Route>
+          <Route exact path="/myquizcodes">
+            <MyQuizCodes />
+          </Route>
 
-        <Route exact path="/myquizcodes/:quizcode">
-          <MyQuizCodeStats />
-        </Route>
+          <Route exact path="/mysubmissions">
+            <MySubmissions />
+          </Route>
 
-        <Route>
-          <Error404 />
-        </Route>
-      </Switch>
-    </Router>
-  );
+          <Route exact path="/mysubmissions/:quizcode">
+            <MyQuizSubmission />
+          </Route>
+
+          <Route exact path="/myquizcodes/:quizcode">
+            <MyQuizCodeStats />
+          </Route>
+
+          <Route>
+            <Error404 />
+          </Route>
+        </Switch>
+      </Router>
+    );
+  }
 }

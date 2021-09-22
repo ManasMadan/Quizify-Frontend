@@ -22,7 +22,7 @@ export default function Home() {
     <div className="container px-4 py-5" style={style}>
       <div className="row align-items-center g-lg-5 py-5">
         <div className="col-lg-7 text-center text-lg-start" style={style}>
-          <h1 className="display-4 fw-bold lh-1 mb-3">Quiziz</h1>
+          <h1 className="display-4 fw-bold lh-1 mb-3">Quizify</h1>
           <p className="col-lg-10 fs-4">
             Create , Join Interactive Quiz, Forms or Surveys With Automatic
             Marking and Many More Features
