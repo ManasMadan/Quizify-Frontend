@@ -14,7 +14,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import About from "./components/About";
-import Error404 from "./components/Error404";
+import Error404 from "./components/Error404/Error404";
 import Alert from "./components/Alert";
 import Loading from "./components/Loading";
 
