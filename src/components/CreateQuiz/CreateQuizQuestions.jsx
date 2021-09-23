@@ -15,6 +15,7 @@ import {
   fetchallquestionsanswers,
   useEffect,
   setLoading,
+  html2canvas,
 } from "../../base";
 
 export default function CreateQuizQuestions() {
@@ -39,6 +40,8 @@ export default function CreateQuizQuestions() {
   const [option3, setOption3] = useState("");
   const [option4, setOption4] = useState("");
   const [questionId, setQuestionId] = useState("");
+  // Editing State - For Printing
+  const [edit, setEdit] = useState(true);
   // Correct Answer
   const [correctAnswersOptions, setCorrectAnswersOptions] = useState([]);
   const [correctAnswerText, setCorrectAnswerText] = useState("");
@@ -184,10 +187,89 @@ export default function CreateQuizQuestions() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Download Quiz as Image Functions + Handlers
+  useEffect(() => {
+    if (edit === false) {
+      downloadImage(false);
+    }
+  }, [edit]);
+  const downloadImageHandler = (answers) => {
+    if (questions.length === 0) {
+      dispatch(setAlert({ type: "Danger", message: "Atleast Add A Question" }));
+      return;
+    }
+
+    dispatch(setLoading(true));
+    if (answers) {
+      const questionActions =
+        document.getElementsByClassName("questionActions");
+      for (let i = 0; i < questionActions.length; i++) {
+        const element = questionActions[i];
+        element.classList.add("d-none");
+      }
+    }
+
+    if (!answers) {
+      setEdit(false);
+    } else {
+      downloadImage(answers);
+    }
+  };
+
+  const downloadImage = (answers) => {
+    const input = document.getElementById("questionsDiv");
+    input.insertAdjacentHTML(
+      "afterbegin",
+      `<span style="color: black;">Quiz Made Using Quizify<br>To Attempt Its Interactive Version, Go To https://quizify-manas.netlify.app/ and Enter The Code ${quizcode}</span>`
+    );
+    html2canvas(input).then((canvas) => {
+      var imgData = canvas.toDataURL("image/jpeg", 1.0);
+      saveBase64AsFile(
+        imgData,
+        `${quizcode}-Questions${answers ? "-Answers" : ""}`
+      );
+      input.removeChild(input.children[0]);
+      if (!answers) {
+        setEdit(true);
+      } else {
+        const questionActions =
+          document.getElementsByClassName("questionActions");
+        for (let i = 0; i < questionActions.length; i++) {
+          const element = questionActions[i];
+          element.classList.remove("d-none");
+        }
+      }
+      dispatch(setLoading(false));
+    });
+  };
+  function saveBase64AsFile(base64, fileName) {
+    var link = document.createElement("a");
+    document.body.appendChild(link); // for Firefox
+    link.setAttribute("href", base64);
+    link.setAttribute("download", fileName);
+    link.click();
+  }
+
   if (loggedIn) {
     return (
       <div className="container-fluid text-center">
         <h5>QuizCode : {quizcode}</h5>
+        <div className="d-flex align-items-center justify-content-center my-3 flex-wrap">
+          <button
+            type="button"
+            className="btn btn-primary mx-2 my-1"
+            onClick={() => downloadImageHandler(false)}
+          >
+            Download Quiz as Image
+          </button>
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={() => downloadImageHandler(true)}
+          >
+            Download Quiz With Answers as Image
+          </button>
+        </div>
         <button
           type="button"
           className="btn btn-primary"
@@ -197,6 +279,7 @@ export default function CreateQuizQuestions() {
         >
           Add Question
         </button>
+
         <div
           className="modal fade"
           id="exampleModal"
@@ -276,7 +359,11 @@ export default function CreateQuizQuestions() {
           />
         </div>
 
-        <div className="container" style={{ textAlign: "left" }}>
+        <div
+          className="container"
+          style={{ textAlign: "left" }}
+          id="questionsDiv"
+        >
           {questions.map((question) => {
             if (
               question.questionType === "ShortAnswer" ||
@@ -286,7 +373,7 @@ export default function CreateQuizQuestions() {
                 <div key={question._id}>
                   <Question
                     question={question}
-                    edit={true}
+                    edit={edit}
                     deleteQuestionHandler={deleteQuestionHandler}
                     editQuestionHandler={editQuestionHandler}
                   />
@@ -300,7 +387,7 @@ export default function CreateQuizQuestions() {
                 <div key={question._id}>
                   <QuestionOption
                     question={question}
-                    edit={true}
+                    edit={edit}
                     deleteQuestionHandler={deleteQuestionHandler}
                     editQuestionHandler={editQuestionHandler}
                   />

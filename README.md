@@ -47,12 +47,19 @@ To run this project, you will need to add the following environment variables to
 
 `REACT_APP_API_HOST_URL`
 
-## Roadmap
+## TODO
 
-- Add Loadings While Fetching Data
+- CreateQuizQuestion File Code - Improve
+- Code Refactoring - Folder Structure : OnClick and More Events - Seperate Function Handlers in a seperate file
+- Cache Versioning - PWA
 - Better Marking System especially for ShortAnswers and LongAnswers
-- Add more integrations
+- BackGround Music
 - Make Data to be stored in Cache - PWA
+- Next JS Integration : Removing React-Router-Dom
+- Add/Edit Question Modal : Math Equations + Calculator Show Button
+- Single Response/Multiple Response Per Person Per Quizcode
+- Download Quiz as PDF, Zip File of images of individual questions
+- useEffect and Console Warnings Remove
 
 ## Tech Stack
 

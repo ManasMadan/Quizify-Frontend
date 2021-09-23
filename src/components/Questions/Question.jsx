@@ -72,7 +72,7 @@ export default function Question(props) {
 
       {props.edit && (
         <div
-          className="d-flex align-items-center justify-content-center"
+          className="d-flex align-items-center justify-content-center questionActions"
           style={style}
         >
           <span

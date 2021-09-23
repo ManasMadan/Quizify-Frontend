@@ -10,6 +10,9 @@ import {
 } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
+// html2canvas
+import html2canvas from "html2canvas";
+
 // Components
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
@@ -85,6 +88,8 @@ export {
   useState,
   useEffect,
   useRef,
+  // html2canvas
+  html2canvas,
   // Modules - react-router-dom
   Router,
   Link,
