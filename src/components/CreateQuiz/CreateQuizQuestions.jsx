@@ -220,7 +220,7 @@ export default function CreateQuizQuestions() {
     const input = document.getElementById("questionsDiv");
     input.insertAdjacentHTML(
       "afterbegin",
-      `<span style="color: black;">Quiz Made Using Quizify<br>To Attempt Its Interactive Version, Go To https://quizify-manas.netlify.app/ and Enter The Code ${quizcode}</span>`
+      `<span style="color: black;">Quiz Made Using Quizify<br>To Attempt Its Interactive Version, Go To ${process.env.REACT_APP_URL} and Enter The Code ${quizcode}</span>`
     );
     html2canvas(input).then((canvas) => {
       var imgData = canvas.toDataURL("image/jpeg", 1.0);
@@ -239,6 +239,9 @@ export default function CreateQuizQuestions() {
           element.classList.remove("d-none");
         }
       }
+      dispatch(
+        setAlert({ type: "Success", message: "Downloaded Successfully" })
+      );
       dispatch(setLoading(false));
     });
   };

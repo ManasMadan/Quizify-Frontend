@@ -42,7 +42,10 @@ export default function About() {
             data-bs-parent="#accordionExample"
           >
             <div className="accordion-body">
-              Quizify's Code is available on github
+              Quizify's Code is available on github :{" "}
+              <a href="https://github.com/ManasMadan" target="_blank">
+                @ManasMadan
+              </a>
             </div>
           </div>
         </div>
