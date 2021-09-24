@@ -56,7 +56,7 @@ To run this project, you will need to add the following environment variables to
 - BackGround Music
 - Make Data to be stored in Cache - PWA
 - Next JS Integration : Removing React-Router-Dom
-- Add/Edit Question Modal : Math Equations + Calculator Show Button
+- Add/Edit Question Modal : Math Equations
 - Single Response/Multiple Response Per Person Per Quizcode
 - Download Quiz as PDF, Zip File of images of individual questions
 - useEffect and Console Warnings Remove

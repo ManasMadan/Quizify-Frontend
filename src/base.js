@@ -13,6 +13,12 @@ import { useSelector, useDispatch } from "react-redux";
 // html2canvas
 import html2canvas from "html2canvas";
 
+// Number Format
+import NumberFormat from "react-number-format";
+
+// Draggable
+import Draggable from "react-draggable";
+
 // Components
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
@@ -42,6 +48,10 @@ import AddEditQuestion from "./components/Questions/AddEditQuestion";
 import MySubmissions from "./components/MySubmissions/MySubmissions";
 import MySubmissionsItem from "./components/MySubmissions/MySubmissionsItem";
 import MyQuizSubmission from "./components/MySubmissions/MyQuizSubmission";
+// Components - Offline
+import Offline from "./components/Offline";
+// Components - Calculator
+import Calculator from "./components/Calculator/Calculator";
 
 // Methods - Auth
 import { signIn, signUp, signOut, userData } from "./components/Methods/myauth";
@@ -90,6 +100,10 @@ export {
   useRef,
   // html2canvas
   html2canvas,
+  // NumberFormat
+  NumberFormat,
+  // Draggable
+  Draggable,
   // Modules - react-router-dom
   Router,
   Link,
@@ -117,6 +131,10 @@ export {
   MySubmissions,
   MySubmissionsItem,
   MyQuizSubmission,
+  // Components - Offline
+  Offline,
+  // Components - Calculator
+  Calculator,
   // Components
   Navbar,
   Home,
