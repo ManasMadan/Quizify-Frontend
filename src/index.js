@@ -15,4 +15,5 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-register();
+// Removed For Now
+// register();
