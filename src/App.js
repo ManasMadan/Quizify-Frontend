@@ -101,9 +101,9 @@ export default function App() {
 
   // Show Overlay On Loading
   useEffect(() => {
-    // document.getElementById("overlay").style.display = loading
-    //   ? "block"
-    //   : "none";
+    document.getElementById("overlay").style.display = loading
+      ? "block"
+      : "none";
   }, [loading]);
 
   if (!online) {

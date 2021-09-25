@@ -12,7 +12,7 @@ import {
 
 export default function Navbar() {
   const dispatch = useDispatch();
-  const darkTheme = useSelector((state) => state.changeTheme);
+  const style = useSelector((state) => state.changeStyle);
   const loggedIn = useSelector((state) => state.changeLoginState);
   const ref = useRef();
   const closeMenu = () => {
@@ -23,8 +23,8 @@ export default function Navbar() {
   return (
     <nav
       className={`navbar navbar-expand-lg navbar-${
-        darkTheme ? "dark" : "light"
-      } bg-${darkTheme ? "dark" : "light"}`}
+        style.color === "white" ? "dark" : "light"
+      } bg-${style.color === "white" ? "dark" : "light"}`}
     >
       <div className="container-fluid">
         <Link className="navbar-brand" to="/" onClick={closeMenu}>
@@ -87,17 +87,19 @@ export default function Navbar() {
           <div className="d-flex align-items-center justify-centent-center">
             <div className="form-check form-switch">
               <input
-                checked={darkTheme}
+                checked={style.color === "white"}
                 className="form-check-input"
                 onClick={() => {
-                  dispatch(toggleTheme(darkTheme));
-                  dispatch(toggleStyle(darkTheme));
+                  dispatch(toggleTheme(style.color === "white"));
+                  dispatch(toggleStyle(style.color === "white"));
                 }}
                 type="checkbox"
                 id="flexSwitchCheckDefault"
               />
               <label
-                className={`form-check-label ${darkTheme ? "text-light" : ""}`}
+                className={`form-check-label ${
+                  style.color === "white" ? "text-light" : ""
+                }`}
                 htmlFor="flexSwitchCheckDefault"
               >
                 Dark Mode

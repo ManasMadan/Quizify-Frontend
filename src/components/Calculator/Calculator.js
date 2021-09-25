@@ -91,7 +91,7 @@ function Calculator(props) {
       className="fixed-top"
       style={{ display: `${props.show ? "" : "none"}` }}
     >
-      <Draggable>
+      <Draggable cancel=".calculator-btn">
         <div className="calculator-container">
           <div className="calculator-wrapper">
             <div className="calculator-screen">
