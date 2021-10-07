@@ -28,6 +28,7 @@ import {
   MyQuizCodeStats,
   Loading,
   Offline,
+  VerifyEmail,
 } from "./base";
 
 export default function App() {
@@ -86,7 +87,7 @@ export default function App() {
     const myFunc = async () => {
       if (authToken) {
         const data = await userData(authToken);
-        if (data) {
+        if (data._id) {
           dispatch(login());
         } else {
           dispatch(logout());
@@ -134,6 +135,10 @@ export default function App() {
               <SignUp />
             </Route>
           )}
+
+          <Route exact path="/verify/:userId">
+            <VerifyEmail />
+          </Route>
 
           <Route exact path="/createquiz">
             <CreateQuiz />

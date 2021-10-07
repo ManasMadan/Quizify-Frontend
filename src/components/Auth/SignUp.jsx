@@ -108,14 +108,14 @@ export default function SignUp() {
             return;
           }
           const data = await signUp(credentials);
-          if (data.authtoken) {
-            localStorage.setItem("auth-token", data.authtoken);
-            dispatch(login());
+          if (data.success) {
             dispatch(
-              setAlert({ type: "Success", message: "Succesfully Signed Up" })
+              setAlert({
+                type: "Success",
+                message: "Email Verification Link Sent Succesfully",
+              })
             );
             window.scrollTo({ top: 0, behavior: "smooth" });
-
             history.push("/");
           } else {
             dispatch(logout());
@@ -123,7 +123,7 @@ export default function SignUp() {
             dispatch(
               setAlert({
                 type: "Danger",
-                message: data.error || data.errors[0].msg,
+                message: "Some Error Occured",
               })
             );
             window.scrollTo({ top: 0, behavior: "smooth" });

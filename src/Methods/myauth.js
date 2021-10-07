@@ -60,4 +60,16 @@ const userData = async (authToken) => {
   }
 };
 
-export { signIn, signOut, signUp, userData };
+const verifyEmail = async (userId) => {
+  const url = `${process.env.REACT_APP_API_HOST_URL}/api/auth/verifyuser/${userId}`;
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const data = await response.json();
+  return data;
+};
+
+export { signIn, signOut, signUp, userData, verifyEmail };

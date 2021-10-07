@@ -30,6 +30,7 @@ import Loading from "./components/Loading";
 // Components - Auth
 import SignIn from "./components/Auth/SignIn";
 import SignUp from "./components/Auth/SignUp";
+import VerifyEmail from "./components/Auth/VerifyEmail";
 // Components - Create Quiz
 import CreateQuiz from "./components/CreateQuiz/CreateQuiz";
 import CreateQuizQuestions from "./components/CreateQuiz/CreateQuizQuestions";
@@ -54,7 +55,13 @@ import Offline from "./components/Offline";
 import Calculator from "./components/Calculator/Calculator";
 
 // Methods - Auth
-import { signIn, signUp, signOut, userData } from "./components/Methods/myauth";
+import {
+  signIn,
+  signUp,
+  signOut,
+  userData,
+  verifyEmail,
+} from "./Methods/myauth";
 // Methods - QuizCode
 import {
   createquizcode,
@@ -62,7 +69,7 @@ import {
   archivequizcode,
   unarchivequizcode,
   checkquizcode,
-} from "./components/Methods/quizcode";
+} from "./Methods/quizcode";
 // Methods - Questions
 import {
   fetchallquestions,
@@ -70,14 +77,14 @@ import {
   createquestion,
   deletequestion,
   editquestion,
-} from "./components/Methods/questions";
+} from "./Methods/questions";
 // Methods - Submissions
 import {
   createsubmission,
   createsubmittedby,
   fetchallusersubmissions,
   fetchallquizcodesubmissions,
-} from "./components/Methods/submissions";
+} from "./Methods/submissions";
 
 // Redux Actions
 // Alert
@@ -117,6 +124,7 @@ export {
   // Components - Auth
   SignIn,
   SignUp,
+  VerifyEmail,
   // Components - Create Quiz
   CreateQuiz,
   CreateQuizQuestions,
@@ -158,6 +166,7 @@ export {
   signOut,
   signUp,
   userData,
+  verifyEmail,
   // Methods - QuizCodes
   archivequizcode,
   unarchivequizcode,
