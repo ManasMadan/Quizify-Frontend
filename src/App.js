@@ -87,7 +87,7 @@ export default function App() {
     const myFunc = async () => {
       if (authToken) {
         const data = await userData(authToken);
-        if (data._id) {
+        if (data) {
           dispatch(login());
         } else {
           dispatch(logout());

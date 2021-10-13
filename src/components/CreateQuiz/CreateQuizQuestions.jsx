@@ -64,9 +64,13 @@ export default function CreateQuizQuestions() {
         : correctAnswersOptions,
   };
 
+  // Calculator Position
+  const [calculatorPosition, setCalculatorPosition] = useState({ x: 0, y: 0 });
+
   // Calculator Visibility State
   const [calculatorVisibility, setCalculatorVisibility] = useState(false);
   const toggleCalculatorVisibility = () => {
+    setCalculatorPosition({ x: 0, y: 0 });
     setCalculatorVisibility(!calculatorVisibility);
   };
 
@@ -262,7 +266,11 @@ export default function CreateQuizQuestions() {
   if (loggedIn) {
     return (
       <div className="container-fluid text-center">
-        <Calculator show={calculatorVisibility} />
+        <Calculator
+          show={calculatorVisibility}
+          calculatorPosition={calculatorPosition}
+          setCalculatorPosition={setCalculatorPosition}
+        />
         <div className="fixed-top" onClick={toggleCalculatorVisibility}>
           <div
             className="btn btn-primary position-absolute end-0 top-0 me-3"

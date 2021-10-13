@@ -91,7 +91,14 @@ function Calculator(props) {
       className="fixed-top"
       style={{ display: `${props.show ? "" : "none"}` }}
     >
-      <Draggable cancel=".calculator-btn">
+      <Draggable
+        cancel=".calculator-btn"
+        position={props.calculatorPosition}
+        onStop={(e) => {
+          console.log(e);
+          props.setCalculatorPosition({ x: e.clientX, y: e.clientY });
+        }}
+      >
         <div className="calculator-container">
           <div className="calculator-wrapper">
             <div className="calculator-screen">
