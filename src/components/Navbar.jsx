@@ -119,7 +119,6 @@ export default function Navbar() {
                     dispatch(
                       setAlert({ type: "Success", message: "Signed Out" })
                     );
-                    window.scrollTo({ top: 0, behavior: "smooth" });
                   }
                 }}
               >

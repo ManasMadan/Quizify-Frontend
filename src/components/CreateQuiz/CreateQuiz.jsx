@@ -58,7 +58,6 @@ export default function CreateQuiz() {
                   message: res.error || res.errors[0].msg,
                 })
               );
-              window.scrollTo({ top: 0, behavior: "smooth" });
             }
             dispatch(setLoading(false));
           }}

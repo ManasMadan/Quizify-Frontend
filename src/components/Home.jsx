@@ -50,7 +50,6 @@ export default function Home() {
                 dispatch(
                   setAlert({ type: "Danger", message: "Sign in To Continue" })
                 );
-                window.scrollTo({ top: 0, behavior: "smooth" });
               }
               if (authToken) {
                 const submissions = await fetchallusersubmissions(authToken);
@@ -77,7 +76,6 @@ export default function Home() {
                         message: `Joined Quiz ${quizcode}`,
                       })
                     );
-                    window.scrollTo({ top: 0, behavior: "smooth" });
                     history.push(`/joinquiz/${quizcode}`);
                   } else {
                     dispatch(
@@ -86,13 +84,11 @@ export default function Home() {
                         message: res.error,
                       })
                     );
-                    window.scrollTo({ top: 0, behavior: "smooth" });
                   }
                 } else {
                   dispatch(
                     setAlert({ type: "Danger", message: "Sign in To Continue" })
                   );
-                  window.scrollTo({ top: 0, behavior: "smooth" });
                 }
               }
               dispatch(setLoading(false));
@@ -115,7 +111,6 @@ export default function Home() {
                       message: `Created Quiz ${quizcode}`,
                     })
                   );
-                  window.scrollTo({ top: 0, behavior: "smooth" });
                   history.push(`/createquiz/${quizcode}`);
                 } else {
                   dispatch(
@@ -124,7 +119,6 @@ export default function Home() {
                       message: res.error || res.errors[0].msg,
                     })
                   );
-                  window.scrollTo({ top: 0, behavior: "smooth" });
                 }
               }
               dispatch(setLoading(false));

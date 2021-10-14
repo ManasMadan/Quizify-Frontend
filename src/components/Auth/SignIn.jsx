@@ -9,6 +9,7 @@ import {
   logout,
   setAlert,
   setLoading,
+  sendVerificationEmail,
 } from "../../base";
 
 export default function SignIn() {
@@ -73,24 +74,31 @@ export default function SignIn() {
             localStorage.setItem("auth-token", data.authtoken);
             dispatch(login());
             dispatch(setAlert({ type: "Success", message: "Signed In" }));
-            window.scrollTo({ top: 0, behavior: "smooth" });
-
-            window.scrollTo({ top: 0, behavior: "smooth" });
             history.push("/");
             dispatch(
               setAlert({ type: "Success", message: "Succesfully Signed In" })
             );
-            window.scrollTo({ top: 0, behavior: "smooth" });
           } else {
             dispatch(logout());
             localStorage.removeItem("auth-token");
-            dispatch(
-              setAlert({
-                type: "Danger",
-                message: data.error || data.errors[0].msg,
-              })
-            );
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            if (data.error === "Verify Email To Continue") {
+              const res = await sendVerificationEmail(credentials.email);
+              if (res.success) {
+                dispatch(
+                  setAlert({
+                    type: "Danger",
+                    message: "Verify Email To Continue - Link Sent",
+                  })
+                );
+              }
+            } else {
+              dispatch(
+                setAlert({
+                  type: "Danger",
+                  message: data.error || data.errors[0].msg,
+                })
+              );
+            }
           }
           dispatch(setLoading(false));
         }}

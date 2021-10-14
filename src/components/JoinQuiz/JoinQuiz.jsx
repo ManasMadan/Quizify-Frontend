@@ -77,8 +77,6 @@ export default function JoinQuiz() {
                         message: `Joined Quiz ${quizcode}`,
                       })
                     );
-                    window.scrollTo({ top: 0, behavior: "smooth" });
-
                     history.push(`/joinquiz/${quizcode}`);
                   } else {
                     dispatch(
@@ -87,7 +85,6 @@ export default function JoinQuiz() {
                         message: res.error,
                       })
                     );
-                    window.scrollTo({ top: 0, behavior: "smooth" });
                   }
                 } else {
                   dispatch(
@@ -96,7 +93,6 @@ export default function JoinQuiz() {
                       message: "QuizCode Has Been Deleted",
                     })
                   );
-                  window.scrollTo({ top: 0, behavior: "smooth" });
                 }
               } else {
                 dispatch(

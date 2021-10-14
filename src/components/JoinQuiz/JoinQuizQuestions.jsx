@@ -64,14 +64,11 @@ export default function JoinQuizQuestions() {
       dispatch(
         setAlert({ type: "Success", message: "Submitted Successfully" })
       );
-      window.scrollTo({ top: 0, behavior: "smooth" });
     } else if (res.error) {
       dispatch(setAlert({ type: "Danger", message: res.error }));
-      window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
       setSubmitted(false);
       dispatch(setAlert({ type: "Danger", message: "Some Error Occured" }));
-      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 

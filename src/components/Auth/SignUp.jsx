@@ -115,7 +115,6 @@ export default function SignUp() {
                 message: "Email Verification Link Sent Succesfully",
               })
             );
-            window.scrollTo({ top: 0, behavior: "smooth" });
             history.push("/");
           } else {
             dispatch(logout());
@@ -126,7 +125,6 @@ export default function SignUp() {
                 message: "Some Error Occured",
               })
             );
-            window.scrollTo({ top: 0, behavior: "smooth" });
           }
           dispatch(setLoading(false));
         }}

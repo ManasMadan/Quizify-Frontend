@@ -53,6 +53,7 @@ export default function App() {
   // Hide Alert After 2 seconds
   useEffect(() => {
     if (alert !== {}) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
       setTimeout(() => {
         dispatch(setAlert(null));
       }, 5000);

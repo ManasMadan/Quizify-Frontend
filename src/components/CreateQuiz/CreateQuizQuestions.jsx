@@ -134,12 +134,9 @@ export default function CreateQuizQuestions() {
     const res = await createquestion(authToken, question);
     if (res._id) {
       dispatch(setAlert({ type: "Success", message: "Question Created" }));
-      window.scrollTo({ top: 0, behavior: "smooth" });
-
       setQuestions(questions.concat(res));
     } else {
       dispatch(setAlert({ type: "Danger", message: res.error }));
-      window.scrollTo({ top: 0, behavior: "smooth" });
     }
     setStateVariablesToInitialState();
     dispatch(setLoading(false));
@@ -167,14 +164,11 @@ export default function CreateQuizQuestions() {
         newQuestionsArray.push(...questions.slice(index + 1));
         setQuestions(newQuestionsArray);
         dispatch(setAlert({ type: "Success", message: "Question Edited" }));
-        window.scrollTo({ top: 0, behavior: "smooth" });
       } else {
         dispatch(setAlert({ type: "Danger", message: res.error }));
-        window.scrollTo({ top: 0, behavior: "smooth" });
       }
     } else {
       dispatch(setAlert({ type: "Danger", message: "Add Atleast A Option" }));
-      window.scrollTo({ top: 0, behavior: "smooth" });
     }
     setStateVariablesToInitialState();
     dispatch(setLoading(false));

@@ -62,6 +62,7 @@ import {
   signOut,
   userData,
   verifyEmail,
+  sendVerificationEmail,
 } from "./Methods/myauth";
 // Methods - QuizCode
 import {
@@ -169,6 +170,7 @@ export {
   signUp,
   userData,
   verifyEmail,
+  sendVerificationEmail,
   // Methods - QuizCodes
   archivequizcode,
   unarchivequizcode,

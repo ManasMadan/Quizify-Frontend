@@ -365,8 +365,6 @@ export default function AddQuestion(props) {
                       "Atleast Add A Correct Option as Marks Is Greater than 0",
                   })
                 );
-                window.scrollTo({ top: 0, behavior: "smooth" });
-
                 return;
               }
 
@@ -383,8 +381,6 @@ export default function AddQuestion(props) {
                       "Atleast Add A Correct Option as Marks Is Greater than 0",
                   })
                 );
-                window.scrollTo({ top: 0, behavior: "smooth" });
-
                 return;
               }
 
@@ -401,7 +397,6 @@ export default function AddQuestion(props) {
                     message: "Options Cannot Be Same",
                   })
                 );
-                window.scrollTo({ top: 0, behavior: "smooth" });
               }
             }}
           >

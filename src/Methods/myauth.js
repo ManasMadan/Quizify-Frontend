@@ -72,4 +72,26 @@ const verifyEmail = async (userId) => {
   return data;
 };
 
-export { signIn, signOut, signUp, userData, verifyEmail };
+const sendVerificationEmail = async (email) => {
+  const url = `${process.env.REACT_APP_API_HOST_URL}/api/auth/sendverificationemail`;
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email,
+    }),
+  });
+  const data = await response.json();
+  return data;
+};
+
+export {
+  signIn,
+  signOut,
+  signUp,
+  userData,
+  verifyEmail,
+  sendVerificationEmail,
+};
