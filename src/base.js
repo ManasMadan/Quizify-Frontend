@@ -34,6 +34,7 @@ import VerifyEmail from "./components/Auth/VerifyEmail";
 // Components - Create Quiz
 import CreateQuiz from "./components/CreateQuiz/CreateQuiz";
 import CreateQuizQuestions from "./components/CreateQuiz/CreateQuizQuestions";
+import DownloadQuiz from "./components/CreateQuiz/DownloadQuiz";
 // Components - Join Quiz
 import JoinQuiz from "./components/JoinQuiz/JoinQuiz";
 import JoinQuizQuestions from "./components/JoinQuiz/JoinQuizQuestions";
@@ -128,6 +129,7 @@ export {
   // Components - Create Quiz
   CreateQuiz,
   CreateQuizQuestions,
+  DownloadQuiz,
   // Components - Join Quiz
   JoinQuiz,
   JoinQuizQuestions,

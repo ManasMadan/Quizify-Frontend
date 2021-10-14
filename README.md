@@ -46,6 +46,7 @@ Start the Client + Server
 To run this project, you will need to add the following environment variables to your .env.development file
 
 `REACT_APP_API_HOST_URL`
+`REACT_APP_URL`
 
 ## TODO
 
