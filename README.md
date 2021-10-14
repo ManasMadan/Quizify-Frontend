@@ -52,15 +52,13 @@ To run this project, you will need to add the following environment variables to
 
 - CreateQuizQuestion File Code - Improve
 - Code Refactoring - Folder Structure : OnClick and More Events - Seperate Function Handlers in a seperate file
-- Cache Versioning - PWA
-- Better Marking System especially for ShortAnswers and LongAnswers
+- Better Marking System
 - BackGround Music
-- Make Data to be stored in Cache - PWA
 - Next JS Integration : Removing React-Router-Dom
 - Add/Edit Question Modal : Math Equations
 - Single Response/Multiple Response Per Person Per Quizcode
-- Download Quiz as PDF, Zip File of images of individual questions
-- useEffect and Console Warnings Remove
+- Download Quiz as Zip File of images of individual questions
+- PWA - Init and Cache Versioning
 
 ## Tech Stack
 

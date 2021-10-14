@@ -90,6 +90,23 @@ export default function DownloadQuiz(props) {
     link.click();
   }
 
+  // PDF - WaterMark
+  function addWaterMark(doc) {
+    var totalPages = doc.internal.getNumberOfPages();
+
+    for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+      doc.setTextColor(150);
+      doc.text(
+        `Made Using ${process.env.REACT_APP_URL}`,
+        doc.getPageWidth() / 2 + 550,
+        doc.getPageHeight() - 10
+      );
+    }
+
+    return doc;
+  }
+
   // Download Quiz as PDF
   const downloadQuizPdfHandler = (answers) => {
     if (questions.length === 0) {
@@ -132,6 +149,7 @@ export default function DownloadQuiz(props) {
             element.classList.remove("d-none");
           }
           doc.deletePage(1);
+          doc = addWaterMark(doc);
           doc.save(`${quizcode}-Questions${answers ? "-Answers" : ""}`);
           dispatch(setLoading(false));
         }
@@ -143,7 +161,7 @@ export default function DownloadQuiz(props) {
     ["Image - Questions", () => downloadImageHandler(false)],
     ["Image - Questions + Answers", () => downloadImageHandler(true)],
     ["PDF - Questions", () => downloadQuizPdfHandler(false)],
-    ["PDF - Questions - Answers", () => downloadQuizPdfHandler(true)],
+    ["PDF - Questions + Answers", () => downloadQuizPdfHandler(true)],
   ];
 
   return (
