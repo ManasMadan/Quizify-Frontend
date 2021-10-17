@@ -8,6 +8,7 @@ import {
   unarchivequizcode,
   useDispatch,
   setLoading,
+  setAlert,
 } from "../../base";
 
 export default function MyQuizCodes() {
@@ -53,6 +54,24 @@ export default function MyQuizCodes() {
     dispatch(setLoading(false));
   };
 
+  const shareQuizCode = async (quizcode) => {
+    try {
+      await navigator.share({
+        title: `Join Quiz by ${localStorage.getItem(
+          "userName"
+        )} - QuizCode ${quizcode}`,
+        url: "",
+      });
+    } catch (err) {
+      dispatch(
+        setAlert({ type: "Success", message: "Message Copied to Clipboard" })
+      );
+      navigator.clipboard.writeText(
+        `To Attempt The Quiz, Go to ${process.env.REACT_APP_URL} and navigate to join quiz option and enter the code ${quizcode}`
+      );
+    }
+  };
+
   useEffect(() => {
     fetchQuizCodes(authToken);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -78,6 +97,7 @@ export default function MyQuizCodes() {
                 key={quizcode._id}
                 quizcode={quizcode}
                 method={quizcode.deleted ? unarchiveQuizCode : archiveQuizCode}
+                shareQuizCode={shareQuizCode}
               />
             );
           })}
