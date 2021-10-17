@@ -50,15 +50,13 @@ To run this project, you will need to add the following environment variables to
 
 ## TODO
 
-- CreateQuizQuestion File Code - Improve
-- Code Refactoring - Folder Structure : OnClick and More Events - Seperate Function Handlers in a seperate file
-- Better Marking System
-- BackGround Music
-- Next JS Integration : Removing React-Router-Dom
-- Add/Edit Question Modal : Math Equations
 - Single Response/Multiple Response Per Person Per Quizcode
+- Better Marking System
 - Download Quiz as Zip File of images of individual questions
+- CreateQuizQuestion File Code - Improve
 - PWA - Init and Cache Versioning
+- OnClick and More Events - Seperate Function Handlers
+- Next JS Integration : Removing React-Router-Dom
 
 ## Tech Stack
 

@@ -1,10 +1,12 @@
 import { setAlert, useSelector, useDispatch } from "../../base";
+import EquationEditor from "equation-editor-react";
 
 export default function AddQuestion(props) {
   const style = useSelector((state) => state.changeStyle);
   const dispatch = useDispatch();
 
   const referModalClose = props.referModalClose;
+  const setIsMathEquation = props.stateMethods.setIsMathEquation;
   const setQuestionStatement = props.stateMethods.setQuestionStatement;
   const setQuestionMarks = props.stateMethods.setQuestionMarks;
   const setQuestionType = props.stateMethods.setQuestionType;
@@ -15,6 +17,7 @@ export default function AddQuestion(props) {
   const setCorrectAnswersOptions = props.stateMethods.setCorrectAnswersOptions;
   const setCorrectAnswerText = props.stateMethods.setCorrectAnswerText;
 
+  const isMathEquation = props.stateVariables.isMathEquation;
   const questionStatement = props.stateVariables.questionStatement;
   const questionMarks = props.stateVariables.questionMarks;
   const questionType = props.stateVariables.questionType;
@@ -65,16 +68,52 @@ export default function AddQuestion(props) {
         <div className="modal-body" style={{ textAlign: "left" }}>
           <form>
             <div className="mb-3">
+              <input
+                checked={isMathEquation}
+                onChange={(e) => setIsMathEquation(e.target.checked)}
+                className="form-check-input mx-3"
+                type="checkbox"
+                onClick={() =>
+                  setQuestionStatement(!isMathEquation ? "y = x" : "")
+                }
+                id="correctAnswerOption1"
+              />
+              <label
+                className="form-check-label"
+                htmlFor="correctAnswerOption1"
+              >
+                Is Math Equation
+              </label>
+            </div>
+            <div className="mb-3">
               <label htmlFor="QuestionStatement" className="form-label">
                 Question Statement
               </label>
-              <input
-                type="text"
-                className="form-control"
-                id="QuestionStatement"
-                value={questionStatement}
-                onChange={(e) => setQuestionStatement(e.target.value)}
-              />
+              {isMathEquation ? (
+                <div
+                  style={{
+                    width: "100%",
+                    border: "2px solid #e5e8eb",
+                    borderRadius: "5px",
+                    padding: "6px 12px",
+                  }}
+                >
+                  <EquationEditor
+                    value={questionStatement}
+                    onChange={setQuestionStatement}
+                    autoCommands="pi theta sqrt sum prod alpha beta gamma rho"
+                    autoOperatorNames="sin cos tan log"
+                  />
+                </div>
+              ) : (
+                <input
+                  type="text"
+                  className="form-control"
+                  id="QuestionStatement"
+                  value={questionStatement}
+                  onChange={(e) => setQuestionStatement(e.target.value)}
+                />
+              )}
             </div>
             <div className="mb-3">
               <label htmlFor="QuestionMarks" className="form-label">

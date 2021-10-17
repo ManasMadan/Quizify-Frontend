@@ -1,4 +1,5 @@
 import { useSelector } from "../../base";
+import MathJax from "react-mathjax";
 
 export default function Question(props) {
   const {
@@ -7,6 +8,7 @@ export default function Question(props) {
     questionType,
     _id,
     correctAnswers,
+    isMathEquation,
   } = props.question;
   const style = useSelector((state) => state.changeStyle);
   const showCorrectAnswers = props.edit && questionMarks !== 0;
@@ -15,7 +17,13 @@ export default function Question(props) {
   return (
     <div className="card my-3 position-relative" key={_id}>
       <div className="card-body" style={style}>
-        <h5 className="card-title">{questionStatement}</h5>
+        {isMathEquation ? (
+          <MathJax.Provider>
+            <MathJax.Node formula={questionStatement} />
+          </MathJax.Provider>
+        ) : (
+          <h5 className="card-title">{questionStatement}</h5>
+        )}
         <br />
         <div className="mb-3">
           {questionType === "ShortAnswer" ? (

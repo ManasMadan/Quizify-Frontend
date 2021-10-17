@@ -32,6 +32,7 @@ export default function CreateQuizQuestions() {
   // Questions List
   const [questions, setQuestions] = useState([]);
   // Question Data States
+  const [isMathEquation, setIsMathEquation] = useState(false);
   const [questionStatement, setQuestionStatement] = useState("");
   const [questionMarks, setQuestionMarks] = useState(0);
   const [questionType, setQuestionType] = useState("");
@@ -48,6 +49,7 @@ export default function CreateQuizQuestions() {
   const [correctAnswerText, setCorrectAnswerText] = useState("");
   // Question Object Using State Variables
   const question = {
+    isMathEquation,
     questionStatement,
     questionMarks,
     questionType,
@@ -95,6 +97,7 @@ export default function CreateQuizQuestions() {
     setQuestionStatement(questionData.questionStatement);
     setQuestionMarks(questionData.questionMarks);
     setQuestionType(questionData.questionType);
+    setIsMathEquation(questionData.isMathEquation);
 
     if (
       questionData.questionType === "ShortAnswer" ||
@@ -129,6 +132,10 @@ export default function CreateQuizQuestions() {
     }
   };
   const addQuestion = async () => {
+    if (questionType === "") {
+      dispatch(setAlert({ type: "Danger", message: "Question Type Needed" }));
+      return;
+    }
     referModalCloseAddQuestion.current.click();
     dispatch(setLoading(true));
     const res = await createquestion(authToken, question);
@@ -174,6 +181,7 @@ export default function CreateQuizQuestions() {
     dispatch(setLoading(false));
   };
   const setStateVariablesToInitialState = () => {
+    setIsMathEquation(false);
     setOption1("");
     setOption2("");
     setOption3("");
@@ -249,6 +257,7 @@ export default function CreateQuizQuestions() {
             method={addQuestion}
             referModalClose={referModalCloseAddQuestion}
             stateMethods={{
+              setIsMathEquation,
               setQuestionStatement,
               setQuestionMarks,
               setQuestionType,
@@ -260,6 +269,7 @@ export default function CreateQuizQuestions() {
               setCorrectAnswerText,
             }}
             stateVariables={{
+              isMathEquation,
               questionStatement,
               questionMarks,
               questionType,
@@ -293,6 +303,7 @@ export default function CreateQuizQuestions() {
             method={() => editQuestion(questionId)}
             referModalClose={referModalCloseEditQuestion}
             stateMethods={{
+              setIsMathEquation,
               setQuestionStatement,
               setQuestionMarks,
               setQuestionType,
@@ -304,6 +315,7 @@ export default function CreateQuizQuestions() {
               setCorrectAnswerText,
             }}
             stateVariables={{
+              isMathEquation,
               questionStatement,
               questionMarks,
               questionType,
