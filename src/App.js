@@ -29,6 +29,7 @@ import {
   Loading,
   Offline,
   VerifyEmail,
+  ResetPassword,
 } from "./base";
 
 export default function App() {
@@ -123,6 +124,10 @@ export default function App() {
 
           <Route exact path="/about">
             <About />
+          </Route>
+
+          <Route exact path="/resetpassword/:token">
+            <ResetPassword />
           </Route>
 
           {!loggedIn && (

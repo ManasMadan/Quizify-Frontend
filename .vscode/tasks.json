@@ -1,0 +1,21 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run Both",
+      "dependsOrder": "parallel",
+      "type": "shell",
+      "dependsOn": ["Frontend", "Backend"]
+    },
+    {
+      "label": "Frontend",
+      "command": "npm run start",
+      "type": "shell"
+    },
+    {
+      "label": "Backend",
+      "command": "cd ..;cd Backend;nodemon index.js",
+      "type": "shell"
+    }
+  ]
+}

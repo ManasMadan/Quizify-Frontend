@@ -87,6 +87,38 @@ const sendVerificationEmail = async (email) => {
   return data;
 };
 
+const sendPasswordResetEmail = async (email) => {
+  const url = `${process.env.REACT_APP_API_HOST_URL}/api/auth/sendpasswordresetlink`;
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email,
+    }),
+  });
+  const data = await response.json();
+  return data;
+};
+
+const resetPasswordUsingEmail = async (email, newpassword, token) => {
+  const url = `${process.env.REACT_APP_API_HOST_URL}/api/auth/resetpasswordusinglink`;
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email,
+      newpassword,
+      token,
+    }),
+  });
+  const data = await response.json();
+  return data;
+};
+
 export {
   signIn,
   signOut,
@@ -94,4 +126,6 @@ export {
   userData,
   verifyEmail,
   sendVerificationEmail,
+  sendPasswordResetEmail,
+  resetPasswordUsingEmail,
 };

@@ -30,6 +30,7 @@ import Loading from "./components/Loading";
 // Components - Auth
 import SignIn from "./components/Auth/SignIn";
 import SignUp from "./components/Auth/SignUp";
+import ResetPassword from "./components/Auth/ResetPassword";
 import VerifyEmail from "./components/Auth/VerifyEmail";
 // Components - Create Quiz
 import CreateQuiz from "./components/CreateQuiz/CreateQuiz";
@@ -63,6 +64,8 @@ import {
   userData,
   verifyEmail,
   sendVerificationEmail,
+  sendPasswordResetEmail,
+  resetPasswordUsingEmail,
 } from "./Methods/myauth";
 // Methods - QuizCode
 import {
@@ -127,6 +130,7 @@ export {
   SignIn,
   SignUp,
   VerifyEmail,
+  ResetPassword,
   // Components - Create Quiz
   CreateQuiz,
   CreateQuizQuestions,
@@ -171,6 +175,8 @@ export {
   userData,
   verifyEmail,
   sendVerificationEmail,
+  sendPasswordResetEmail,
+  resetPasswordUsingEmail,
   // Methods - QuizCodes
   archivequizcode,
   unarchivequizcode,

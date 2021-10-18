@@ -10,11 +10,14 @@ import {
   setAlert,
   setLoading,
   sendVerificationEmail,
+  useRef,
+  sendPasswordResetEmail,
 } from "../../base";
 
 export default function SignIn() {
   const dispatch = useDispatch();
   let history = useHistory();
+  const ref = useRef();
 
   const style = useSelector((state) => state.changeStyle);
   const [credentials, setCredentials] = useState({
@@ -98,6 +101,7 @@ export default function SignIn() {
                   message: data.error || data.errors[0].msg,
                 })
               );
+              ref.current.classList.remove("d-none");
             }
           }
           dispatch(setLoading(false));
@@ -113,6 +117,53 @@ export default function SignIn() {
       >
         SignUp
       </Link>
+      <div>
+        <button
+          className="btn btn-primary my-3 d-none"
+          ref={ref}
+          onClick={async () => {
+            dispatch(setLoading(true));
+            const data = await sendPasswordResetEmail(credentials.email);
+            if (data.success) {
+              dispatch(
+                setAlert({
+                  type: "success",
+                  message: `Password Reset Link Successfully Sent to ${credentials.email}`,
+                })
+              );
+            } else {
+              if (data.error === "Verify Email To Continue") {
+                const res = await sendVerificationEmail(credentials.email);
+                if (res.success) {
+                  dispatch(
+                    setAlert({
+                      type: "Danger",
+                      message: "Verify Email To Continue - Link Sent",
+                    })
+                  );
+                } else {
+                  dispatch(
+                    setAlert({
+                      type: "danger",
+                      message: data.error || data.errors[0].msg,
+                    })
+                  );
+                }
+              } else {
+                dispatch(
+                  setAlert({
+                    type: "danger",
+                    message: data.error || data.errors[0].msg,
+                  })
+                );
+              }
+            }
+            dispatch(setLoading(false));
+          }}
+        >
+          Reset Password
+        </button>
+      </div>
     </div>
   );
 }
