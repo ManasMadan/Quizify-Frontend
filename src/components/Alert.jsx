@@ -1,7 +1,10 @@
 import { useDispatch, useSelector, setAlert } from "../base";
 
+// This Component is Shown When Alert Redux State Is Not null
 export default function Alert() {
+  // Dispatch
   const dispatch = useDispatch();
+  // Alert Redux State
   const alert = useSelector((state) => state.changeAlert);
 
   return (
@@ -13,6 +16,7 @@ export default function Alert() {
           role="alert"
         >
           {alert.message}
+          {/* Alert Dismiss Button */}
           <button
             type="button"
             className="btn-close"

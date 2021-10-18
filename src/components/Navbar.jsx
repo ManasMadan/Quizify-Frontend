@@ -11,15 +11,46 @@ import {
 } from "../base";
 
 export default function Navbar() {
+  // Dispatch
   const dispatch = useDispatch();
+  // Style Redux State
   const style = useSelector((state) => state.changeStyle);
+  // Logged In Redux State
   const loggedIn = useSelector((state) => state.changeLoginState);
+  // ref for Habmurger Icon : Clicked When Inner Width < 992 i.e. Hamburger Icon Shown
   const ref = useRef();
+  // Close Hamburger Menu When width is < 992
   const closeMenu = () => {
     if (window.innerWidth < 992) {
       ref.current.click();
     }
   };
+
+  // Navbar Menus Array
+  const navOptions = [
+    ["Home", "/"],
+    ["Join Quiz", "/joinquiz"],
+    ["Create Quiz", "/createquiz"],
+    ["My Quiz Codes", "/myquizcodes"],
+    ["My Submissions", "/mysubmissions"],
+    ["About", "/about"],
+  ];
+
+  // Dark Theme Toggle Handler
+  const darkThemeToggleHandler = () => {
+    dispatch(toggleTheme(style.color === "white"));
+    dispatch(toggleStyle(style.color === "white"));
+  };
+
+  // Sign Out Handler
+  const signOutHandler = () => {
+    if (loggedIn) {
+      signOut();
+      dispatch(logout());
+      dispatch(setAlert({ type: "Success", message: "Signed Out" }));
+    }
+  };
+
   return (
     <nav
       className={`navbar navbar-expand-lg navbar-${
@@ -30,6 +61,7 @@ export default function Navbar() {
         <Link className="navbar-brand" to="/" onClick={closeMenu}>
           Quizify
         </Link>
+        {/* Hamburger Icon For Modile View */}
         <button
           className="navbar-toggler"
           type="button"
@@ -44,55 +76,21 @@ export default function Navbar() {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <Link
-                className="nav-link"
-                aria-current="page"
-                to="/"
-                onClick={closeMenu}
-              >
-                Home
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/joinquiz" onClick={closeMenu}>
-                Join Quiz
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/createquiz" onClick={closeMenu}>
-                Create Quiz
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/myquizcodes" onClick={closeMenu}>
-                My Quiz Codes
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                className="nav-link"
-                to="/mysubmissions"
-                onClick={closeMenu}
-              >
-                My Submissions
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/about" onClick={closeMenu}>
-                About
-              </Link>
-            </li>
+            {navOptions.map(([name, path]) => (
+              <li className="nav-item">
+                <Link className="nav-link" to={path} onClick={closeMenu}>
+                  {name}
+                </Link>
+              </li>
+            ))}
           </ul>
           <div className="d-flex align-items-center justify-centent-center">
+            {/* Dark Mode Toggle Switch */}
             <div className="form-check form-switch">
               <input
                 checked={style.color === "white"}
                 className="form-check-input"
-                onClick={() => {
-                  dispatch(toggleTheme(style.color === "white"));
-                  dispatch(toggleStyle(style.color === "white"));
-                }}
+                onClick={darkThemeToggleHandler}
                 type="checkbox"
                 id="flexSwitchCheckDefault"
               />
@@ -105,23 +103,13 @@ export default function Navbar() {
                 Dark Mode
               </label>
             </div>
+            {/* Sign In Sign Out Button Showed Depending On Logged In State */}
             <Link
               className="nav-link"
               to={loggedIn ? "/" : "/signin"}
               onClick={closeMenu}
             >
-              <button
-                className="btn btn-primary"
-                onClick={() => {
-                  if (loggedIn) {
-                    signOut();
-                    dispatch(logout());
-                    dispatch(
-                      setAlert({ type: "Success", message: "Signed Out" })
-                    );
-                  }
-                }}
-              >
+              <button className="btn btn-primary" onClick={signOutHandler}>
                 {loggedIn ? "Sign Out" : "Sign In"}
               </button>
             </Link>

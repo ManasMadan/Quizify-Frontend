@@ -1,3 +1,5 @@
+// This Component is Shown When App Is Offline
+
 export default function Offline() {
   return (
     <div className="container">
