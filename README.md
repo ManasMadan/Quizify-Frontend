@@ -4,7 +4,7 @@ A Online Web Based Quiz App, Where People and Create and Join The Quiz having al
 
 ## Demo
 
-[Live Working Demo](https://quizify-manas.netlify.app/)
+[Live Working Demo](https://quizify-manas.web.app/)
 
 ## [Backend](https://github.com/ManasMadan/Quizify-Backend)
 
@@ -57,6 +57,7 @@ To run this project, you will need to add the following environment variables to
 - PWA - Init and Cache Versioning
 - OnClick and More Events - Seperate Function Handlers
 - Next JS Integration : Removing React-Router-Dom
+- Profile Page TO Show User Stats and Random Avatar using [This](https://avatars.dicebear.com/)
 
 ## Tech Stack
 

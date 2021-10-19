@@ -1,10 +1,10 @@
-import { setAlert, useSelector, useDispatch } from "../../base";
+import { setAlert, useSelector, useDispatch, useRef } from "../../base";
 import EquationEditor from "equation-editor-react";
 
 export default function AddQuestion(props) {
   const style = useSelector((state) => state.changeStyle);
   const dispatch = useDispatch();
-
+  const ref = useRef();
   const referModalClose = props.referModalClose;
   const setIsMathEquation = props.stateMethods.setIsMathEquation;
   const setQuestionStatement = props.stateMethods.setQuestionStatement;
@@ -108,6 +108,11 @@ export default function AddQuestion(props) {
               )}
             </div>
             <div className="mb-3">
+              {isMobile && isMathEquation && (
+                <div>
+                  You Cannot Add / Edit A Math Equation in a Mobile Device{" "}
+                </div>
+              )}
               <label htmlFor="QuestionStatement" className="form-label">
                 Question Statement
               </label>
@@ -133,6 +138,7 @@ export default function AddQuestion(props) {
                   className="form-control"
                   id="QuestionStatement"
                   value={questionStatement}
+                  disabled={isMobile && isMathEquation}
                   onChange={(e) => setQuestionStatement(e.target.value)}
                 />
               )}
@@ -407,6 +413,7 @@ export default function AddQuestion(props) {
             type="button"
             className="btn btn-secondary"
             data-bs-dismiss="modal"
+            ref={ref}
           >
             Close
           </button>

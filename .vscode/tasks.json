@@ -18,6 +18,11 @@
       "type": "shell"
     },
     {
+      "label": "Deploy",
+      "command": "npm run build;firebase deploy",
+      "type": "shell"
+    },
+    {
       "label": "Upload To Github",
       "command": "git add .;git commit -m '${input:commitMessage}';git push origin master",
       "type": "shell"
